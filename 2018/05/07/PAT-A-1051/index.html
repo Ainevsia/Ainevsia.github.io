@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Monika," />
+  <meta name="keywords" content="PAT-Advanced-Level," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="The game is not suitable for children or those who are easily disturbedSo now I realized that I was those people who are easily disturbed">
-<meta name="keywords" content="Monika">
+<meta name="description" content="DescriptionGiven a stack which can keep M numbers at most. Push N numbers in the order of 1, 2, 3, …, N and pop randomly. You are supposed to tell if a given sequence of numbers is a possible pop sequ">
+<meta name="keywords" content="PAT-Advanced-Level">
 <meta property="og:type" content="article">
-<meta property="og:title" content="doki doki literature club">
-<meta property="og:url" content="http://yoursite.com/2018/02/13/doki-doki-literature-club/index.html">
+<meta property="og:title" content="PAT-A-1051">
+<meta property="og:url" content="http://yoursite.com/2018/05/07/PAT-A-1051/index.html">
 <meta property="og:site_name" content="Ainevsia&#39;s Blog">
-<meta property="og:description" content="The game is not suitable for children or those who are easily disturbedSo now I realized that I was those people who are easily disturbed">
+<meta property="og:description" content="DescriptionGiven a stack which can keep M numbers at most. Push N numbers in the order of 1, 2, 3, …, N and pop randomly. You are supposed to tell if a given sequence of numbers is a possible pop sequ">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-02-14T13:50:21.616Z">
+<meta property="og:updated_time" content="2018-05-07T12:00:41.743Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="doki doki literature club">
-<meta name="twitter:description" content="The game is not suitable for children or those who are easily disturbedSo now I realized that I was those people who are easily disturbed">
+<meta name="twitter:title" content="PAT-A-1051">
+<meta name="twitter:description" content="DescriptionGiven a stack which can keep M numbers at most. Push N numbers in the order of 1, 2, 3, …, N and pop randomly. You are supposed to tell if a given sequence of numbers is a possible pop sequ">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/02/13/doki-doki-literature-club/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/05/07/PAT-A-1051/"/>
 
 
 
 
 
-  <title>doki doki literature club | Ainevsia's Blog</title>
+  <title>PAT-A-1051 | Ainevsia's Blog</title>
   
 
 
@@ -233,7 +233,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/13/doki-doki-literature-club/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/07/PAT-A-1051/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Ainevsia">
@@ -250,7 +250,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">doki doki literature club</h1>
+          <h1 class="post-title" itemprop="name headline">PAT-A-1051</h1>
         
 
         <div class="post-meta">
@@ -262,8 +262,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-13T22:29:13+08:00">
-                2018-02-13
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-07T19:52:55+08:00">
+                2018-05-07
               </time>
             
 
@@ -300,7 +300,12 @@
       
 
       
-        <h1 id="The-game-is-not-suitable-for-children-or-those-who-are-easily-disturbed"><a href="#The-game-is-not-suitable-for-children-or-those-who-are-easily-disturbed" class="headerlink" title="The game is not suitable for children or those who are easily disturbed"></a>The game is not suitable for children or those who are easily disturbed</h1><p>So now I realized that I was those people <strong>who are easily disturbed</strong></p>
+        <h1 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h1><p>Given a stack which can keep M numbers at most. Push N numbers in the order of 1, 2, 3, …, N and pop randomly. You are supposed to tell if a given sequence of numbers is a possible pop sequence of the stack. For example, if M is 5 and N is 7, we can obtain 1, 2, 3, 4, 5, 6, 7 from the stack, but not 3, 2, 1, 7, 5, 6, 4.</p>
+<h1 id="Thoughts"><a href="#Thoughts" class="headerlink" title="Thoughts"></a>Thoughts</h1><p>just Stack simulation</p>
+<p>Long time no code and my coding ability drops significantly. This problem may be rather simple for some one, but it just serve the purpose of revieweing the basic knowledges for me.</p>
+<p>Sometimes a tiny bug can drive you crazy.</p>
+<p>No one can come to the final solution at the first glance, but as long as you spend your time on it, it will no doubt seem more ane more clear to you.</p>
+<h1 id="Codes"><a href="#Codes" class="headerlink" title="Codes"></a>Codes</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">int main(int argc, char const *argv[]) &#123;</span><br><span class="line">  //freopen(&quot;D:\\cpphomework\\test.txt&quot;, &quot;r&quot;, stdin);</span><br><span class="line">  int m, n, k;cin &gt;&gt; m &gt;&gt; n &gt;&gt; k;</span><br><span class="line">  int **Sequence = new int * [k];</span><br><span class="line">  for (size_t i = 0; i &lt; k; i++) Sequence[i] = new int [n];</span><br><span class="line">  int *used = new int [n+1], *result = new int [n];</span><br><span class="line">  int remaining = m;</span><br><span class="line">  for (size_t i = 0; i &lt; k; i++) &#123;</span><br><span class="line">    result[i] = 1;</span><br><span class="line">    for (size_t j = 0; j &lt; n; j++) &#123;</span><br><span class="line">      cin &gt;&gt; Sequence[i][j];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  //prepare</span><br><span class="line">  for (size_t i = 0; i &lt; k; i++) &#123;</span><br><span class="line">    remaining = m;</span><br><span class="line">    for (size_t j = 1; j &lt;= n; j++) used[j]=0;</span><br><span class="line">    int q = 1, c = 0;</span><br><span class="line">    //start</span><br><span class="line">    while ( q&lt;=n &amp;&amp; remaining&gt;0 &amp;&amp; result[i] ) &#123;</span><br><span class="line">      if ( q==Sequence[i][c] ) &#123;</span><br><span class="line">        used[q] = 1;</span><br><span class="line">        while ( c+1&lt;n &amp;&amp; Sequence[i][c+1]&lt;Sequence[i][c] ) &#123;</span><br><span class="line">          int examine = Sequence[i][c]-1;</span><br><span class="line">          while ( used[examine]==1 ) examine--;</span><br><span class="line">          if ( Sequence[i][c+1]==examine ) &#123;</span><br><span class="line">            used[examine] = 1;</span><br><span class="line">            remaining++;c++;</span><br><span class="line">          &#125;else &#123;</span><br><span class="line">            result[i] = 0;break;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        q++;c++;</span><br><span class="line">      &#125;</span><br><span class="line">      else &#123;</span><br><span class="line">        q++;remaining--;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    if ( q&lt;=n ) &#123;</span><br><span class="line">      result[i] = 0;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    for (size_t j = 1; result[i] &amp;&amp; j &lt;= n; j++) &#123;</span><br><span class="line">      if ( used[j]!=1 ) &#123;</span><br><span class="line">        result[j] = 0;</span><br><span class="line">        break;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  //output</span><br><span class="line">  for (size_t i = 0; i &lt; k; i++) &#123;</span><br><span class="line">    switch ( result[i] ) &#123;</span><br><span class="line">      case 1: cout &lt;&lt; &quot;YES&quot;;break;</span><br><span class="line">      case 0: cout &lt;&lt; &quot;NO&quot;;break;</span><br><span class="line">    &#125;</span><br><span class="line">    if ( i!=k-1 ) cout &lt;&lt; endl;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  //delete</span><br><span class="line">  for (size_t i = 0; i &lt; k; i++) delete [] Sequence[i];</span><br><span class="line">  delete [] Sequence;</span><br><span class="line">  delete [] used;</span><br><span class="line">  delete [] result;</span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -318,7 +323,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Monika/" rel="tag"># Monika</a>
+            <a href="/tags/PAT-Advanced-Level/" rel="tag"># PAT-Advanced-Level</a>
           
         </div>
       
@@ -331,8 +336,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/02/10/Ultimate/" rel="next" title="Reinstall my Win7 Ultimate">
-                <i class="fa fa-chevron-left"></i> Reinstall my Win7 Ultimate
+              <a href="/2018/04/03/18-04-03/" rel="next" title="18-04-03">
+                <i class="fa fa-chevron-left"></i> 18-04-03
               </a>
             
           </div>
@@ -340,10 +345,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/02/14/寒假见闻/" rel="prev" title="寒假见闻">
-                寒假见闻 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -466,7 +467,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#The-game-is-not-suitable-for-children-or-those-who-are-easily-disturbed"><span class="nav-number">1.</span> <span class="nav-text">The game is not suitable for children or those who are easily disturbed</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Description"><span class="nav-number">1.</span> <span class="nav-text">Description</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Thoughts"><span class="nav-number">2.</span> <span class="nav-text">Thoughts</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Codes"><span class="nav-number">3.</span> <span class="nav-text">Codes</span></a></li></ol></div>
             
 
           </div>
