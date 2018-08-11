@@ -232,6 +232,400 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/11/DS-7-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ainevsia">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ainevsia's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/11/DS-7-3/" itemprop="url">7-3 树的同构</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-11T22:12:10+08:00">
+                2018-08-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>判断给出的两棵树是否是同构的（同构-即左右子树可以相互交换位置）</p>
+<h1 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">8</span><br><span class="line">A 1 2</span><br><span class="line">B 3 4</span><br><span class="line">C 5 -</span><br><span class="line">D - -</span><br><span class="line">E 6 -</span><br><span class="line">G 7 -</span><br><span class="line">F - -</span><br><span class="line">H - -</span><br><span class="line">8</span><br><span class="line">G - 4</span><br><span class="line">B 7 6</span><br><span class="line">F - -</span><br><span class="line">A 5 1</span><br><span class="line">H - -</span><br><span class="line">C 0 -</span><br><span class="line">D - -</span><br><span class="line">E 2 -</span><br></pre></td></tr></table></figure>
+<h1 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Yes</span><br></pre></td></tr></table></figure>
+<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>刚开始听了MOOC上说用静态链表（简单来说就是数组，只不过每个元素带有指针效果的元素）后这么想的：读入需要两个inArray，再根据这两个Array构造两个满二叉树的char型数组，然后用递归写一个cmp在满二叉树的char型数组上比较。实在太麻烦了。</p>
+<p>然后就用了MOOC上的方法。搞了全局变量，简直不要太舒服。</p>
+<p>最后一个边界条件（n=0）引起的段错误调的我ooxx</p>
+<h1 id="难点"><a href="#难点" class="headerlink" title="难点"></a>难点</h1><p>怎么组织你的数据，就像老师讲的：</p>
+<ul>
+<li>你打算怎么储存两棵树</li>
+<li>怎么找到根节点（这个简单）</li>
+<li>怎么比较同构<br>1和3我现在都还是无法驾驭。1是熟练掌握数据结构的应用，3是写递归程序。</li>
+</ul>
+<h1 id="体会与感想"><a href="#体会与感想" class="headerlink" title="体会与感想"></a>体会与感想</h1><p>深深地体会到了大神的代码和我自己的代码之间的区别（100+行都写不完和60行AC的差距）orz</p>
+<p>当你函数的参数≥四个并且还是在反复传同一个参数的时候，你就该想想你的思路是不是不太对了。</p>
+<p>有时候全局变量该用就得用，否则到时候难受的是你自己。</p>
+<p>main函数里东西越少越好，代码质量越高，可读性越好。</p>
+<p>递归函数感觉还是比较虚，边界条件有时理不清。</p>
+<p>尽可能地检查边界条件（极小与极大）。</p>
+<h1 id="源代码"><a href="#源代码" class="headerlink" title="源代码"></a>源代码</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> max 10</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> null -1</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span> &#123;</span></span><br><span class="line">    <span class="keyword">char</span> element;</span><br><span class="line">    <span class="keyword">int</span> left;</span><br><span class="line">    <span class="keyword">int</span> right;</span><br><span class="line">&#125;tree1[max], tree2[max];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">build</span><span class="params">(node * tree)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isomorphic</span><span class="params">(<span class="keyword">int</span> r1, <span class="keyword">int</span> r2)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span> </span>&#123;</span><br><span class="line">    freopen(<span class="string">"D:\\SJTU\\Freshman Summer\\DS\\test.txt"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>);</span><br><span class="line">    <span class="keyword">int</span> r1 = <span class="number">0</span>, r2 = <span class="number">0</span>;</span><br><span class="line">    r1 = build(tree1);</span><br><span class="line">    r2 = build(tree2);</span><br><span class="line">    <span class="keyword">if</span> (r1!=<span class="number">-1</span> &amp;&amp; r2!=<span class="number">-1</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (isomorphic(r1,r2)) <span class="built_in">cout</span> &lt;&lt; <span class="string">"Yes"</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="built_in">cout</span> &lt;&lt; <span class="string">"No"</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span> (r1==<span class="number">-1</span> &amp;&amp; r2==<span class="number">-1</span>) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Yes"</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="built_in">cout</span> &lt;&lt; <span class="string">"No"</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isomorphic</span><span class="params">(<span class="keyword">int</span> r1, <span class="keyword">int</span> r2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (r1==null &amp;&amp; r2==null) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">if</span> (r1==null || r2==null) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">int</span> n1 = <span class="number">0</span>, n2 = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (tree1[r1].left==null) n1++;</span><br><span class="line">    <span class="keyword">if</span> (tree1[r1].right==null) n1++;</span><br><span class="line">    <span class="keyword">if</span> (tree2[r2].left==null) n2++;</span><br><span class="line">    <span class="keyword">if</span> (tree2[r2].right==null) n2++;</span><br><span class="line">    <span class="keyword">if</span> (n1!=n2) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span> (tree1[r1].element!=tree2[r2].element) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span> (n1==<span class="number">2</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (n1==<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (tree1[r1].left==null&amp;&amp;tree2[r2].left==null) &#123;</span><br><span class="line">            <span class="keyword">return</span> isomorphic(tree1[r1].right,tree2[r2].right);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (tree1[r1].left==null&amp;&amp;tree2[r2].right==null) &#123;</span><br><span class="line">            <span class="keyword">return</span> isomorphic(tree1[r1].right,tree2[r2].left);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (tree1[r1].right==null&amp;&amp;tree2[r2].left==null) &#123;</span><br><span class="line">            <span class="keyword">return</span> isomorphic(tree1[r1].left,tree2[r2].right);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (tree1[r1].right==null&amp;&amp;tree2[r2].right==null) &#123;</span><br><span class="line">            <span class="keyword">return</span> isomorphic(tree1[r1].left,tree2[r2].left);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (n1==<span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (tree1[tree1[r1].left].element==tree2[tree2[r2].left].element) &#123;</span><br><span class="line">            <span class="keyword">return</span> isomorphic(tree1[r1].left,tree2[r2].left) &amp;&amp; isomorphic(tree1[r1].right,tree2[r2].right);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> isomorphic(tree1[r1].left,tree2[r2].right) &amp;&amp; isomorphic(tree1[r1].right,tree2[r2].left);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">build</span><span class="params">(node * tree)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;<span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    <span class="keyword">if</span> (n==<span class="number">0</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">int</span> * select = <span class="keyword">new</span> <span class="keyword">int</span> [n];</span><br><span class="line">    <span class="keyword">char</span> le, ri;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) select[i] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; tree[i].element &gt;&gt; le &gt;&gt; ri;</span><br><span class="line">        <span class="keyword">if</span> (le!=<span class="string">'-'</span>) &#123;</span><br><span class="line">            tree[i].left = le - <span class="string">'0'</span>;</span><br><span class="line">            select[tree[i].left] = <span class="number">1</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span> tree[i].left = null;</span><br><span class="line">        <span class="keyword">if</span> (ri!=<span class="string">'-'</span>) &#123;</span><br><span class="line">            tree[i].right = ri - <span class="string">'0'</span>;</span><br><span class="line">            select[tree[i].right] = <span class="number">1</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span> tree[i].right = null;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> ret = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (select[i]==<span class="number">0</span>) &#123;</span><br><span class="line">            ret = i;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">delete</span> [] select;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/02/jsdom/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ainevsia">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ainevsia's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/02/jsdom/" itemprop="url">JavaScript编程艺术读后感</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-02T12:18:00+08:00">
+                2018-08-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="关于本书"><a href="#关于本书" class="headerlink" title="关于本书"></a>关于本书</h1><p><img src="https://img3.doubanio.com/view/subject/l/public/s4677623.jpg" alt="JavaScript编程艺术"><br>知乎上不知道是看了谁的推荐找到的这本书，从上周五放假了之后花了一周陆陆续续看完了</p>
+<h1 id="感想"><a href="#感想" class="headerlink" title="感想"></a>感想</h1><p>js感觉和c没什么差别啦<br>最大的感觉就是web规范<br>还有穿透全书的两大主题：平稳退化以及渐进增强</p>
+<ul>
+<li>平稳退化：就是你要考虑到当你写的js被禁用的时候网页会变成什么样子。是直接蹦了还是跑样式了还是能勉强浏览。这是作者始终在强调的，可是我觉得现在我是理解无能的。说实话，有点小小抵触这种想法，我学js不就是为了实现那些行为效果吗，可能以后会有更深的理解的。</li>
+<li>渐进增强：由底向上编程。<br>了解了web才知道HTML css js这三驾马车，缺一不可。<br>HTML是网站的主体内容，css负责美工上色，js负责网页行为交互。<br>书最后还介绍了Ajax，我是看不懂了。<br>总之看了这本书给我的一个启示就是：我不喜欢js。</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/27/SummerSemesterEnd/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ainevsia">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ainevsia's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/27/SummerSemesterEnd/" itemprop="url">小学期结束了，假期开始了</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-27T16:40:02+08:00">
+                2018-07-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="离别"><a href="#离别" class="headerlink" title="离别"></a>离别</h1><p>昨天傍晚阿阳一家就已经接他回江苏了，今早阿可一个人很早就出发了，中午的时候，阿韬的爸妈也来接他回江苏了。寝室里的人一个个地减少，最后，现在只剩下我了。</p>
+<p>宿舍里的生气渐渐变少，阳台上晒着的衣服一件件地被不同的人收了进来，带回了家，阳台变得一干二净。上铺的床被搬空，书架上的书被带回了家，书桌被收拾的干干净净。窗外的蝉叫的更响亮了。</p>
+<p>离别的气息充斥。</p>
+<p>我一个人默默地考完最后一场考试，从东上院走出来。路上没有什么人，整个校园安安静静，仿佛整个世界只剩下闷热的空气。</p>
+<p>孤独是一种常态吧，是嘛？</p>
+<p>我曾经不停地希望着中午回到寝室他们能不要吵，让我安安静静地再看一会儿书。</p>
+<p>人可真是奇怪的动物，哈哈。</p>
+<p>QQ也已经聊得很少了，在学期里明明是不想过多地去了解别人的消息，可是现在却热切地渴望着掌握别人的动态。</p>
+<h1 id="起航"><a href="#起航" class="headerlink" title="起航"></a>起航</h1><p>这个假期我准备干些什么呢？</p>
+<p>我想准备GRE，复习数据结构，看js书，多多做一些家务，多学一些日常本领。</p>
+<p>还想预习一下下学期的电学基础课，多看一些文学书。</p>
+<p>想保证一个健康的作息。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/18/DS-7-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1119,428 +1513,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/14/寒假见闻/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ainevsia">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ainevsia's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/02/14/寒假见闻/" itemprop="url">寒假见闻</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-14T21:49:51+08:00">
-                2018-02-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>这个寒假我干了啥呢？</p>
-<table>
-<thead>
-<tr>
-<th>日期</th>
-<th>事件</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>5日</td>
-<td>去九院看牙齿，得知还不能装上牙套，母生气，徐家汇购物，校医院配药</td>
-</tr>
-<tr>
-<td>6日</td>
-<td>外婆家，高烧，傍晚五院点滴</td>
-</tr>
-<tr>
-<td>7日</td>
-<td>科目四，查询报销</td>
-</tr>
-<tr>
-<td>8日</td>
-<td>无所事事,忘了</td>
-</tr>
-<tr>
-<td>9日</td>
-<td>blog</td>
-</tr>
-<tr>
-<td>10日</td>
-<td>收快递，驾照，win7</td>
-</tr>
-<tr>
-<td>11日</td>
-<td>外婆家，</td>
-</tr>
-<tr>
-<td>12日</td>
-<td>？</td>
-</tr>
-<tr>
-<td>13日</td>
-<td>外婆，dokidoki</td>
-</tr>
-</tbody>
-</table>
-<p>cao，全tm记不起来了<br>我一直以为我可以记得很tm清楚的</p>
-<p>不得不说，我真的是一个很拖延的人，明明知道有些事是对的事，有些事是错的事，但是我并没有去做那些对的事，也没有改掉那些错的习惯。</p>
-<p>离开舒适区，请，求你了。</p>
-<p>大年三十又是糟糕的一天</p>
-<p>一整天几乎就没干什么事情</p>
-<p>在外婆家有一种什么都干不了的感觉</p>
-<p>真的好烦。</p>
-<p>与其坐以待毙，不如主动出击。<br><img src="https://upload-images.jianshu.io/upload_images/10268050-37d2e52533535a0c.jpg?imageMogr2/auto-orient/" alt=""></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/10/Ultimate/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ainevsia">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ainevsia's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/02/10/Ultimate/" itemprop="url">Reinstall my Win7 Ultimate</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-10T20:10:21+08:00">
-                2018-02-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Triggers"><a href="#Triggers" class="headerlink" title="Triggers"></a>Triggers</h2><p>My old ThinkPad E430c, which my father bought in about 2012, is operatering more and more slowly nowadays. A few days ago, it even experienced several bruescreens breakups, and it took me a whole morning to just start it. After examing the hard-drive, I found that it was severely damaged, maybe due to the bumping on the road. So last night, I bought a SSD (TOSHIBA Q200 240G) <img src="https://img14.360buyimg.com/n0/jfs/t14575/253/1200396077/329424/fafc920b/5a4af4abN5d6f692d.jpg" alt="2.5inch SATA3 SSD"></p>
-<h2 id="Preparations"><a href="#Preparations" class="headerlink" title="Preparations"></a>Preparations</h2><p>After searching the Internet for almost a whole day, I decided to still install the Win7 Ultimate. I also learned a lot through searching. :D I finally found a detailed tutorial called <a href="http://www.xitongcheng.com/jiaocheng/xtazjc_article_29173.html" target="_blank" rel="noopener">xitongcheng</a>. It guided me to turn my original onlydisk into a USB setup disk. What I need now is only a Win7 system now (from <a href="https://msdn.itellyou.cn/" target="_blank" rel="noopener">msdn</a>).</p>
-<h2 id="Place-the-SSD-in-place-and-start-your-computer"><a href="#Place-the-SSD-in-place-and-start-your-computer" class="headerlink" title="Place the SSD in place and start your computer"></a>Place the SSD in place and start your computer</h2><p>Here comes a terrible question.<img src="http://www.dabaicai.org/uploads/allimg/170328/6-1F32P9421A57.jpg" alt="grub"><br>What should I do? I googled it and founded the solution.</p>
-<p>just type in three commands:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">find --set-root /bootmgr</span><br><span class="line">chainloader /bootmgr</span><br><span class="line">boot</span><br></pre></td></tr></table></figure></p>
-<p>and it entered the PE system. Then just choose the Win7 Ultimate. It works.</p>
-<h2 id="install-the-DRIVER"><a href="#install-the-DRIVER" class="headerlink" title="install the DRIVER"></a>install the DRIVER</h2><p>First of all, you should make sure that your computer can have access to the Internet. Then everything went on smoothly without explaination.</p>
-<h1 id="Inflections"><a href="#Inflections" class="headerlink" title="Inflections"></a>Inflections</h1><blockquote>
-<p>I don’t want to reinstall any system any longer!</p>
-<p>It’s really complicated!</p>
-</blockquote>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/09/Blog/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ainevsia">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ainevsia's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/02/09/Blog/" itemprop="url">My First Blog</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-09T12:11:21+08:00">
-                2018-02-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="I’m-so-excited"><a href="#I’m-so-excited" class="headerlink" title="I’m so excited!"></a>I’m so excited!</h2><h3 id="Because-my-father-have-just-passed-the-second-exam-of-getting-a-driving-liscense"><a href="#Because-my-father-have-just-passed-the-second-exam-of-getting-a-driving-liscense" class="headerlink" title="Because my father have just passed the second exam of getting a driving liscense"></a>Because my father have just passed the second exam of getting a driving liscense</h3><h3 id="And-I-have-just-set-up-this-blog"><a href="#And-I-have-just-set-up-this-blog" class="headerlink" title="And I have just set up this blog"></a>And I have just set up this blog</h3>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1591,7 +1563,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1604,7 +1576,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">tags</span>
                 
               </div>
