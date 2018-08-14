@@ -232,6 +232,171 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://ainevsia.github.io/2018/08/14/DS-7-6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ainevsia">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ainevsia's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/14/DS-7-6/" itemprop="url">7-6 列出连通集</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-14T21:16:52+08:00">
+                2018-08-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="预备知识"><a href="#预备知识" class="headerlink" title="预备知识"></a>预备知识</h1><ul>
+<li>图 多对多的关系<ul>
+<li>无向边（u v）</li>
+<li>有向边 <u v=""></u></li>
+</ul>
+</li>
+<li>线性表 一对一</li>
+<li>树 一对多</li>
+<li>抽象数据类型定义的三要<ul>
+<li>类型名称</li>
+<li>数据对象集</li>
+<li>操作集</li>
+</ul>
+</li>
+<li>网络 带权重的图</li>
+<li>图的表示方法取决于你要解决的具体问题</li>
+<li>DFS 深度优先搜索 出栈</li>
+<li>DFS 时间复杂度取决于图的表示方法<ul>
+<li>领接表 O(N+E)</li>
+<li>邻接矩阵 O(N^2)</li>
+</ul>
+</li>
+<li>BFS 广度优先</li>
+<li>DFS BFS 复杂度相同</li>
+</ul>
+<blockquote>
+<p>广优的话，占内存多，能找到最优解，必须遍历所有分枝. 广优的一个应用就是迪科斯彻单元最短路径算法.</p>
+<p>深优的话，占内存少，能找到最优解（一定条件下），但能很快找到接近解（优点），可能不必遍历所有分枝（也就是速度快）, 深优的一个应用就是连连看游戏.</p>
+</blockquote>
+<ul>
+<li>连通分量 一次DFS 遍历了一个连通分量</li>
+</ul>
+<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>分别用深度优先搜索和广度优先搜索遍历一幅图的所有节点。</p>
+<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>首先就是考虑这个图该用领接表还是邻接矩阵来表示，后来在码代码的过程中发现确实是邻接矩阵方便的多，不用findmin函数。但我没用过邻接表，这次练习一下。</p>
+<h1 id="难点"><a href="#难点" class="headerlink" title="难点"></a>难点</h1><p>基本没有难点</p>
+<h1 id="体会与感想"><a href="#体会与感想" class="headerlink" title="体会与感想"></a>体会与感想</h1><ul>
+<li>大工程绝对不要企图用一个.cpp文件就想写完，太天真了。</li>
+<li>果然写的太长了是因为我太菜了嘛</li>
+<li>半天200行的效率</li>
+<li>反复传图指针很难受</li>
+<li>还没来得及看视频</li>
+</ul>
+<h1 id="源代码"><a href="#源代码" class="headerlink" title="源代码"></a>源代码</h1><blockquote>
+<p>这次的代码比较长，放一个文件里也比较乱</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> element;</span><br><span class="line">    node * next;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Queue</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> * <span class="built_in">queue</span>;</span><br><span class="line">    <span class="keyword">int</span> head;</span><br><span class="line">    <span class="keyword">int</span> tail;</span><br><span class="line">    <span class="keyword">int</span> size;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function">node * <span class="title">createGraph</span><span class="params">(<span class="keyword">int</span> n)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">readGraph</span><span class="params">(node * G, <span class="keyword">int</span> e)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DFSlistComponents</span><span class="params">(node * G, <span class="keyword">int</span> n)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">deleteGraph</span><span class="params">(node * G, <span class="keyword">int</span> n)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BFSlistComponents</span><span class="params">(node * G, <span class="keyword">int</span> n)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span> </span>&#123;</span><br><span class="line">    freopen(<span class="string">"D:\\SJTU\\Freshman Summer\\DS\\test.txt"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>);</span><br><span class="line">    <span class="keyword">int</span> n, e;<span class="built_in">cin</span> &gt;&gt; n &gt;&gt; e;</span><br><span class="line">    node * G = createGraph(n);</span><br><span class="line">    readGraph(G,e);</span><br><span class="line">    DFSlistComponents(G,n);</span><br><span class="line">    BFSlistComponents(G,n);</span><br><span class="line">    deleteGraph(G,n);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">findMin</span><span class="params">(node * ptr, <span class="keyword">bool</span> * visited)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> min;</span><br><span class="line">	<span class="keyword">while</span> (ptr-&gt;next &amp;&amp; visited[ptr-&gt;next-&gt;element])</span><br><span class="line">	&#123;</span><br><span class="line">		ptr = ptr-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="keyword">if</span> (ptr-&gt;next==<span class="literal">NULL</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">else</span> min = ptr-&gt;next-&gt;element;</span><br><span class="line">    ptr = ptr-&gt;next-&gt;next;</span><br><span class="line">    <span class="keyword">while</span> (ptr) &#123;</span><br><span class="line">        <span class="keyword">if</span> (ptr-&gt;element&lt;min &amp;&amp; !visited[ptr-&gt;element]) &#123;</span><br><span class="line">            min = ptr-&gt;element;</span><br><span class="line">        &#125;</span><br><span class="line">        ptr = ptr-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> min;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">remains</span><span class="params">(node * ptr, <span class="keyword">bool</span> * visited)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (ptr-&gt;next) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!visited[ptr-&gt;next-&gt;element]) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        ptr = ptr-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Queue * <span class="title">creatQueue</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    Queue * q = <span class="keyword">new</span> Queue;</span><br><span class="line">    q-&gt;size = n;</span><br><span class="line">    q-&gt;<span class="built_in">queue</span> = <span class="keyword">new</span> <span class="keyword">int</span> [n];</span><br><span class="line">    q-&gt;head = <span class="number">0</span>;</span><br><span class="line">    q-&gt;tail = <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">return</span> q;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">deleteQueue</span><span class="params">(Queue * q)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">delete</span> [] q-&gt;<span class="built_in">queue</span>;</span><br><span class="line">    <span class="keyword">delete</span> q;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">enQueue</span><span class="params">(Queue * q, <span class="keyword">int</span> element)</span> </span>&#123;</span><br><span class="line">    q-&gt;<span class="built_in">queue</span>[++q-&gt;tail] = element;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">deQueue</span><span class="params">(Queue * q)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> q-&gt;<span class="built_in">queue</span>[q-&gt;head++];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(Queue * q, node * ptr, <span class="keyword">bool</span> * visited)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (remains(ptr,visited)) &#123;</span><br><span class="line">        <span class="keyword">int</span> min = findMin(ptr,visited);</span><br><span class="line">        <span class="keyword">if</span> (min==<span class="number">-1</span>) <span class="keyword">return</span>;</span><br><span class="line">        enQueue(q,min);</span><br><span class="line">        visited[min] = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BFSlistComponents</span><span class="params">(node * G, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    Queue * q = creatQueue(n);</span><br><span class="line">    <span class="keyword">bool</span> * visited = <span class="keyword">new</span> <span class="keyword">bool</span> [n];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        visited[i] = <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!visited[i]) &#123;</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; <span class="string">"&#123; "</span>;</span><br><span class="line">            enQueue(q,i);</span><br><span class="line">            visited[i] = <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">while</span> (q-&gt;head!=q-&gt;tail+<span class="number">1</span>) &#123;</span><br><span class="line">                <span class="keyword">int</span> popelement = deQueue(q);</span><br><span class="line">                <span class="built_in">cout</span> &lt;&lt; popelement &lt;&lt;<span class="string">" "</span>;</span><br><span class="line">                push(q,&amp;G[popelement],visited);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; <span class="string">'&#125;'</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">delete</span> [] visited;</span><br><span class="line">    deleteQueue(q);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DFS</span><span class="params">(node * G, <span class="keyword">int</span> i, <span class="keyword">bool</span> * visited)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (remains(&amp;G[i],visited)) &#123;</span><br><span class="line">        <span class="keyword">int</span> min = findMin(&amp;G[i],visited);</span><br><span class="line">        <span class="keyword">if</span> (min==<span class="number">-1</span>) <span class="keyword">return</span>;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; min &lt;&lt;<span class="string">" "</span>;</span><br><span class="line">        visited[min] = <span class="literal">true</span>;</span><br><span class="line">        DFS(G,min,visited);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DFSlistComponents</span><span class="params">(node * G, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">bool</span> * visited = <span class="keyword">new</span> <span class="keyword">bool</span> [n];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        visited[i] = <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (visited[i]) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"&#123; "</span>;</span><br><span class="line">        <span class="keyword">if</span> (!visited[i]) &#123;</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; i &lt;&lt;<span class="string">" "</span>;</span><br><span class="line">            visited[i] = <span class="literal">true</span>;</span><br><span class="line">            DFS(G,i,visited);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"&#125;"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">delete</span> [] visited;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">deleteGraph</span><span class="params">(node * G, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        node * ptr = G[i].next;</span><br><span class="line">        <span class="keyword">while</span> (ptr) &#123;</span><br><span class="line">            node * temp = ptr-&gt;next;</span><br><span class="line">            <span class="keyword">delete</span> ptr;</span><br><span class="line">            ptr = temp;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">delete</span> [] G;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insertEdge</span><span class="params">(node * G, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">    node * ptr = &amp;G[i];</span><br><span class="line">    <span class="keyword">while</span> (ptr-&gt;next) &#123;</span><br><span class="line">        ptr = ptr-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    ptr-&gt;next = <span class="keyword">new</span> node;</span><br><span class="line">    ptr = ptr-&gt;next;</span><br><span class="line">    ptr-&gt;element = j;</span><br><span class="line">    ptr-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">    ptr = &amp;G[j];</span><br><span class="line">    <span class="keyword">while</span> (ptr-&gt;next) &#123;</span><br><span class="line">        ptr = ptr-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    ptr-&gt;next = <span class="keyword">new</span> node;</span><br><span class="line">    ptr = ptr-&gt;next;</span><br><span class="line">    ptr-&gt;element = i;</span><br><span class="line">    ptr-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">readGraph</span><span class="params">(node * G, <span class="keyword">int</span> e)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> vi, vj;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; e; i++) &#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; vi &gt;&gt; vj;</span><br><span class="line">        insertEdge(G, vi, vj);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">node * <span class="title">createGraph</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    node * G = <span class="keyword">new</span> node [n];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        G[i].element = i;</span><br><span class="line">        G[i].next = <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> G;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://ainevsia.github.io/2018/08/12/across-GFW/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1380,131 +1545,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://ainevsia.github.io/2018/05/07/PAT-A-1051/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ainevsia">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ainevsia's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/07/PAT-A-1051/" itemprop="url">PAT-A-1051</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-07T19:52:55+08:00">
-                2018-05-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h1><p>Given a stack which can keep M numbers at most. Push N numbers in the order of 1, 2, 3, …, N and pop randomly. You are supposed to tell if a given sequence of numbers is a possible pop sequence of the stack. For example, if M is 5 and N is 7, we can obtain 1, 2, 3, 4, 5, 6, 7 from the stack, but not 3, 2, 1, 7, 5, 6, 4.</p>
-<h1 id="Thoughts"><a href="#Thoughts" class="headerlink" title="Thoughts"></a>Thoughts</h1><p>just Stack simulation</p>
-<p>Long time no code and my coding ability drops significantly. This problem may be rather simple for some one, but it just serve the purpose of revieweing the basic knowledges for me.</p>
-<p>Sometimes a tiny bug can drive you crazy.</p>
-<p>No one can come to the final solution at the first glance, but as long as you spend your time on it, it will no doubt seem more ane more clear to you.</p>
-<h1 id="Codes"><a href="#Codes" class="headerlink" title="Codes"></a>Codes</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">int main(int argc, char const *argv[]) &#123;</span><br><span class="line">  //freopen(&quot;D:\\cpphomework\\test.txt&quot;, &quot;r&quot;, stdin);</span><br><span class="line">  int m, n, k;cin &gt;&gt; m &gt;&gt; n &gt;&gt; k;</span><br><span class="line">  int **Sequence = new int * [k];</span><br><span class="line">  for (size_t i = 0; i &lt; k; i++) Sequence[i] = new int [n];</span><br><span class="line">  int *used = new int [n+1], *result = new int [n];</span><br><span class="line">  int remaining = m;</span><br><span class="line">  for (size_t i = 0; i &lt; k; i++) &#123;</span><br><span class="line">    result[i] = 1;</span><br><span class="line">    for (size_t j = 0; j &lt; n; j++) &#123;</span><br><span class="line">      cin &gt;&gt; Sequence[i][j];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  //prepare</span><br><span class="line">  for (size_t i = 0; i &lt; k; i++) &#123;</span><br><span class="line">    remaining = m;</span><br><span class="line">    for (size_t j = 1; j &lt;= n; j++) used[j]=0;</span><br><span class="line">    int q = 1, c = 0;</span><br><span class="line">    //start</span><br><span class="line">    while ( q&lt;=n &amp;&amp; remaining&gt;0 &amp;&amp; result[i] ) &#123;</span><br><span class="line">      if ( q==Sequence[i][c] ) &#123;</span><br><span class="line">        used[q] = 1;</span><br><span class="line">        while ( c+1&lt;n &amp;&amp; Sequence[i][c+1]&lt;Sequence[i][c] ) &#123;</span><br><span class="line">          int examine = Sequence[i][c]-1;</span><br><span class="line">          while ( used[examine]==1 ) examine--;</span><br><span class="line">          if ( Sequence[i][c+1]==examine ) &#123;</span><br><span class="line">            used[examine] = 1;</span><br><span class="line">            remaining++;c++;</span><br><span class="line">          &#125;else &#123;</span><br><span class="line">            result[i] = 0;break;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        q++;c++;</span><br><span class="line">      &#125;</span><br><span class="line">      else &#123;</span><br><span class="line">        q++;remaining--;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    if ( q&lt;=n ) &#123;</span><br><span class="line">      result[i] = 0;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    for (size_t j = 1; result[i] &amp;&amp; j &lt;= n; j++) &#123;</span><br><span class="line">      if ( used[j]!=1 ) &#123;</span><br><span class="line">        result[j] = 0;</span><br><span class="line">        break;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  //output</span><br><span class="line">  for (size_t i = 0; i &lt; k; i++) &#123;</span><br><span class="line">    switch ( result[i] ) &#123;</span><br><span class="line">      case 1: cout &lt;&lt; &quot;YES&quot;;break;</span><br><span class="line">      case 0: cout &lt;&lt; &quot;NO&quot;;break;</span><br><span class="line">    &#125;</span><br><span class="line">    if ( i!=k-1 ) cout &lt;&lt; endl;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  //delete</span><br><span class="line">  for (size_t i = 0; i &lt; k; i++) delete [] Sequence[i];</span><br><span class="line">  delete [] Sequence;</span><br><span class="line">  delete [] used;</span><br><span class="line">  delete [] result;</span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1555,7 +1595,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
