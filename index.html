@@ -232,6 +232,134 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://ainevsia.github.io/2018/08/15/DS-7-7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ainevsia">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ainevsia's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/15/DS-7-7/" itemprop="url">7-7 六度空间</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-15T17:51:11+08:00">
+                2018-08-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="预备知识"><a href="#预备知识" class="headerlink" title="预备知识"></a>预备知识</h1><ul>
+<li>六度空间理论：社交关系图中，任一两个节点总可以在六步之内相互关联。</li>
+</ul>
+<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>用深度优先搜索一幅图的每一个节点相对于其他所有节点满足六度空间理论的百分率。</p>
+<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>用上次写的邻接表表示的图，基本没什么多的操作，就是控制一下BFS的层数就结束了。</p>
+<h1 id="难点"><a href="#难点" class="headerlink" title="难点"></a>难点</h1><p>没有难点</p>
+<h1 id="体会与感想"><a href="#体会与感想" class="headerlink" title="体会与感想"></a>体会与感想</h1><ul>
+<li>在Clion中调试的时候，想看new出来的一片连续空间时，需要在new watch中添加命令<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br></pre></td><td class="code"><pre><span class="line">- c++想要控制输出固定位小数时，先用fixed固定好小数点，在用setprecesion控制保留几位小数</span><br><span class="line">- setprecesion本来是用来控制有效数字的</span><br><span class="line"></span><br><span class="line"># 源代码</span><br><span class="line">```C++</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;iomanip&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">struct node &#123;</span><br><span class="line">    int element;</span><br><span class="line">    node * next;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">struct Queue &#123;</span><br><span class="line">    int * queue;</span><br><span class="line">    int head;</span><br><span class="line">    int tail;</span><br><span class="line">    int size;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">node * createGraph(int n);</span><br><span class="line">void readGraph(node * G, int e);</span><br><span class="line">int BFSvalid(node * G, int i, int n);</span><br><span class="line">void deleteGraph(node * G, int n);</span><br><span class="line"></span><br><span class="line">int main(int argc, char const *argv[]) &#123;</span><br><span class="line">    freopen(&quot;D:\\SJTU\\Freshman Summer\\DS\\test.txt&quot;, &quot;r&quot;, stdin);</span><br><span class="line">    int n, m;cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    node * G = createGraph(n);</span><br><span class="line">    readGraph(G,m);</span><br><span class="line">    for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">        int valid = BFSvalid(G,i,n);</span><br><span class="line">        double percentage = valid / (double)n;</span><br><span class="line">        cout &lt;&lt; i + 1 &lt;&lt; &quot;: &quot;;</span><br><span class="line">        cout &lt;&lt; fixed &lt;&lt; setprecision(2) &lt;&lt; 100 * percentage;</span><br><span class="line">        cout &lt;&lt; &apos;%&apos; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    deleteGraph(G,n);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int findMin(node * ptr, bool * visited) &#123;</span><br><span class="line">    int min;</span><br><span class="line">	while (ptr-&gt;next &amp;&amp; visited[ptr-&gt;next-&gt;element])</span><br><span class="line">	&#123;</span><br><span class="line">		ptr = ptr-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">    if (ptr-&gt;next==NULL) return -1;</span><br><span class="line">    else min = ptr-&gt;next-&gt;element;</span><br><span class="line">    ptr = ptr-&gt;next-&gt;next;</span><br><span class="line">    while (ptr) &#123;</span><br><span class="line">        if (ptr-&gt;element&lt;min &amp;&amp; !visited[ptr-&gt;element]) &#123;</span><br><span class="line">            min = ptr-&gt;element;</span><br><span class="line">        &#125;</span><br><span class="line">        ptr = ptr-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    return min;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bool remains(node * ptr, bool * visited) &#123;</span><br><span class="line">    while (ptr-&gt;next) &#123;</span><br><span class="line">        if (!visited[ptr-&gt;next-&gt;element]) &#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">        ptr = ptr-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    return false;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Queue * creatQueue(int n) &#123;</span><br><span class="line">    Queue * q = new Queue;</span><br><span class="line">    q-&gt;size = n;</span><br><span class="line">    q-&gt;queue = new int [n];</span><br><span class="line">    q-&gt;head = 0;</span><br><span class="line">    q-&gt;tail = -1;</span><br><span class="line">    return q;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void deleteQueue(Queue * q) &#123;</span><br><span class="line">    delete [] q-&gt;queue;</span><br><span class="line">    delete q;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void enQueue(Queue * q, int element) &#123;</span><br><span class="line">    q-&gt;queue[++q-&gt;tail] = element;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int deQueue(Queue * q) &#123;</span><br><span class="line">    return q-&gt;queue[q-&gt;head++];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void push(Queue * q, node * ptr, bool * visited, int * cnt) &#123;</span><br><span class="line">    while (remains(ptr,visited)) &#123;</span><br><span class="line">        int min = findMin(ptr,visited);</span><br><span class="line">        if (min==-1) return;</span><br><span class="line">        enQueue(q,min);</span><br><span class="line">        (*cnt)++;</span><br><span class="line">        visited[min] = true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int BFSvalid(node * G, int start, int n) &#123;  //return the number of valid nodes</span><br><span class="line">    Queue * q = creatQueue(n);          //of the BFS of node i</span><br><span class="line">    bool * visited = new bool [n];</span><br><span class="line">    for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">        visited[i] = false;</span><br><span class="line">    &#125;</span><br><span class="line">    int cnt = 1, degree = 6;</span><br><span class="line">    enQueue(q,start);</span><br><span class="line">    visited[start] = true;</span><br><span class="line">    int sentry = q-&gt;tail;</span><br><span class="line">    while (q-&gt;head!=q-&gt;tail+1 &amp;&amp; degree&gt;0) &#123;</span><br><span class="line">        while (q-&gt;head!=sentry+1) &#123;</span><br><span class="line">            int popelement = deQueue(q);</span><br><span class="line">            push(q,&amp;G[popelement],visited,&amp;cnt);</span><br><span class="line">        &#125;</span><br><span class="line">        sentry = q-&gt;tail;</span><br><span class="line">        degree--;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    delete [] visited;</span><br><span class="line">    deleteQueue(q);</span><br><span class="line">    return cnt;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void deleteGraph(node * G, int n) &#123;</span><br><span class="line">    for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">        node * ptr = G[i].next;</span><br><span class="line">        while (ptr) &#123;</span><br><span class="line">            node * temp = ptr-&gt;next;</span><br><span class="line">            delete ptr;</span><br><span class="line">            ptr = temp;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    delete [] G;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void insertEdge(node * G, int i, int j) &#123;</span><br><span class="line">    node * ptr = &amp;G[i];</span><br><span class="line">    while (ptr-&gt;next) &#123;</span><br><span class="line">        ptr = ptr-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    ptr-&gt;next = new node;</span><br><span class="line">    ptr = ptr-&gt;next;</span><br><span class="line">    ptr-&gt;element = j;</span><br><span class="line">    ptr-&gt;next = NULL;</span><br><span class="line"></span><br><span class="line">    ptr = &amp;G[j];</span><br><span class="line">    while (ptr-&gt;next) &#123;</span><br><span class="line">        ptr = ptr-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    ptr-&gt;next = new node;</span><br><span class="line">    ptr = ptr-&gt;next;</span><br><span class="line">    ptr-&gt;element = i;</span><br><span class="line">    ptr-&gt;next = NULL;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void readGraph(node * G, int e) &#123;</span><br><span class="line">    int vi, vj;</span><br><span class="line">    for (int i = 0; i &lt; e; i++) &#123;</span><br><span class="line">        cin &gt;&gt; vi &gt;&gt; vj;</span><br><span class="line">        insertEdge(G, vi-1, vj-1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">node * createGraph(int n) &#123;</span><br><span class="line">    node * G = new node [n];</span><br><span class="line">    for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">        G[i].element = i;</span><br><span class="line">        G[i].next = NULL;</span><br><span class="line">    &#125;</span><br><span class="line">    return G;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://ainevsia.github.io/2018/08/14/DS-7-6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1424,127 +1552,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://ainevsia.github.io/2018/06/05/18-06-05/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ainevsia">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ainevsia's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/05/18-06-05/" itemprop="url">重新出发</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-05T23:45:13+08:00">
-                2018-06-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="晚上看俞闻韬打了两小时dota2"><a href="#晚上看俞闻韬打了两小时dota2" class="headerlink" title="晚上看俞闻韬打了两小时dota2"></a>晚上看俞闻韬打了两小时dota2</h1><p>每个人都有自己的爱好不是吗<br>重要的是你自己究竟想要什么</p>
-<h1 id="明天就是高考了"><a href="#明天就是高考了" class="headerlink" title="明天就是高考了"></a>明天就是高考了</h1><p>对于明天的展望<br>今天下午在图书馆坐了一下午<br>先是很快地做完了谐振的一道大题<br>然后看了看今天刚教的三相电路的习题<br>线电压 线电流 相电压 相电流<br>这些概念还是不清楚啊<br>不要把一切事情都想得太过简单了<br>也不要把一切事情都看得难如上青天  </p>
-<h1 id="高考-到点休息"><a href="#高考-到点休息" class="headerlink" title="高考 到点休息"></a>高考 到点休息</h1>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1595,7 +1602,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
