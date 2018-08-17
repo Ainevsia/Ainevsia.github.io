@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="数据结构与算法题目集（中文）," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="预备知识 最短路径问题的分类： 单源最短路：从固定的源点出发求其到所有其他顶点的最短路径 无权图 BFS算法 有权图 Dijkstra   多源最短路   无权图的单源最短路算法：BFS算法 按照递增的顺序找出找出源点到各个顶点的最短路 算法要点：需要两个数组dist和path分别记录最短距离和上一个顶点   有权图的单源最短路算法：Dijkstra算法  分为已经确定最短路的集合S以及一个长度数">
+<meta name="keywords" content="数据结构与算法题目集（中文）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="7-8 哈利·波特的考试">
+<meta property="og:url" content="https://ainevsia.github.io/2018/08/17/DS-7-8/index.html">
+<meta property="og:site_name" content="Ainevsia&#39;s Blog">
+<meta property="og:description" content="预备知识 最短路径问题的分类： 单源最短路：从固定的源点出发求其到所有其他顶点的最短路径 无权图 BFS算法 有权图 Dijkstra   多源最短路   无权图的单源最短路算法：BFS算法 按照递增的顺序找出找出源点到各个顶点的最短路 算法要点：需要两个数组dist和path分别记录最短距离和上一个顶点   有权图的单源最短路算法：Dijkstra算法  分为已经确定最短路的集合S以及一个长度数">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://ainevsia.github.io/2018/08/17/DS-7-8/Dijsktra.png">
+<meta property="og:updated_time" content="2018-08-17T05:20:38.742Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="7-8 哈利·波特的考试">
+<meta name="twitter:description" content="预备知识 最短路径问题的分类： 单源最短路：从固定的源点出发求其到所有其他顶点的最短路径 无权图 BFS算法 有权图 Dijkstra   多源最短路   无权图的单源最短路算法：BFS算法 按照递增的顺序找出找出源点到各个顶点的最短路 算法要点：需要两个数组dist和path分别记录最短距离和上一个顶点   有权图的单源最短路算法：Dijkstra算法  分为已经确定最短路的集合S以及一个长度数">
+<meta name="twitter:image" content="https://ainevsia.github.io/2018/08/17/DS-7-8/Dijsktra.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://ainevsia.github.io/2018/08/17/DS-7-8/"/>
+
+
+
+
+
+  <title>7-8 哈利·波特的考试 | Ainevsia's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ainevsia's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Coding without learning ends in danger.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://ainevsia.github.io/2018/08/17/DS-7-8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ainevsia">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ainevsia's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">7-8 哈利·波特的考试</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-17T12:46:16+08:00">
+                2018-08-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 访问量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+
+        
+
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="预备知识"><a href="#预备知识" class="headerlink" title="预备知识"></a>预备知识</h1><ul>
+<li>最短路径问题的分类：<ul>
+<li>单源最短路：从固定的源点出发求其到所有其他顶点的最短路径<ul>
+<li>无权图 BFS算法</li>
+<li>有权图 Dijkstra</li>
+</ul>
+</li>
+<li>多源最短路</li>
+</ul>
+</li>
+<li>无权图的单源最短路算法：BFS算法<ul>
+<li>按照<strong>递增</strong>的顺序找出找出源点到各个顶点的最短路</li>
+<li>算法要点：需要两个数组dist和path分别记录最短距离和上一个顶点</li>
+</ul>
+</li>
+<li><p>有权图的单源最短路算法：<strong>Dijkstra算法</strong></p>
+<ul>
+<li>分为已经确定最短路的集合S以及一个长度数组dist</li>
+<li>实现原理：若路径是按照递增顺序生成的，则：<ul>
+<li>下一个加入S的点必定只经过S内的点（不然不是S内的点应该比当前点先加入S）</li>
+<li>每次选一个dist最小的加入S（贪心算法）</li>
+<li>加入点后会影响dist，影响的都是加入点的邻接点</li>
+</ul>
+</li>
+<li><p>算法实现要点：</p>
+<ul>
+<li>需要dist、path和collected数组分别记录最短距离、上一个节点以及是否被收入S的信息</li>
+<li><p>初始化条件：dist都为无穷大，path都没有，collect全不是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dist[i] = inf;</span><br><span class="line">path[i] = -1;</span><br><span class="line">collected[i] = false;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改源点的数据，进入Dijkstra函数<br><img src="/2018/08/17/DS-7-8/Dijsktra.png" alt="Dijsktra算法的伪码描述"></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p><a href="https://pintia.cn/problem-sets/15/problems/716" target="_blank" rel="noopener">原题在这</a><br>给定一张有权图，判断是否连通，若连通，则求使从一个顶点出发最长的最短路最短的那个节点。</p>
+<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>Dijsktra算法对每一个节点使用</p>
+<h1 id="难点"><a href="#难点" class="headerlink" title="难点"></a>难点</h1><p>Dijsktra算法实现</p>
+<h1 id="体会与感想"><a href="#体会与感想" class="headerlink" title="体会与感想"></a>体会与感想</h1><ul>
+<li>这个金光闪闪的算法一定要记在脑子里啊~</li>
+</ul>
+<h1 id="关键代码"><a href="#关键代码" class="headerlink" title="关键代码"></a>关键代码</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Dijkstra</span><span class="params">(node * G, <span class="keyword">int</span> n, <span class="keyword">int</span> s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> * dist = <span class="keyword">new</span> <span class="keyword">int</span> [n];</span><br><span class="line">    <span class="keyword">int</span> * path = <span class="keyword">new</span> <span class="keyword">int</span> [n];</span><br><span class="line">    <span class="keyword">bool</span> * collected = <span class="keyword">new</span> <span class="keyword">bool</span> [n];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        dist[i] = inf;</span><br><span class="line">        path[i] = <span class="number">-1</span>;</span><br><span class="line">        collected[i] = <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    dist[s] = <span class="number">0</span>;</span><br><span class="line">    collected[s] = <span class="literal">true</span>;</span><br><span class="line">    node * ptr = G[s].next;</span><br><span class="line">    <span class="keyword">while</span> (ptr) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!collected[ptr-&gt;element]) &#123;</span><br><span class="line">            <span class="keyword">int</span> w = ptr-&gt;element;</span><br><span class="line">            <span class="keyword">if</span> (dist[s]+ptr-&gt;weight&lt;dist[w]) &#123;</span><br><span class="line">                dist[w] = dist[s] + ptr-&gt;weight;</span><br><span class="line">                path[w] = s;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        ptr = ptr-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">        <span class="keyword">int</span> min = inf, v = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!collected[i] &amp;&amp; dist[i]!=<span class="number">-1</span> &amp;&amp; dist[i]&lt;min) &#123;</span><br><span class="line">                min = dist[i];</span><br><span class="line">                v = i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (min==inf || v&lt;<span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">        collected[v] = <span class="literal">true</span>;</span><br><span class="line">        node * ptr = G[v].next;</span><br><span class="line">        <span class="keyword">while</span> (ptr) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!collected[ptr-&gt;element]) &#123;</span><br><span class="line">                <span class="keyword">int</span> w = ptr-&gt;element;</span><br><span class="line">                <span class="keyword">if</span> (dist[v]+ptr-&gt;weight&lt;dist[w]) &#123;</span><br><span class="line">                    dist[w] = dist[v] + ptr-&gt;weight;</span><br><span class="line">                    path[w] = v;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            ptr = ptr-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> min = <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (dist[i]==inf) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">if</span> (dist[i]&gt;min) min = dist[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">delete</span> [] dist;</span><br><span class="line">    <span class="keyword">delete</span> [] path;</span><br><span class="line">    <span class="keyword">delete</span> [] collected;</span><br><span class="line">    <span class="keyword">return</span> min;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据结构与算法题目集（中文）/" rel="tag"># 数据结构与算法题目集（中文）</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/15/DS-7-7/" rel="next" title="7-7 六度空间">
+                <i class="fa fa-chevron-left"></i> 7-7 六度空间
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Ainevsia</p>
+              <p class="site-description motion-element" itemprop="description">Personal Blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#预备知识"><span class="nav-number">1.</span> <span class="nav-text">预备知识</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#题目描述"><span class="nav-number">2.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思路"><span class="nav-number">3.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#难点"><span class="nav-number">4.</span> <span class="nav-text">难点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#体会与感想"><span class="nav-number">5.</span> <span class="nav-text">体会与感想</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关键代码"><span class="nav-number">6.</span> <span class="nav-text">关键代码</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ainevsia</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 点击量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+
+  
+
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
