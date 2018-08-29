@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="预备知识 最小生成树(Minimum Spanning Tree) 是一棵树 是由原图生成的 包含图内的所有的顶点 所有的边都是图中的边   权最小   图连通 等价 存在最小生成树 贪心算法 每一步都要眼前最好的 约束条件   Prim算法-让小数长大 算法复杂度 平方级别  题目描述原题在这 思路Prim算法，日后再实现Kruskal算法 难点Prim算法的实现 体会与感想 Prim算法简直了">
+<meta name="description" content="预备知识 最小生成树(Minimum Spanning Tree) 是一棵树 是由原图生成的 包含图内的所有的顶点 所有的边都是图中的边   权最小   图连通 等价 存在最小生成树 贪心算法 每一步都要眼前最好的 约束条件   Prim算法-让小数长大 算法复杂度 平方级别 稠密图 Kruskal算法-将森林合并成树 算法复杂度 ElogE 稀疏图 需要储备的数据结构：集合、并查集、最小堆 集合">
 <meta name="keywords" content="数据结构与算法题目集（中文）">
 <meta property="og:type" content="article">
 <meta property="og:title" content="7-10 公路村村通">
 <meta property="og:url" content="https://ainevsia.github.io/2018/08/24/DS-7-10/index.html">
 <meta property="og:site_name" content="Ainevsia&#39;s Blog">
-<meta property="og:description" content="预备知识 最小生成树(Minimum Spanning Tree) 是一棵树 是由原图生成的 包含图内的所有的顶点 所有的边都是图中的边   权最小   图连通 等价 存在最小生成树 贪心算法 每一步都要眼前最好的 约束条件   Prim算法-让小数长大 算法复杂度 平方级别  题目描述原题在这 思路Prim算法，日后再实现Kruskal算法 难点Prim算法的实现 体会与感想 Prim算法简直了">
+<meta property="og:description" content="预备知识 最小生成树(Minimum Spanning Tree) 是一棵树 是由原图生成的 包含图内的所有的顶点 所有的边都是图中的边   权最小   图连通 等价 存在最小生成树 贪心算法 每一步都要眼前最好的 约束条件   Prim算法-让小数长大 算法复杂度 平方级别 稠密图 Kruskal算法-将森林合并成树 算法复杂度 ElogE 稀疏图 需要储备的数据结构：集合、并查集、最小堆 集合">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-24T12:48:11.499Z">
+<meta property="og:updated_time" content="2018-08-27T01:43:59.614Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="7-10 公路村村通">
-<meta name="twitter:description" content="预备知识 最小生成树(Minimum Spanning Tree) 是一棵树 是由原图生成的 包含图内的所有的顶点 所有的边都是图中的边   权最小   图连通 等价 存在最小生成树 贪心算法 每一步都要眼前最好的 约束条件   Prim算法-让小数长大 算法复杂度 平方级别  题目描述原题在这 思路Prim算法，日后再实现Kruskal算法 难点Prim算法的实现 体会与感想 Prim算法简直了">
+<meta name="twitter:description" content="预备知识 最小生成树(Minimum Spanning Tree) 是一棵树 是由原图生成的 包含图内的所有的顶点 所有的边都是图中的边   权最小   图连通 等价 存在最小生成树 贪心算法 每一步都要眼前最好的 约束条件   Prim算法-让小数长大 算法复杂度 平方级别 稠密图 Kruskal算法-将森林合并成树 算法复杂度 ElogE 稀疏图 需要储备的数据结构：集合、并查集、最小堆 集合">
 
 
 
@@ -368,14 +368,23 @@
 <li>约束条件</li>
 </ul>
 </li>
-<li>Prim算法-让小数长大</li>
-<li>算法复杂度 平方级别</li>
+<li>Prim算法-让小数长大 算法复杂度 平方级别 稠密图</li>
+<li>Kruskal算法-将森林合并成树 算法复杂度 ElogE 稀疏图<ul>
+<li>需要储备的数据结构：集合、并查集、最小堆</li>
+<li>集合存储实现：<ul>
+<li>树结构：双亲表示法 孩子指向父节点</li>
+<li>数组： 根节点为-1</li>
 </ul>
-<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p><a href="https://pintia.cn/problem-sets/15/problems/718" target="_blank" rel="noopener">原题在这</a></p>
+</li>
+<li><strong>堆是用数组实现的完全二叉树</strong><h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><a href="https://pintia.cn/problem-sets/15/problems/718" target="_blank" rel="noopener">原题在这</a></li>
+</ul>
+</li>
+</ul>
 <h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>Prim算法，日后再实现Kruskal算法</p>
 <h1 id="难点"><a href="#难点" class="headerlink" title="难点"></a>难点</h1><p>Prim算法的实现</p>
 <h1 id="体会与感想"><a href="#体会与感想" class="headerlink" title="体会与感想"></a>体会与感想</h1><ul>
 <li>Prim算法简直了，和Dijkstra算法一模一样</li>
+<li>好tm烦啊</li>
 </ul>
 <h1 id="关键代码"><a href="#关键代码" class="headerlink" title="关键代码"></a>关键代码</h1><blockquote>
 <p>7-10-Prim.cpp</p>
