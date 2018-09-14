@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="主要做的几个改动 引入track变量来控制ij的记录时间点 修补了maxsum=0的一个小bug  反思 好好看清楚题目再做很重要，不要觉得自己做过一遍就有多懂了，还不是花了2h多吗，看看清楚要输出序号还是要输出值。">
+<meta name="description" content="thoughts 重要的细节，也是全部写完之后发现的唯一一个错误：char的数字向int装换的时候要-‘0’； 实现细节，就是给每一个节点一个完全二叉树时的序号，然后sort  qsort的具体使用细节 参数表：*, num, sizeof(), cmp)```123456789101112131415161718192021222324252627282930313233343536373839">
 <meta name="keywords" content="中国大学MOOC-陈越、何钦铭-数据结构-2018秋">
 <meta property="og:type" content="article">
-<meta property="og:title" content="01-复杂度2 Maximum Subsequence Sum">
-<meta property="og:url" content="https://ainevsia.github.io/2018/09/12/01-复杂度2 Maximum Subsequence Sum/index.html">
+<meta property="og:title" content="03-树2 List Leaves">
+<meta property="og:url" content="https://ainevsia.github.io/2018/09/14/03-树2 List Leaves/index.html">
 <meta property="og:site_name" content="Ainevsia&#39;s Blog">
-<meta property="og:description" content="主要做的几个改动 引入track变量来控制ij的记录时间点 修补了maxsum=0的一个小bug  反思 好好看清楚题目再做很重要，不要觉得自己做过一遍就有多懂了，还不是花了2h多吗，看看清楚要输出序号还是要输出值。">
+<meta property="og:description" content="thoughts 重要的细节，也是全部写完之后发现的唯一一个错误：char的数字向int装换的时候要-‘0’； 实现细节，就是给每一个节点一个完全二叉树时的序号，然后sort  qsort的具体使用细节 参数表：*, num, sizeof(), cmp)```123456789101112131415161718192021222324252627282930313233343536373839">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-12T06:06:35.816Z">
+<meta property="og:updated_time" content="2018-09-14T09:14:26.057Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="01-复杂度2 Maximum Subsequence Sum">
-<meta name="twitter:description" content="主要做的几个改动 引入track变量来控制ij的记录时间点 修补了maxsum=0的一个小bug  反思 好好看清楚题目再做很重要，不要觉得自己做过一遍就有多懂了，还不是花了2h多吗，看看清楚要输出序号还是要输出值。">
+<meta name="twitter:title" content="03-树2 List Leaves">
+<meta name="twitter:description" content="thoughts 重要的细节，也是全部写完之后发现的唯一一个错误：char的数字向int装换的时候要-‘0’； 实现细节，就是给每一个节点一个完全二叉树时的序号，然后sort  qsort的具体使用细节 参数表：*, num, sizeof(), cmp)```123456789101112131415161718192021222324252627282930313233343536373839">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://ainevsia.github.io/2018/09/12/01-复杂度2 Maximum Subsequence Sum/"/>
+  <link rel="canonical" href="https://ainevsia.github.io/2018/09/14/03-树2 List Leaves/"/>
 
 
 
 
 
-  <title>01-复杂度2 Maximum Subsequence Sum | Ainevsia's Blog</title>
+  <title>03-树2 List Leaves | Ainevsia's Blog</title>
   
 
 
@@ -253,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://ainevsia.github.io/2018/09/12/01-复杂度2 Maximum Subsequence Sum/">
+    <link itemprop="mainEntityOfPage" href="https://ainevsia.github.io/2018/09/14/03-树2 List Leaves/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Ainevsia">
@@ -270,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">01-复杂度2 Maximum Subsequence Sum</h1>
+          <h1 class="post-title" itemprop="name headline">03-树2 List Leaves</h1>
         
 
         <div class="post-meta">
@@ -282,8 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-12T14:03:19+08:00">
-                2018-09-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-14T16:57:28+08:00">
+                2018-09-14
               </time>
             
 
@@ -351,12 +351,12 @@
       
 
       
-        <h1 id="主要做的几个改动"><a href="#主要做的几个改动" class="headerlink" title="主要做的几个改动"></a>主要做的几个改动</h1><ul>
-<li>引入track变量来控制ij的记录时间点</li>
-<li>修补了maxsum=0的一个小bug</li>
+        <h1 id="thoughts"><a href="#thoughts" class="headerlink" title="thoughts"></a>thoughts</h1><ul>
+<li>重要的细节，也是全部写完之后发现的唯一一个错误：char的数字向int装换的时候要-‘0’；</li>
+<li>实现细节，就是给每一个节点一个完全二叉树时的序号，然后sort</li>
 </ul>
-<h1 id="反思"><a href="#反思" class="headerlink" title="反思"></a>反思</h1><ul>
-<li>好好看清楚题目再做很重要，不要觉得自己做过一遍就有多懂了，还不是花了2h多吗，看看清楚要输出序号还是要输出值。</li>
+<h1 id="qsort的具体使用细节"><a href="#qsort的具体使用细节" class="headerlink" title="qsort的具体使用细节"></a>qsort的具体使用细节</h1><ul>
+<li>参数表：<figure class="highlight plain"><figcaption><span>*, num, sizeof(), cmp)```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br></pre></td><td class="code"><pre><span class="line">- cmp的参数：int cmp(const void* front, const void* rear)，不可以自己改</span><br><span class="line">- return的参数：[返回正数就是说 cmp 传入参数第一个要放在第二个后面, 负数就是传入参数第一个要放第二个前面, 如果是 0, 那就无所谓谁前谁后.](http://www.cnblogs.com/sjy123/p/3287817.html)</span><br><span class="line"> - + 需要swap</span><br><span class="line"> - - 不要交换</span><br><span class="line">- int cmp(const void* small, const void* big)</span><br><span class="line">- return small - big 从小到大</span><br><span class="line"></span><br><span class="line"># codes</span><br><span class="line">```C++</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;cstdlib&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">struct node &#123;</span><br><span class="line">    int data;</span><br><span class="line">    bool leaf;</span><br><span class="line">    unsigned int pos;</span><br><span class="line">    char left;</span><br><span class="line">    char right;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">int readtree(node * tree, int n, int * num);</span><br><span class="line">void attachweight(node * tree, int ptr, int weight);</span><br><span class="line">void printleaf(node * tree, int n);</span><br><span class="line">int cmp(const void * front, const void * rear);</span><br><span class="line"></span><br><span class="line">int main(int argc, char const *argv[]) &#123;</span><br><span class="line">    freopen(&quot;D:\\SJTU\\Freshman Summer\\DS\\test.txt&quot;, &quot;r&quot;, stdin);</span><br><span class="line">    int n;cin &gt;&gt; n;</span><br><span class="line">    node * tree = new node [n];</span><br><span class="line">    int leafnum = 0;</span><br><span class="line">    int head = readtree(tree,n,&amp;leafnum);</span><br><span class="line">    //cout &lt;&lt; head;</span><br><span class="line">    attachweight(tree,head,1);</span><br><span class="line">    //cout &lt;&lt; &quot;attach done&quot;;</span><br><span class="line">    qsort(tree,n,sizeof(node),cmp);</span><br><span class="line">    //cout &lt;&lt; &quot;sorted&quot;;</span><br><span class="line">    printleaf(tree,leafnum);</span><br><span class="line">    delete [] tree;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void printleaf(node * tree, int n) &#123;</span><br><span class="line">    int cnt = 0;</span><br><span class="line">    for (int i = 0; true; i++) &#123;</span><br><span class="line">        if (tree[i].leaf) &#123;</span><br><span class="line">            cout &lt;&lt; tree[i].data;</span><br><span class="line">            ++cnt;</span><br><span class="line">            if (cnt!=n) &#123;</span><br><span class="line">                cout &lt;&lt; &apos; &apos;;</span><br><span class="line">            &#125;else return;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int cmp(const void * front, const void * rear) &#123;</span><br><span class="line">    int ret = ((node*)front)-&gt;pos - ((node*)rear)-&gt;pos;</span><br><span class="line">    return ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void attachweight(node * tree, int ptr, int weight) &#123;</span><br><span class="line">    tree[ptr].pos = weight;</span><br><span class="line">    if (tree[ptr].left!=&apos;-&apos;) &#123;</span><br><span class="line">        attachweight(tree,tree[ptr].left-&apos;0&apos;,2*weight);</span><br><span class="line">    &#125;</span><br><span class="line">    if (tree[ptr].right!=&apos;-&apos;) &#123;</span><br><span class="line">        attachweight(tree,tree[ptr].right-&apos;0&apos;,2*weight+1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int readtree(node * tree, int n, int * num) &#123;</span><br><span class="line">    bool * ishead = new bool [n];</span><br><span class="line">    for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">        ishead[i] = true;</span><br><span class="line">    &#125;</span><br><span class="line">    for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">        tree[i].data = i;</span><br><span class="line">        tree[i].leaf = true;</span><br><span class="line">        cin &gt;&gt; tree[i].left &gt;&gt; tree[i].right;</span><br><span class="line">        if (tree[i].left!=&apos;-&apos;) &#123;</span><br><span class="line">            tree[i].leaf = false;</span><br><span class="line">            ishead[tree[i].left-&apos;0&apos;] = false;</span><br><span class="line">        &#125;</span><br><span class="line">        if (tree[i].right!=&apos;-&apos;) &#123;</span><br><span class="line">            tree[i].leaf = false;</span><br><span class="line">            ishead[tree[i].right-&apos;0&apos;] = false;</span><br><span class="line">        &#125;</span><br><span class="line">        if (tree[i].leaf) &#123;</span><br><span class="line">            (*num)++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    int head = 0;</span><br><span class="line">    for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">        if (ishead[i]==true) &#123;</span><br><span class="line">            head = i;</span><br><span class="line">            break;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    delete [] ishead;</span><br><span class="line">    return head;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 
       
@@ -388,8 +388,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/12/02-线性结构3 Reversing Linked List/" rel="next" title="02-线性结构3 Reversing Linked List">
-                <i class="fa fa-chevron-left"></i> 02-线性结构3 Reversing Linked List
+              <a href="/2018/09/14/02-线性结构4 Pop Sequence/" rel="next" title="02-线性结构4 Pop Sequence">
+                <i class="fa fa-chevron-left"></i> 02-线性结构4 Pop Sequence
               </a>
             
           </div>
@@ -397,10 +397,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/09/14/02-线性结构4 Pop Sequence/" rel="prev" title="02-线性结构4 Pop Sequence">
-                02-线性结构4 Pop Sequence <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -532,7 +528,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#主要做的几个改动"><span class="nav-number">1.</span> <span class="nav-text">主要做的几个改动</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#反思"><span class="nav-number">2.</span> <span class="nav-text">反思</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#thoughts"><span class="nav-number">1.</span> <span class="nav-text">thoughts</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#qsort的具体使用细节"><span class="nav-number">2.</span> <span class="nav-text">qsort的具体使用细节</span></a></li></ol></div>
             
 
           </div>
