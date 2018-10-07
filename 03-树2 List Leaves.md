@@ -1,0 +1,117 @@
+---
+layout: blog
+title: 03-树2 List Leaves
+date: 2018-9-14 16:57:28
+tags: 中国大学MOOC-陈越、何钦铭-数据结构-2018秋
+categories: 数据结构与算法
+---
+# thoughts
+- 重要的细节，也是全部写完之后发现的唯一一个错误：char的数字向int装换的时候要-‘0’；
+- 实现细节，就是给每一个节点一个完全二叉树时的序号，然后sort
+
+# qsort的具体使用细节
+- 参数表：`qsort(void *, num, sizeof(), cmp)`
+- cmp的参数：int cmp(const void* front, const void* rear)，不可以自己改
+- return的参数：[返回正数就是说 cmp 传入参数第一个要放在第二个后面, 负数就是传入参数第一个要放第二个前面, 如果是 0, 那就无所谓谁前谁后.](http://www.cnblogs.com/sjy123/p/3287817.html)
+ - ''+'' 需要swap
+ - ''-'' 不要交换
+- int cmp(const void* small, const void* big)
+- return small - big 从小到大
+
+# codes
+```C++
+#include <iostream>
+#include <cstdlib>
+
+using namespace std;
+
+struct node {
+    int data;
+    bool leaf;
+    unsigned int pos;
+    char left;
+    char right;
+};
+
+int readtree(node * tree, int n, int * num);
+void attachweight(node * tree, int ptr, int weight);
+void printleaf(node * tree, int n);
+int cmp(const void * front, const void * rear);
+
+int main(int argc, char const *argv[]) {
+    freopen("D:\\SJTU\\Freshman Summer\\DS\\test.txt", "r", stdin);
+    int n;cin >> n;
+    node * tree = new node [n];
+    int leafnum = 0;
+    int head = readtree(tree,n,&leafnum);
+    //cout << head;
+    attachweight(tree,head,1);
+    //cout << "attach done";
+    qsort(tree,n,sizeof(node),cmp);
+    //cout << "sorted";
+    printleaf(tree,leafnum);
+    delete [] tree;
+    return 0;
+}
+
+void printleaf(node * tree, int n) {
+    int cnt = 0;
+    for (int i = 0; true; i++) {
+        if (tree[i].leaf) {
+            cout << tree[i].data;
+            ++cnt;
+            if (cnt!=n) {
+                cout << ' ';
+            }else return;
+        }
+    }
+}
+
+int cmp(const void * front, const void * rear) {
+    int ret = ((node*)front)->pos - ((node*)rear)->pos;
+    return ret;
+}
+
+void attachweight(node * tree, int ptr, int weight) {
+    tree[ptr].pos = weight;
+    if (tree[ptr].left!='-') {
+        attachweight(tree,tree[ptr].left-'0',2*weight);
+    }
+    if (tree[ptr].right!='-') {
+        attachweight(tree,tree[ptr].right-'0',2*weight+1);
+    }
+}
+
+int readtree(node * tree, int n, int * num) {
+    bool * ishead = new bool [n];
+    for (int i = 0; i < n; i++) {
+        ishead[i] = true;
+    }
+    for (int i = 0; i < n; i++) {
+        tree[i].data = i;
+        tree[i].leaf = true;
+        cin >> tree[i].left >> tree[i].right;
+        if (tree[i].left!='-') {
+            tree[i].leaf = false;
+            ishead[tree[i].left-'0'] = false;
+        }
+        if (tree[i].right!='-') {
+            tree[i].leaf = false;
+            ishead[tree[i].right-'0'] = false;
+        }
+        if (tree[i].leaf) {
+            (*num)++;
+        }
+    }
+    int head = 0;
+    for (int i = 0; i < n; i++) {
+        if (ishead[i]==true) {
+            head = i;
+            break;
+        }
+    }
+    delete [] ishead;
+    return head;
+}
+
+```
