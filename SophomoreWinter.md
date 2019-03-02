@@ -3,6 +3,7 @@ layout: blog
 title: Sophomore Winter Dairy
 date: 2019-2-5 18:41:45
 tags: SJTU
+categories: Dairy
 ---
 
 # 2019年2月5日18:41:53

@@ -18,9 +18,9 @@ Notice that when the failure happens at `p[j]`, the digits before are already cl
 
 I think these two pictures can clearly illustrate the phenomenon:
 
-![failurefunction](Knuth-Morris-Pratt-Algorithm/FailureFunction.png)
+![failurefunction](https://res.cloudinary.com/ainevsia/image/upload/v1550225359/FailureFunction.png)
 
-![calculate](Knuth-Morris-Pratt-Algorithm/Calculation.png)
+![calculate](https://res.cloudinary.com/ainevsia/image/upload/v1550225360/Calculation.png)
 
 # Acknowledgements
 A lot of thanks to [KMP算法详解](https://blog.csdn.net/yutianzuijin/article/details/11954939) which let me understand this algorithm.
