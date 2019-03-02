@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title><![CDATA[2. Add Two Numbers]]></title>
-    <url>%2F2019%2F03%2F01%2F%232AddTwoNumbers%2F</url>
+    <url>%2F2019%2F03%2F01%2FLeetCode-2-AddTwoNumbers%2F</url>
     <content type="text"><![CDATA[读题的时候不认真看题写的时候就会完全按照自己想象中的题目去解题 这道题两个数字明明是已经逆向好给我做加法了 我还傻呵呵地先写了一遍 把两个链表逆向了一遍 另外 java也不太懂 reflections5+5的情况WA了一次 没有想到这样的情况 myCode1234567891011121314151617181920212223242526272829303132333435363738394041/** * Definition for singly-linked list. * public class ListNode &#123; * int val; * ListNode next; * ListNode(int x) &#123; val = x; &#125; * &#125; */class Solution &#123; public ListNode addTwoNumbers(ListNode l1, ListNode l2) &#123; int carry = 0; boolean conti = true; ListNode ret = new ListNode(0), al1 = l1, al2 = l2; ListNode r = ret; while (conti) &#123; int a1 = 0, a2 = 0; if (al1!=null) &#123; a1 = al1.val; al1 = al1.next; &#125; if (al2!=null) &#123; a2 = al2.val; al2 = al2.next; &#125; int sum = a1 + a2 + carry; if (sum&gt;=10) &#123; sum -= 10; carry = 1; &#125;else &#123; carry = 0; &#125; ret.val = sum; if (al1==null &amp;&amp; al2==null &amp;&amp; carry==0) conti = false; if (conti) &#123; ret.next = new ListNode(0); ret = ret.next; &#125; &#125; return r; &#125;&#125; Official12345678910111213141516171819public ListNode addTwoNumbers(ListNode l1, ListNode l2) &#123; ListNode dummyHead = new ListNode(0); ListNode p = l1, q = l2, curr = dummyHead; int carry = 0; while (p != null || q != null) &#123; int x = (p != null) ? p.val : 0; int y = (q != null) ? q.val : 0; int sum = carry + x + y; carry = sum / 10; curr.next = new ListNode(sum % 10); curr = curr.next; if (p != null) p = p.next; if (q != null) q = q.next; &#125; if (carry &gt; 0) &#123; curr.next = new ListNode(carry); &#125; return dummyHead.next;&#125; 真的是短小精悍啊！]]></content>
       <categories>
         <category>LeetCode</category>
@@ -12,19 +12,8 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[SQL必知必会-Chapter1-了解SQL]]></title>
-    <url>%2F2019%2F02%2F23%2FSQL%2F</url>
-    <content type="text"><![CDATA[#]]></content>
-      <categories>
-        <category>SJTU</category>
-      </categories>
-      <tags>
-        <tag>数据库</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[寒假回顾+学期计划]]></title>
-    <url>%2F2019%2F02%2F17%2F%E5%AF%92%E5%81%87%E6%80%BB%E7%BB%93%2B%E5%AD%A6%E6%9C%9F%E8%AE%A1%E5%88%92%2F</url>
+    <url>%2F2019%2F02%2F17%2Fsophomore-Winter%2F</url>
     <content type="text"><![CDATA[寒假见闻寒假从1月14日开始执行，由于在1月25日约了朋友一起参加美赛，所以14日到25日这两个礼拜就是常规培训、准备美赛。由于我和密院同年级的同学组队，中途跑了一个，只好带了一个大一小学妹凑满3个人，十足的菜鸡队配置。好像是第一次认认真真地参加大型团队竞赛，内心也没有什么底，抱着纯粹体验一把的心态稀里糊涂地就混到了25日。 我个人确实是极其不擅长与他人合作完成一个项目。开赛两小时我去图书馆借走了相关的书，我一度认为这些书能成为我们队的优势。但是，可能就是这些书限制了思路。书上用了CA，虽然到最后我们也没有能实现这个程序。当我和别人发生意见上的分歧时，我总是很难说服对方，我总是倾向于放弃我自己的想法，去听别人的指挥做事。我觉得自己除了第一天状态是在线的，剩下的4天智商全面下线，程序不想写，模型不知道怎么建，自暴自弃。 最后一天的通宵也是非常有意思。人生中第一次通宵，0点小憩了10分钟左右，之后完全没有很难受的感觉。整个教室挤满了人，没有回去睡觉的……虽然如此，如果是为了我个人的事情，我是绝对不会通宵的。 我也很想变的强一点，想一个更好的模型云云。美赛结束就已经29日了，再过一个礼拜就春节了。29日到除夕这个礼拜就完全是放飞自我的状态，每天打网游、补番、刷小说，干着自己每次放假都会干的事。把自己玩过的游戏一个个地玩过来，没有一个游戏能让我玩超过半天。我已经不再年轻了，曾经陪我一起打网游的人，现在也都各奔东西，再也找不到曾今的感觉了。而那些游戏，也随之失去了意义。嘛总之，花了不超过两周吧，把那些令人放纵的东西都玩腻了，把目光转向修养身心的东西上。 阅读文学类的从学期结束之前就已经在知米阅读上看原版的《时间机器》和《弗兰肯斯坦》，也不是会每天都读，会把情节攒起来一口气看。开学之后必须要养成每日打卡的习惯了，因为没什么时间能一口气看了。 非文学类的看了《万万没想到》、《csapp》、《算法》，这三本都是只看了10页的那种看，真正看的主要是老师要求的《漏洞分析》。 春节的时候，我轻哼：三个礼拜二十一天三百页十七章，按照我三天四章的速度，真的是绰绰有余。今天已经是寒假最后一天了，我正好看了一半。 有些时候吧，求其上者得其中，这种感觉真的实在是太强烈了。像我这种懒惰的人，在设定目标的时候就应该设置的高一点。压力对我来说并不是朋友，在高压下我只会惊慌失措，只有在心情平稳的时候我的效率才是最高的。所以说，大段的连续的时间是我必须要全神贯注地工作学习的时候。 有的时候我会问自己：我这是在干什么？当舍友告诉我他因为组会没法参加而决定退出的时候，我问自己：我是真的喜欢漏洞挖掘所以来到目前的这个实验室吗？我思考问题的时候一直是一种小农思想，即使进入大学这种想法也没法改正过来。过分地关注短期将会得到的利益，而不做长远的考虑。我害怕做出选择，选择之后又患得患失。我还需学习的知识实在是太多了，不知道我学什么能够学好。解决这种选择困难的方法就是安慰自己：我的生活并不会因为这一个选择就能变好，选了就选了，硬着头皮干下去，时间和努力不会亏待你的。 未来规划这个寒假和父母稍微聊了一下关于自己未来准备走的路线。我个人还是非常向往国外的教育的，但是父亲指出我根本不具备一个人在异国独立生活的基本能力。我想想也是，所以还是把目标定在了保研或是考研国内升学的方向。 上个学期给自己定下的每门课不低于85分的目标完美地完成了，更多的还是因为课程考试不难的原因，但是这学期出现了信号与系统和模电，我不敢再轻言不下85了。我渐渐意识到这种单纯以成绩来评价一学期是不科学的，因为这学期我还会有实验室的工作要做，难免会占去学习课内知识的时间。 我这学期的计划是信安的专业课我绝对是放在第一优先级的事情，然后再是电院的平台课，中间穿插实验室的研究吧。 写的非常的乱，但都是心底想说的话，暂且作为人生这一小段时光的总结吧。]]></content>
       <categories>
         <category>SJTU</category>
@@ -34,7 +23,7 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[与父母谈谈未来规划]]></title>
+    <title><![CDATA[Future]]></title>
     <url>%2F2019%2F02%2F17%2FFuture%2F</url>
     <content type="text"><![CDATA[刚刚和父母聊了聊他们对于我未来的规划，重大的选择之前，我总是会考虑他们的意见。 无论对我的任何选择，母亲总是会理解我、支持我，而父亲则是站在了一个完全理性的角度给我指明可预见的最好的那条路。 我说我打算出国，美国太乱的话欧洲也可以。 父亲指出：我目前自理能力全无，衣食住行没有一样是能够独立的。以我的能力，能申请到的也都是些野鸡学校。 我反驳，我自理能力确实不行，但是我绝对能申请到名校！ 父亲说，现在已经不是改革开放了，大家都挤破头往外国去。目前外国的毕业生在就业市场上并没有什么什么优势。 我沉默了。 如果最终的目标还是回国工作的话，为什么要舍近求远呢？ # 晚餐后看了一篇毕世门的推送，感觉自己的内心好像又开始动摇了 想想父母的话，我又觉得心安了。 这是机会啊学了什么会了什么目前有些什么想法任何问题都可以问 大学生涯综述目前掌握的技能一点点把自己培养成技术人员该达到的水平 学习到的 读过的书 网络是怎样连接的 网络部 户根勤 密码学 jsdom编程艺术 编程语言类 课程ics 使用过c/c++/简易汇编/python/matlab/java/js/html/css/ ctf Linux/mac -&gt; 实验室 软件漏洞分析 人工智能的方法 漏洞分析学校的课程软硬皆功 理财 基金 背单词 小说 课余活动 志愿者 团体活动学生组织课业做ps 不会设计 想退实验室 看书 尽快地 运动比较少与人交流比较少认识的朋友也 想法长远考虑读硕士 不读博士走业界 不走学界 读完硕士 在国内就职 不想就简简单单写代码]]></content>
       <categories>
@@ -64,11 +53,6 @@
       </tags>
   </entry>
   <entry>
-    <title></title>
-    <url>%2F2019%2F01%2F19%2FREADME%2F</url>
-    <content type="text"><![CDATA[title: Hello WorldWelcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
-  </entry>
-  <entry>
     <title><![CDATA[Sophomore Fall Final]]></title>
     <url>%2F2019%2F01%2F11%2FFinal%2F</url>
     <content type="text"><![CDATA[剩余的课程已经没有剩余的考试了感谢自己到最后都没有放弃我自己感谢自己又熬过了一个期末这真是我度过的最难受的一个期末了看这考试列表里的科目被一门一门地划掉原来最多只能有6级标题 随便写点吧看这考试列表里的科目被一门一门地划掉，现在一个人在寝室里安享这静谧的午后：熟悉的atom界面时隔一周又能够打开了，可以放心地在空调间里脱去棉袄而不用担心着凉感冒了，这个午后注定是我一生中独特的、无所顾虑的午后。 总结一下这次考试周从后往前吧，概统是我复习的最不充分的一门。理力考前一天凌晨3点梦中惊醒，发现自己浑身是汗，被子都出湿了，然后入睡困难，爬起来听歌，再睡，第二天战略性地睡懒觉。 我给自己的压力实在太大了，这也和我这学期平时确实没有好好学习有关。实力没有，靠前虚，还想考个好成绩。现在回想起来，真的是太难受了。 我宁愿回高中考垫底、也不想在大学面临挂科的压力而学习了。 整理一下接下来要做的事情一件事情的结束永远意味着另外一件事情的开始 考完试，专业的老师就立马开了专业介绍会 好让我们想清楚自己剩下的2.5年在交大的生活该怎么过 我对自己的未来感到摇摆不定了 我想出国，但是不一定想读博士，但是老师却说在国外最好待满5年，别2年就回来，会被别人瞧不起。 但是无论如何，无论工作、保研、出国选择哪一条路 学习永远是排在第一位的 永远记住 学习永远是排在第一位的 梳理一下接下来的工作 准备数学建模竞赛 扫题 写作业 实验室 看书 写读书报告 自己看算法 用java实现 看一看下学期专业课的内容，最好预习起来 预约姚医生 学期总结考试周结束的这个周末，我车也开了，王者荣耀也打过了，小说也熬夜看过了，漫画也看过了，斗地主也打了。 该放纵自己的事情差不多全干完了，该收收心好好学习了。 我时刻提醒着自己不要忘记了我迈入交大第一天时自己的心情。 那可能是我本科期间最充满自信的一段时光 走到哪儿都是挺直了腰杆的，高傲的男孩 如今他在哪儿？ 相信自己能够成为自己心中的那个人 你的目标在哪儿？ 你后悔你当初考入交大的决定吗？ 我永远都不会后悔]]></content>
@@ -94,7 +78,7 @@
   </entry>
   <entry>
     <title><![CDATA[07-图5 Saving James Bond - Hard Version]]></title>
-    <url>%2F2018%2F10%2F17%2F07-%E5%9B%BE5%20Saving%20James%20Bond%20-%20Hard%20Version%2F</url>
+    <url>%2F2018%2F10%2F17%2FDS-07-%E5%9B%BE5%2F</url>
     <content type="text"><![CDATA[LinksHere ThoughtsHow to use the function qsort() parameters: qsort(void * array, int numberofcells, int sizeofeachcell, function cmp) function cmp: cmp(const void * a, const void * b) &#123;12 return ((*pointer* to the type of the elements waiting to be sorted)a)-&gt;some attribute of the element - ...b;&#125; It is certainly a great habbit to write comments while writing the codesTalk is cheap, show me your Codes123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103#include &lt;iostream&gt;#include &lt;cmath&gt;#include &lt;cstdlib&gt;#define max 102const int radius = 50;int maxtime = max;struct node &#123; //crocodile -- node int x, y; //position label x and y bool flag; //true if the crocodile is close enough to the beach node * precedent; //pointer to the previous crocodile double distance; //distance to the previous crocodile int nodetime; //attribute that trace the distance from island&#125;;struct Stack &#123; //stack to implement the closest way node * stack[max * 2]; int sp; node * Pop()&#123;return stack[sp--];&#125; void Push(node * ptr)&#123;stack[++sp] = ptr;&#125;&#125;;node croco[max]; //all the crocodiles are kept in this arrayStack priostack; //priority stacknode * FinalNode = NULL;//keep the exitusing namespace std;double getdis(int x1, int y1, int x2, int y2);void dfs(node * ptr, int n, int d, node * pre, int times);int cmp(const void * a, const void * b);int main(int argc, char const *argv[]) &#123; freopen("../test.txt", "r", stdin); int n, d;cin &gt;&gt; n &gt;&gt; d; priostack.sp = -1; for (int i = 0; i &lt; n; ++i) &#123; //inialization cin &gt;&gt; croco[i].x &gt;&gt; croco[i].y; croco[i].flag = radius - abs(croco[i].x) &lt;= d || radius - abs(croco[i].y) &lt;= d; croco[i].precedent = NULL; croco[i].distance = 0; croco[i].nodetime = max; &#125; //first iteration for (int i = 0; i &lt; n; ++i) &#123; if (getdis(0,0,croco[i].x,croco[i].y)&lt;=7.5+d) &#123; croco[i].distance = getdis(0,0,croco[i].x,croco[i].y); priostack.Push(&amp;croco[i]); &#125; &#125; if (priostack.sp+1 &gt; 1) qsort(&amp;priostack.stack[0], priostack.sp+1, sizeof(node*), cmp); int cnt = 0, num = priostack.sp + 1; while (cnt++ &lt; num) dfs(priostack.Pop(),n,d,NULL,1); //out put section if (maxtime == max) cout &lt;&lt; 0; else if (d &gt;= 43) cout &lt;&lt; 1; else &#123; int outputcnt = 0; while (FinalNode) &#123; outputcnt++; priostack.Push(FinalNode); FinalNode = FinalNode-&gt;precedent; &#125; cout &lt;&lt; outputcnt + 1 &lt;&lt; endl; while (outputcnt--) &#123; FinalNode = priostack.Pop(); cout &lt;&lt; FinalNode-&gt;x &lt;&lt; ' ' &lt;&lt; FinalNode-&gt;y &lt;&lt; endl; &#125; &#125; return 0;&#125;void dfs(node * ptr, int n, int d, node * pre, int times) &#123; ptr-&gt;precedent = pre; if (ptr-&gt;flag &amp;&amp; times &lt; maxtime) &#123; maxtime = times; FinalNode = ptr; &#125; ptr-&gt;nodetime = times; int bp = priostack.sp; for (int i = 0; i &lt; n; ++i) &#123; if (croco[i].nodetime&gt;times+1 &amp;&amp; getdis(ptr-&gt;x,ptr-&gt;y,croco[i].x,croco[i].y)&lt;=d) &#123; croco[i].distance = getdis(0,0,croco[i].x,croco[i].y); priostack.Push(&amp;croco[i]); &#125; &#125; int num = priostack.sp - bp; if (num &gt; 1) qsort(&amp;priostack.stack[bp+1], (size_t)priostack.sp-bp, sizeof(node*), cmp); int cnt = 0; while (cnt++ &lt; num) dfs(priostack.Pop(),n,d,ptr,times+1);&#125;int cmp(const void * a, const void * b) &#123; double d = (*((node**)b))-&gt;distance - (*((node**)a))-&gt;distance; return d &gt; 0 ? 1 : -1;&#125;double getdis(int x1, int y1, int x2, int y2) &#123; double ret = sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2)); return ret;&#125;]]></content>
       <categories>
         <category>数据结构与算法</category>
@@ -105,7 +89,7 @@
   </entry>
   <entry>
     <title><![CDATA[A Woman decays like this]]></title>
-    <url>%2F2018%2F10%2F12%2FWoman%2F</url>
+    <url>%2F2018%2F10%2F12%2FWoman-translate%2F</url>
     <content type="text"><![CDATA[一个女人是这样衰老的1When I was twenty, walked around the campus in a vested denim skirt, my face flushed as my mouth open. Now I am thirty, sitting in my office and scolding my subordinates, crulty written on my face, “How can you dare to ask such a silly question before even making a draft?” 二十岁的时候，我穿着一条背心式牛仔裙在校园里走来走去，一说话就脸红。 三十岁的我穿着名牌套装，坐在办公桌前，满脸冷酷地对下属说：“这么愚蠢的问题你也敢问？也不先打个草稿。” 2When I was twenty, the books borrowed from the library were The Complete Works of Shakespeare, Self-portrait of a young artist and Ulysses. Now I am in my thirties, on the bedside table lays The scrects of following the banker, ELLE and A manager’s personal charm. 二十岁的时候，从图书馆借的是《莎士比亚全集》、《一个青年艺术家的自画像》和《尤里西斯》。 三十岁之后，床头摆的是《跟庄密笈》、《ELLE》和《经理人的个人魅力》. 3In the summer of my twenty, met the boy I crushed who was said to be admitted to a graduate school. Dismayed by the progress he had made, my heart torn with grief and my tears droped as it occured to me that it was beyond my whole life to become elegent enough so that he could gave me a glance. After thirty, searching everywhere for a bought MBA. 二十岁的暑假，在家乡的大街上偶遇自己的暗恋对象，听说他考上了研究生，被他的进步所打击，心如刀绞，想到这辈子终于不能出色得让他看我一眼，不禁怅然泪下。 三十岁之后，到处打听那里可以花钱买个MBA. 4In my twenty, indicating my age from time to time, even before they asked. After thirty, find it an odious thing when asked about age. If you do, “have a guess”. 二十岁的时候，随时随地向人透露我的年龄，答得比问的还快。 三十岁之后，最恨别人问年龄，你要是非问不可，你猜啊。 5In my twenty, overwhelmed with the idea to date with boys majoring in sports or arts. After thirty, regard myself then as an idiot. 二十岁的时候，一心想和体育系、美术系的男生约会。 三十岁后，我简直认为自己当年是白痴。 6In my twenty, saw a bookstore and went in, have books there and bought. After thirty, turn a blind eye to bookstores and directly went into the Beauty Salon next door. 二十岁的时候，有书店必须逛，有书必买。 三十岁之后，对书店视而不见，直接去了隔壁的美容院。 7In my twenty, bet on myself that I wasn’t as outdated as defending this place till dead. Live elsewhere. After thirty, run out of my legs for a house in this city that I satisfied and can afford. 二十岁的时候，打赌说我这辈子不可能土到死守在一个地方，生活在别处嘛。 三十岁之后，我为了在这座城市买个满意又便宜的房子跑断了双腿. 8In my twenty, went to a movie with someone at night. Hand in hand without conscious which made me happy for a whole summer. After thirty, sitting in the revolving restaurant of Shangri-La Hotel to accompany clients and eat self help meals. As the restaurant rotates slowly, I feels an unknow inanity and suddenly grows boring toward the whole world. 二十岁的时候，和某个人晚上一起去看了场电影，不经意中拉了一次手，结果幸福了整整一个夏天。 三十岁之后，坐在香格里拉酒店的旋转餐厅陪客户吃自主助餐，在缓缓的转动之中，莫名其妙地一阵空虚，突然间对一切感到索然无味 Acknowledgement 周可, my handsome roommate who inspired me to translate this passage that moved me so much.]]></content>
       <categories>
         <category>translation</category>
@@ -127,7 +111,7 @@
   </entry>
   <entry>
     <title><![CDATA[02-线性结构1 两个有序链表序列的合并]]></title>
-    <url>%2F2018%2F09%2F14%2F02-%E7%BA%BF%E6%80%A7%E7%BB%93%E6%9E%841%20%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E9%93%BE%E8%A1%A8%E5%BA%8F%E5%88%97%E7%9A%84%E5%90%88%E5%B9%B6%2F</url>
+    <url>%2F2018%2F09%2F14%2FDS-02-%E7%BA%BF%E6%80%A7%E7%BB%93%E6%9E%841%2F</url>
     <content type="text"><![CDATA[感想 写程序题实在是太麻烦了 好久没用malloc了，连头指针和头结点都分不清楚了。 使用头结点可以很方便地解决很多的问题 源代码123456789101112131415161718192021222324252627282930List Merge( List L1, List L2 )&#123; List head = (List)malloc(sizeof(struct Node)); PtrToNode current = head; PtrToNode ptr1 = L1-&gt;Next; PtrToNode ptr2 = L2-&gt;Next; while (1) &#123; if (!ptr1) &#123; current-&gt;Next = ptr2; break; &#125; if (!ptr2) &#123; current-&gt;Next = ptr1; break; &#125; if (ptr1-&gt;Data &lt; ptr2-&gt;Data) &#123; current-&gt;Next = ptr1; current = ptr1; ptr1 = ptr1-&gt;Next; &#125;else&#123; current-&gt;Next = ptr2; current = ptr2; ptr2 = ptr2-&gt;Next; &#125; &#125; L1-&gt;Next = NULL; L2-&gt;Next = NULL; return head;&#125; 顺便把二分查找的代码也贴上来12345678910111213Position BinarySearch( List L, ElementType X )&#123; int start = 1, end = L-&gt;Last, mid; while (start&lt;=end) &#123; mid = (start + end) / 2; if (L-&gt;Data[mid]&lt;X) &#123; start = mid + 1; &#125;else if (L-&gt;Data[mid]&gt;X) &#123; end = mid - 1; &#125;else if (L-&gt;Data[mid]==X) return mid; &#125; return NotFound;&#125;]]></content>
       <categories>
         <category>数据结构与算法</category>
@@ -138,7 +122,7 @@
   </entry>
   <entry>
     <title><![CDATA[03-树2 List Leaves]]></title>
-    <url>%2F2018%2F09%2F14%2F03-%E6%A0%912%20List%20Leaves%2F</url>
+    <url>%2F2018%2F09%2F14%2FDS-03-%E6%A0%912%2F</url>
     <content type="text"><![CDATA[thoughts 重要的细节，也是全部写完之后发现的唯一一个错误：char的数字向int装换的时候要-‘0’； 实现细节，就是给每一个节点一个完全二叉树时的序号，然后sort qsort的具体使用细节 参数表：qsort(void *, num, sizeof(), cmp) cmp的参数：int cmp(const void front, const void rear)，不可以自己改 return的参数：返回正数就是说 cmp 传入参数第一个要放在第二个后面, 负数就是传入参数第一个要放第二个前面, 如果是 0, 那就无所谓谁前谁后. ‘’+’’ 需要swap ‘’-‘’ 不要交换 int cmp(const void small, const void big) return small - big 从小到大 codes123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293#include &lt;iostream&gt;#include &lt;cstdlib&gt;using namespace std;struct node &#123; int data; bool leaf; unsigned int pos; char left; char right;&#125;;int readtree(node * tree, int n, int * num);void attachweight(node * tree, int ptr, int weight);void printleaf(node * tree, int n);int cmp(const void * front, const void * rear);int main(int argc, char const *argv[]) &#123; freopen("D:\\SJTU\\Freshman Summer\\DS\\test.txt", "r", stdin); int n;cin &gt;&gt; n; node * tree = new node [n]; int leafnum = 0; int head = readtree(tree,n,&amp;leafnum); //cout &lt;&lt; head; attachweight(tree,head,1); //cout &lt;&lt; "attach done"; qsort(tree,n,sizeof(node),cmp); //cout &lt;&lt; "sorted"; printleaf(tree,leafnum); delete [] tree; return 0;&#125;void printleaf(node * tree, int n) &#123; int cnt = 0; for (int i = 0; true; i++) &#123; if (tree[i].leaf) &#123; cout &lt;&lt; tree[i].data; ++cnt; if (cnt!=n) &#123; cout &lt;&lt; ' '; &#125;else return; &#125; &#125;&#125;int cmp(const void * front, const void * rear) &#123; int ret = ((node*)front)-&gt;pos - ((node*)rear)-&gt;pos; return ret;&#125;void attachweight(node * tree, int ptr, int weight) &#123; tree[ptr].pos = weight; if (tree[ptr].left!='-') &#123; attachweight(tree,tree[ptr].left-'0',2*weight); &#125; if (tree[ptr].right!='-') &#123; attachweight(tree,tree[ptr].right-'0',2*weight+1); &#125;&#125;int readtree(node * tree, int n, int * num) &#123; bool * ishead = new bool [n]; for (int i = 0; i &lt; n; i++) &#123; ishead[i] = true; &#125; for (int i = 0; i &lt; n; i++) &#123; tree[i].data = i; tree[i].leaf = true; cin &gt;&gt; tree[i].left &gt;&gt; tree[i].right; if (tree[i].left!='-') &#123; tree[i].leaf = false; ishead[tree[i].left-'0'] = false; &#125; if (tree[i].right!='-') &#123; tree[i].leaf = false; ishead[tree[i].right-'0'] = false; &#125; if (tree[i].leaf) &#123; (*num)++; &#125; &#125; int head = 0; for (int i = 0; i &lt; n; i++) &#123; if (ishead[i]==true) &#123; head = i; break; &#125; &#125; delete [] ishead; return head;&#125;]]></content>
       <categories>
         <category>数据结构与算法</category>
@@ -149,7 +133,7 @@
   </entry>
   <entry>
     <title><![CDATA[02-线性结构4 Pop Sequence]]></title>
-    <url>%2F2018%2F09%2F14%2F02-%E7%BA%BF%E6%80%A7%E7%BB%93%E6%9E%844%20Pop%20Sequence%2F</url>
+    <url>%2F2018%2F09%2F14%2FDS-02-%E7%BA%BF%E6%80%A7%E7%BB%93%E6%9E%844%2F</url>
     <content type="text"><![CDATA[thoughts too simple: just stack simulation 这一次真的是爽啊，一次性过，代码简洁没有任何冗余的边界调试 这样的题目是可遇而不可求啊！ 我用树和用图也要达到我用堆的这样的境界！ codes12345678910111213141516171819202122232425262728293031323334#include &lt;iostream&gt;using namespace std;bool check(int m, int n);int main(int argc, char const *argv[]) &#123; int m, n, k;cin &gt;&gt; m &gt;&gt; n &gt;&gt; k; for (int i = 0; i &lt; k; i++) &#123; bool valid = check(m,n); if (valid) cout &lt;&lt; "YES" &lt;&lt; endl; else cout &lt;&lt; "NO" &lt;&lt; endl; &#125; return 0;&#125;bool check(int m, int n) &#123; int * stack = new int [n], stk = -1; int * store = new int [n], str = 0; for (int i = 0; i &lt; n; i++) &#123; cin &gt;&gt; store[i]; &#125; bool valid = false; for (int topush = 1; topush &lt;= n; topush++) &#123; stack[++stk] = topush; if (stk==m) break; while (stk!=-1 &amp;&amp; store[str]==stack[stk]) &#123; stk--;str++; &#125; &#125; if (stk==-1) valid = true; delete [] stack; return valid;&#125;]]></content>
       <categories>
         <category>数据结构与算法</category>
@@ -160,7 +144,7 @@
   </entry>
   <entry>
     <title><![CDATA[01-复杂度2 Maximum Subsequence Sum]]></title>
-    <url>%2F2018%2F09%2F12%2F01-%E5%A4%8D%E6%9D%82%E5%BA%A62%20Maximum%20Subsequence%20Sum%2F</url>
+    <url>%2F2018%2F09%2F12%2FDS-01-%E5%A4%8D%E6%9D%82%E5%BA%A62%2F</url>
     <content type="text"><![CDATA[主要做的几个改动 引入track变量来控制ij的记录时间点 修补了maxsum=0的一个小bug 反思 好好看清楚题目再做很重要，不要觉得自己做过一遍就有多懂了，还不是花了2h多吗，看看清楚要输出序号还是要输出值。]]></content>
       <categories>
         <category>数据结构与算法</category>
@@ -171,7 +155,7 @@
   </entry>
   <entry>
     <title><![CDATA[02-线性结构3 Reversing Linked List]]></title>
-    <url>%2F2018%2F09%2F12%2F02-%E7%BA%BF%E6%80%A7%E7%BB%93%E6%9E%843%20Reversing%20Linked%20List%2F</url>
+    <url>%2F2018%2F09%2F12%2FDS-02-%E7%BA%BF%E6%80%A7%E7%BB%93%E6%9E%843%2F</url>
     <content type="text"><![CDATA[进展 时间 进展 2018年9月12日中午 到目前为止还有两个测试点没过一个是全部反转，我测试的时候是对的呀；还有一个是超时 2018年9月13日21:02:58 AC 难点 容易想到一些歪门邪道，比如说我第一次想到的排序方法。 模拟内存的想法。 具体进行逆转的时候的操作 反思 做OJ的题目有一些注意事项是你不得不放在心上的 边界条件 代码1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980#include &lt;iostream&gt;#include &lt;iomanip&gt;#define max 100005using namespace std;struct node &#123; int ads; int data; int next;&#125;;node memory[max];int getlength(node * head);node * reverse(node * head, int k);void print(node * head, int length);int main(int argc, char const *argv[]) &#123; freopen("D:\\SJTU\\Freshman Summer\\DS\\test.txt", "r", stdin); int ads, n, k;cin &gt;&gt; ads &gt;&gt; n &gt;&gt; k; int address, data, next; for (int i = 0; i &lt; n; i++) &#123; cin &gt;&gt; address &gt;&gt; data &gt;&gt; next; memory[address].ads = address; memory[address].data = data; memory[address].next = next; &#125; node head, *headptr; head.next = ads; headptr = &amp;head; int length = getlength(headptr); for (size_t i = k; i &lt;= length; i+=k) &#123; int front = headptr-&gt;next; headptr-&gt;next = reverse(headptr,k)-&gt;ads; headptr = &amp;memory[front]; //print(&amp;head,length);cout &lt;&lt; endl; &#125; headptr = &amp;head; print(headptr,length); return 0;&#125;node * reverse(node * head, int k) &#123; node * front = &amp;memory[head-&gt;next]; node * rear = &amp;memory[front-&gt;next]; node * temp; int cnt = 1; while (cnt&lt;k) &#123; temp = &amp;memory[rear-&gt;next]; rear-&gt;next = front-&gt;ads; front = rear; rear = temp; cnt++; &#125; memory[head-&gt;next].next = rear-&gt;ads; return front;&#125;int getlength(node * head) &#123; int cnt = 0, adds = head-&gt;next; while (adds!=-1) &#123; cnt++; adds = memory[adds].next; &#125; return cnt;&#125;void print(node * head, int length) &#123; node * ptr = &amp;memory[head-&gt;next]; for (size_t i = 0; i &lt; length; i++) &#123; cout &lt;&lt; setw(5) &lt;&lt; setfill('0') &lt;&lt; ptr-&gt;ads; cout &lt;&lt; ' ' &lt;&lt; ptr-&gt;data &lt;&lt; ' '; if ( i==length-1 ) cout &lt;&lt; "-1"; else cout &lt;&lt; setw(5) &lt;&lt; setfill('0') &lt;&lt; ptr-&gt;next &lt;&lt; endl; ptr = &amp;memory[ptr-&gt;next]; &#125;&#125;]]></content>
       <categories>
         <category>数据结构与算法</category>
@@ -239,7 +223,7 @@
   </entry>
   <entry>
     <title><![CDATA[自搭梯子翻越GFW]]></title>
-    <url>%2F2018%2F08%2F12%2Facross-GFW%2F</url>
+    <url>%2F2018%2F08%2F12%2FGFW%2F</url>
     <content type="text"><![CDATA[主要借鉴 十分钟搭建自己的科学上网SSR梯子非常感谢！ 思路 首先你得先租借好专用的VPS，推荐的有Digitalocean和Vultr 我先是试了试Singapore的服务器发现很慢，于是换了LA的，爽的不行。 然后就是在登陆服务器之后通过rrsmu.sh脚本安装ShadowsocksR 最后在自己的客户端装上SSR 奇迹就这样发生了]]></content>
   </entry>
   <entry>
@@ -316,7 +300,7 @@
   </entry>
   <entry>
     <title><![CDATA[Reinstall my Win7 Ultimate]]></title>
-    <url>%2F2018%2F02%2F10%2FUltimate%2F</url>
+    <url>%2F2018%2F02%2F10%2FWin7-SSD%2F</url>
     <content type="text"><![CDATA[TriggersMy old ThinkPad E430c, which my father bought in about 2012, is operatering more and more slowly nowadays. A few days ago, it even experienced several bruescreens breakups, and it took me a whole morning to just start it. After examing the hard-drive, I found that it was severely damaged, maybe due to the bumping on the road. So last night, I bought a SSD (TOSHIBA Q200 240G) PreparationsAfter searching the Internet for almost a whole day, I decided to still install the Win7 Ultimate. I also learned a lot through searching. :D I finally found a detailed tutorial called xitongcheng. It guided me to turn my original onlydisk into a USB setup disk. What I need now is only a Win7 system now (from msdn). Place the SSD in place and start your computerHere comes a terrible question.What should I do? I googled it and founded the solution. just type in three commands:123find --set-root /bootmgrchainloader /bootmgrboot and it entered the PE system. Then just choose the Win7 Ultimate. It works. install the DRIVERFirst of all, you should make sure that your computer can have access to the Internet. Then everything went on smoothly without explaination. Inflections I don’t want to reinstall any system any longer! It’s really complicated!]]></content>
   </entry>
 </search>

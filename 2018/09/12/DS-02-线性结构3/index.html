@@ -96,19 +96,18 @@
 
 
 
-  <meta name="description" content="主要借鉴 十分钟搭建自己的科学上网SSR梯子非常感谢！  思路 首先你得先租借好专用的VPS，推荐的有Digitalocean和Vultr 我先是试了试Singapore的服务器发现很慢，于是换了LA的，爽的不行。 然后就是在登陆服务器之后通过rrsmu.sh脚本安装ShadowsocksR 最后在自己的客户端装上SSR  奇迹就这样发生了">
+  <meta name="description" content="进展   时间 进展     2018年9月12日中午 到目前为止还有两个测试点没过一个是全部反转，我测试的时候是对的呀；还有一个是超时   2018年9月13日21:02:58 AC    难点 容易想到一些歪门邪道，比如说我第一次想到的排序方法。 模拟内存的想法。 具体进行逆转的时候的操作  反思 做OJ的题目有一些注意事项是你不得不放在心上的 边界条件    代码12345678910111">
+<meta name="keywords" content="中国大学MOOC-陈越、何钦铭-数据结构-2018秋">
 <meta property="og:type" content="article">
-<meta property="og:title" content="自搭梯子翻越GFW">
-<meta property="og:url" content="https://ainevsia.github.io/2018/08/12/across-GFW/index.html">
+<meta property="og:title" content="02-线性结构3 Reversing Linked List">
+<meta property="og:url" content="https://ainevsia.github.io/2018/09/12/DS-02-线性结构3/index.html">
 <meta property="og:site_name" content="Ainevsia&#39;s Blog">
-<meta property="og:description" content="主要借鉴 十分钟搭建自己的科学上网SSR梯子非常感谢！  思路 首先你得先租借好专用的VPS，推荐的有Digitalocean和Vultr 我先是试了试Singapore的服务器发现很慢，于是换了LA的，爽的不行。 然后就是在登陆服务器之后通过rrsmu.sh脚本安装ShadowsocksR 最后在自己的客户端装上SSR  奇迹就这样发生了">
+<meta property="og:description" content="进展   时间 进展     2018年9月12日中午 到目前为止还有两个测试点没过一个是全部反转，我测试的时候是对的呀；还有一个是超时   2018年9月13日21:02:58 AC    难点 容易想到一些歪门邪道，比如说我第一次想到的排序方法。 模拟内存的想法。 具体进行逆转的时候的操作  反思 做OJ的题目有一些注意事项是你不得不放在心上的 边界条件    代码12345678910111">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://res.cloudinary.com/ainevsia/image/upload/v1550225538/vps-LA.png">
-<meta property="og:updated_time" content="2019-02-15T10:12:41.545Z">
+<meta property="og:updated_time" content="2019-03-02T06:44:12.829Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="自搭梯子翻越GFW">
-<meta name="twitter:description" content="主要借鉴 十分钟搭建自己的科学上网SSR梯子非常感谢！  思路 首先你得先租借好专用的VPS，推荐的有Digitalocean和Vultr 我先是试了试Singapore的服务器发现很慢，于是换了LA的，爽的不行。 然后就是在登陆服务器之后通过rrsmu.sh脚本安装ShadowsocksR 最后在自己的客户端装上SSR  奇迹就这样发生了">
-<meta name="twitter:image" content="https://res.cloudinary.com/ainevsia/image/upload/v1550225538/vps-LA.png">
+<meta name="twitter:title" content="02-线性结构3 Reversing Linked List">
+<meta name="twitter:description" content="进展   时间 进展     2018年9月12日中午 到目前为止还有两个测试点没过一个是全部反转，我测试的时候是对的呀；还有一个是超时   2018年9月13日21:02:58 AC    难点 容易想到一些歪门邪道，比如说我第一次想到的排序方法。 模拟内存的想法。 具体进行逆转的时候的操作  反思 做OJ的题目有一些注意事项是你不得不放在心上的 边界条件    代码12345678910111">
 
 
 
@@ -117,7 +116,7 @@
 
 
 
-  <link rel="canonical" href="https://ainevsia.github.io/2018/08/12/across-GFW/"/>
+  <link rel="canonical" href="https://ainevsia.github.io/2018/09/12/DS-02-线性结构3/"/>
 
 
 
@@ -127,7 +126,7 @@
   };
 </script>
 
-  <title>自搭梯子翻越GFW | Ainevsia's Blog</title>
+  <title>02-线性结构3 Reversing Linked List | Ainevsia's Blog</title>
   
 
 
@@ -387,7 +386,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://ainevsia.github.io/2018/08/12/across-GFW/"/>
+    <link itemprop="mainEntityOfPage" href="https://ainevsia.github.io/2018/09/12/DS-02-线性结构3/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Ainevsia"/>
@@ -404,7 +403,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">自搭梯子翻越GFW
+          <h1 class="post-title" itemprop="name headline">02-线性结构3 Reversing Linked List
 
               
             
@@ -430,7 +429,7 @@
                 
               
 
-              <time title="创建时间：2018年08月12日 20:04:23" itemprop="dateCreated datePublished" datetime="2018-08-12T20:04:23+08:00">2018年08月12日</time>
+              <time title="创建时间：2018年09月12日 14:03:19" itemprop="dateCreated datePublished" datetime="2018-09-12T14:03:19+08:00">2018年09月12日</time>
             
 
             
@@ -447,11 +446,29 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019年02月15日 18:12:41" itemprop="dateModified" datetime="2019-02-15T18:12:41+08:00">2019年02月15日</time>
+                <time title="修改时间：2019年03月02日 14:44:12" itemprop="dateModified" datetime="2019-03-02T14:44:12+08:00">2019年03月02日</time>
               
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/数据结构与算法/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -465,8 +482,8 @@
                 </span>
             
                 <span class="post-meta-item-text">评论数：</span>
-                <a href="/2018/08/12/across-GFW/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/08/12/across-GFW/" itemprop="commentCount"></span>
+                <a href="/2018/09/12/DS-02-线性结构3/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/09/12/DS-02-线性结构3/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -496,7 +513,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">172</span>
+                <span title="本文字数">2.5k</span>
               
 
               
@@ -510,7 +527,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">1 分钟</span>
+                <span title="阅读时长">2 分钟</span>
               
             </div>
           
@@ -530,16 +547,36 @@
       
 
       
-        <h1 id="主要借鉴"><a href="#主要借鉴" class="headerlink" title="主要借鉴"></a>主要借鉴</h1><blockquote>
-<p><a href="https://blog.csdn.net/LuYiming_Ben/article/details/81571950" target="_blank" rel="noopener">十分钟搭建自己的科学上网SSR梯子</a><br>非常感谢！</p>
-</blockquote>
-<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><ul>
-<li>首先你得先租借好专用的VPS，推荐的有<a href="https://www.digitalocean.com/" target="_blank" rel="noopener">Digitalocean</a>和<a href="https://my.vultr.com/" target="_blank" rel="noopener">Vultr</a><br><img src="https://res.cloudinary.com/ainevsia/image/upload/v1550225538/vps-LA.png" alt="vps-LA"></li>
-<li>我先是试了试Singapore的服务器发现很慢，于是换了LA的，爽的不行。</li>
-<li>然后就是在登陆服务器之后通过<code>rrsmu.sh</code>脚本安装ShadowsocksR</li>
-<li>最后在自己的客户端装上SSR</li>
+        <h1 id="进展"><a href="#进展" class="headerlink" title="进展"></a>进展</h1><table>
+<thead>
+<tr>
+<th style="text-align:center">时间</th>
+<th style="text-align:center">进展</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">2018年9月12日中午</td>
+<td style="text-align:center">到目前为止还有两个测试点没过一个是全部反转，我测试的时候是对的呀；还有一个是超时</td>
+</tr>
+<tr>
+<td style="text-align:center">2018年9月13日21:02:58</td>
+<td style="text-align:center">AC</td>
+</tr>
+</tbody>
+</table>
+<h1 id="难点"><a href="#难点" class="headerlink" title="难点"></a>难点</h1><ul>
+<li>容易想到一些歪门邪道，比如说我第一次想到的排序方法。</li>
+<li>模拟内存的想法。</li>
+<li>具体进行逆转的时候的操作</li>
 </ul>
-<p>奇迹就这样发生了</p>
+<h1 id="反思"><a href="#反思" class="headerlink" title="反思"></a>反思</h1><ul>
+<li>做OJ的题目有一些注意事项是你不得不放在心上的<ul>
+<li>边界条件</li>
+</ul>
+</li>
+</ul>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iomanip&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> max 100005</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> ads;</span><br><span class="line">    <span class="keyword">int</span> data;</span><br><span class="line">    <span class="keyword">int</span> next;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">node memory[max];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getlength</span><span class="params">(node * head)</span></span>;</span><br><span class="line"><span class="function">node * <span class="title">reverse</span><span class="params">(node * head, <span class="keyword">int</span> k)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(node * head, <span class="keyword">int</span> length)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span> </span>&#123;</span><br><span class="line">    freopen(<span class="string">"D:\\SJTU\\Freshman Summer\\DS\\test.txt"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>);</span><br><span class="line">    <span class="keyword">int</span> ads, n, k;<span class="built_in">cin</span> &gt;&gt; ads &gt;&gt; n &gt;&gt; k;</span><br><span class="line">    <span class="keyword">int</span> address, data, next;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; address &gt;&gt; data &gt;&gt; next;</span><br><span class="line">        memory[address].ads = address;</span><br><span class="line">        memory[address].data = data;</span><br><span class="line">        memory[address].next = next;</span><br><span class="line">    &#125;</span><br><span class="line">    node head, *headptr;</span><br><span class="line">    head.next = ads;</span><br><span class="line">    headptr = &amp;head;</span><br><span class="line">    <span class="keyword">int</span> length = getlength(headptr);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">size_t</span> i = k; i &lt;= length; i+=k) &#123;</span><br><span class="line">        <span class="keyword">int</span> front = headptr-&gt;next;</span><br><span class="line">        headptr-&gt;next = reverse(headptr,k)-&gt;ads;</span><br><span class="line">        headptr = &amp;memory[front];</span><br><span class="line">        <span class="comment">//print(&amp;head,length);cout &lt;&lt; endl;</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    headptr = &amp;head;</span><br><span class="line">    print(headptr,length);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">node * <span class="title">reverse</span><span class="params">(node * head, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    node * front = &amp;memory[head-&gt;next];</span><br><span class="line">    node * rear = &amp;memory[front-&gt;next];</span><br><span class="line">    node * temp;</span><br><span class="line">    <span class="keyword">int</span> cnt = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (cnt&lt;k) &#123;</span><br><span class="line">        temp = &amp;memory[rear-&gt;next];</span><br><span class="line">        rear-&gt;next = front-&gt;ads;</span><br><span class="line">        front = rear;</span><br><span class="line">        rear = temp;</span><br><span class="line">        cnt++;</span><br><span class="line">    &#125;</span><br><span class="line">    memory[head-&gt;next].next = rear-&gt;ads;</span><br><span class="line">    <span class="keyword">return</span> front;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getlength</span><span class="params">(node * head)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> cnt = <span class="number">0</span>, adds = head-&gt;next;</span><br><span class="line">    <span class="keyword">while</span> (adds!=<span class="number">-1</span>) &#123;</span><br><span class="line">        cnt++;</span><br><span class="line">        adds = memory[adds].next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> cnt;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(node * head, <span class="keyword">int</span> length)</span> </span>&#123;</span><br><span class="line">    node * ptr = &amp;memory[head-&gt;next];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">0</span>; i &lt; length; i++) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; setw(<span class="number">5</span>) &lt;&lt; setfill(<span class="string">'0'</span>) &lt;&lt; ptr-&gt;ads;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">' '</span> &lt;&lt; ptr-&gt;data &lt;&lt; <span class="string">' '</span>;</span><br><span class="line">        <span class="keyword">if</span> ( i==length<span class="number">-1</span> ) <span class="built_in">cout</span> &lt;&lt; <span class="string">"-1"</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="built_in">cout</span> &lt;&lt; setw(<span class="number">5</span>) &lt;&lt; setfill(<span class="string">'0'</span>) &lt;&lt; ptr-&gt;next &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        ptr = &amp;memory[ptr-&gt;next];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -559,7 +596,7 @@
           </li>
           <li class="post-copyright-link">
             <strong>本文链接：</strong>
-            <a href="/2018/08/12/across-GFW/" title="自搭梯子翻越GFW">https://ainevsia.github.io/2018/08/12/across-GFW/</a>
+            <a href="/2018/09/12/DS-02-线性结构3/" title="02-线性结构3 Reversing Linked List">https://ainevsia.github.io/2018/09/12/DS-02-线性结构3/</a>
           </li>
           <li class="post-copyright-license">
             <strong>版权声明： </strong>
@@ -580,6 +617,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/中国大学MOOC-陈越、何钦铭-数据结构-2018秋/" rel="tag"># 中国大学MOOC-陈越、何钦铭-数据结构-2018秋</a>
+          
+        </div>
+      
 
       
       
@@ -589,8 +632,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/12/DS-7-4/" rel="next" title="7-4 是否同一棵二叉搜索树">
-                <i class="fa fa-chevron-left"></i> 7-4 是否同一棵二叉搜索树
+              <a href="/2018/08/24/DS-7-10/" rel="next" title="7-10 公路村村通">
+                <i class="fa fa-chevron-left"></i> 7-10 公路村村通
               </a>
             
           </div>
@@ -599,8 +642,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/08/14/DS-7-6/" rel="prev" title="7-6 列出连通集">
-                7-6 列出连通集 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/09/12/DS-01-复杂度2/" rel="prev" title="01-复杂度2 Maximum Subsequence Sum">
+                01-复杂度2 Maximum Subsequence Sum <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -679,7 +722,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">35</span>
+                    <span class="site-state-item-count">33</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -745,9 +788,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-count">13</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -843,7 +884,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#主要借鉴"><span class="nav-number">1.</span> <span class="nav-text">主要借鉴</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思路"><span class="nav-number">2.</span> <span class="nav-text">思路</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#进展"><span class="nav-number">1.</span> <span class="nav-text">进展</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#难点"><span class="nav-number">2.</span> <span class="nav-text">难点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#反思"><span class="nav-number">3.</span> <span class="nav-text">反思</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码"><span class="nav-number">4.</span> <span class="nav-text">代码</span></a></li></ol></div>
             
 
           </div>
@@ -877,7 +918,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">68k</span>
+    <span title="站点总字数">67k</span>
   
 
   
@@ -888,7 +929,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">1:02</span>
+    <span title="站点阅读时长">1:01</span>
   
 </div>
 
