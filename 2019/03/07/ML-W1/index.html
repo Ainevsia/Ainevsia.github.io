@@ -106,7 +106,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/H6qTdZmYEeaagxL7xdFKxA_2f0f671110e8f7446bb2b5b2f75a8874_Screenshot-2016-10-23-20.14.58.png?expiry=1552089600000&hmac=OcPfeFN23lwgrmm7l_RkGIID6ssSzNbRCB5Fei6gvWM">
 <meta property="og:image" content="https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/R2YF5Lj3EeajLxLfjQiSjg_110c901f58043f995a35b31431935290_Screen-Shot-2016-12-02-at-5.23.31-PM.png?expiry=1552089600000&hmac=2dZ56IZcn2hSeASlmgGIKZlc-0y6clLNiFpj6lfInjE">
-<meta property="og:updated_time" content="2019-03-07T12:10:58.043Z">
+<meta property="og:updated_time" content="2019-03-08T05:46:15.540Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Machine Learning Note">
 <meta name="twitter:description" content="What is Machine Learning?Two definitions of Machine Learning are offered.  Arthur Samuel described it as: “the field of study that gives computers the ability to learn without being explicitly program">
@@ -432,12 +432,24 @@
                 
               
 
-              <time title="创建时间：2019年03月07日 17:33:50 / 修改时间：20:10:58" itemprop="dateCreated datePublished" datetime="2019-03-07T17:33:50+08:00">2019年03月07日</time>
+              <time title="创建时间：2019年03月07日 17:33:50" itemprop="dateCreated datePublished" datetime="2019-03-07T17:33:50+08:00">2019年03月07日</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019年03月08日 13:46:15" itemprop="dateModified" datetime="2019-03-08T13:46:15+08:00">2019年03月08日</time>
               
             
           </span>
@@ -504,7 +516,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">5.5k</span>
+                <span title="本文字数">6.3k</span>
               
 
               
@@ -518,7 +530,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">5 分钟</span>
+                <span title="阅读时长">6 分钟</span>
               
             </div>
           
@@ -571,11 +583,15 @@
 <h2 id="Cost-Function"><a href="#Cost-Function" class="headerlink" title="Cost Function"></a>Cost Function</h2><p>We can measure the accuracy of our hypothesis function by using a cost function. This takes an average difference (actually a fancier version of an average) of all the results of the hypothesis with inputs from x’s and the actual output y’s.</p>
 <p>​$J\left(\theta<em>{0}, \theta</em>{1}\right)=\frac{1}{2 m} \sum<em>{i=1}^{m}\limits\left(\hat{y}</em>{i}-y<em>{i}\right)^{2}=\frac{1}{2 m} \sum</em>{i=1}^{m}\limits\left(h<em>{\theta}\left(x</em>{i}\right)-y_{i}\right)^{2}$</p>
 <blockquote>
-<p>注释：方差(Mean squared error)的1/2</p>
+<p>注释：方差(Mean squared error)的1/2。统计学中参数估计部分的内容。</p>
 </blockquote>
 <p>To break it apart, it is $\frac{1}{2}\bar{x}$ where $\bar{x}$ is the mean of the squares of $h<em>{\theta}\left(x</em>{i}\right)-y_{i}$, or the difference between the predicted value and the actual value.</p>
 <p>This function is otherwise called the “Squared error function”, or <strong>“Mean squared error”</strong>. The mean is halved<br>$\left(\frac{1}{2}\right)$ as a convenience for the computation of the gradient descent(梯度下降), as the derivative(导数) term of the square function will cancel out the $\frac{1}{2}$ term. The following image summarizes what the cost function does: </p>
 <p><img src="https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/R2YF5Lj3EeajLxLfjQiSjg_110c901f58043f995a35b31431935290_Screen-Shot-2016-12-02-at-5.23.31-PM.png?expiry=1552089600000&amp;hmac=2dZ56IZcn2hSeASlmgGIKZlc-0y6clLNiFpj6lfInjE" alt=""></p>
+<h2 id="Cost-Function-Intuition-I"><a href="#Cost-Function-Intuition-I" class="headerlink" title="Cost Function - Intuition I"></a>Cost Function - Intuition I</h2><p>If we try to think of it in visual terms, our training data set is scattered on the x-y plane. We are trying to make a straight line (defined by hθ(x)) which passes through these scattered data points.</p>
+<p>Our objective is to get the best possible line. The best possible line will be such so that the average squared vertical distances of the scattered points from the line will be the least. Ideally, the line should pass through all the points of our training data set. In such a case, the value of J(θ0,θ1) will be 0. </p>
+<p>Thus as a goal, we should try to minimize the cost function. In this case, θ1=1 is our global minimum. </p>
+<h2 id="Cost-Function-Intuition-II"><a href="#Cost-Function-Intuition-II" class="headerlink" title="Cost Function - Intuition II"></a>Cost Function - Intuition II</h2><p>A contour plot(等高线地形图) is a graph that contains many contour lines. A contour line of a two variable function has a constant value at all points of the same line.</p>
 
       
     </div>
@@ -883,7 +899,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#What-is-Machine-Learning"><span class="nav-number">1.</span> <span class="nav-text">What is Machine Learning?</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Example-playing-checkers"><span class="nav-number">1.1.</span> <span class="nav-text">Example: playing checkers.</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Machine-Learning-Algorithms"><span class="nav-number">2.</span> <span class="nav-text">Machine Learning Algorithms</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Supervised-Learning"><span class="nav-number">2.1.</span> <span class="nav-text">Supervised Learning</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Unsupervised-Learning"><span class="nav-number">2.2.</span> <span class="nav-text">Unsupervised Learning</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linear-Regression"><span class="nav-number">3.</span> <span class="nav-text">Linear Regression</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Model-Representation"><span class="nav-number">3.1.</span> <span class="nav-text">Model Representation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cost-Function"><span class="nav-number">3.2.</span> <span class="nav-text">Cost Function</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#What-is-Machine-Learning"><span class="nav-number">1.</span> <span class="nav-text">What is Machine Learning?</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Example-playing-checkers"><span class="nav-number">1.1.</span> <span class="nav-text">Example: playing checkers.</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Machine-Learning-Algorithms"><span class="nav-number">2.</span> <span class="nav-text">Machine Learning Algorithms</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Supervised-Learning"><span class="nav-number">2.1.</span> <span class="nav-text">Supervised Learning</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Unsupervised-Learning"><span class="nav-number">2.2.</span> <span class="nav-text">Unsupervised Learning</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linear-Regression"><span class="nav-number">3.</span> <span class="nav-text">Linear Regression</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Model-Representation"><span class="nav-number">3.1.</span> <span class="nav-text">Model Representation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cost-Function"><span class="nav-number">3.2.</span> <span class="nav-text">Cost Function</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cost-Function-Intuition-I"><span class="nav-number">3.3.</span> <span class="nav-text">Cost Function - Intuition I</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cost-Function-Intuition-II"><span class="nav-number">3.4.</span> <span class="nav-text">Cost Function - Intuition II</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -917,7 +933,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">73k</span>
+    <span title="站点总字数">74k</span>
   
 
   
@@ -928,7 +944,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">1:06</span>
+    <span title="站点阅读时长">1:07</span>
   
 </div>
 
