@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Machine Learning Note Week 2]]></title>
+    <url>%2F2019%2F03%2F11%2FML-W2%2F</url>
+    <content type="text"><![CDATA[Multiple FeaturesLinear regression with multiple variables is also known as “multivariate linear regression”. We now introduce notation for equations where we can have any number of input variables. Gradient Descent in Practice I - Feature Scaling 特征缩放We can speed up gradient descent by having each of our input values in roughly the same range. This is because θ will descend quickly on small ranges and slowly on large ranges, and so will oscillate inefficiently down to the optimum when the variables are very uneven. The way to prevent this is to modify the ranges of our input variables so that they are all roughly the same. The goal is to get all input variables into roughly one of these ranges, give or take a few. Two techniques to help with this are feature scaling and mean normalization. Feature scaling involves dividing the input values by the range (i.e. the maximum value minus the minimum value) of the input variable, resulting in a new range of just 1. Mean normalization involves subtracting the average value for an input variable from the values for that input variable resulting in a new average value for the input variable of just zero. To implement both of these techniques, adjust your input values as shown in this formula: $x{i} :=\frac{x{i}-\mu{i}}{s{i}}$ Note that dividing by the range, or dividing by the standard deviation, give different results. The quizzes in this course use range - the programming exercises use standard deviation. Normal EquationGradient descent gives one way of minimizing J. Let’s discuss a second way of doing so, this time performing the minimization explicitly and without resorting to an iterative algorithm. In the “Normal Equation” method, we will minimize J by explicitly taking its derivatives with respect to the θj ’s, and setting them to zero. This allows us to find the optimum theta without iteration. The normal equation formula is given below: $\theta=\left(X^{T} X\right)^{-1} X^{T} y$ round off 四舍五入]]></content>
+      <categories>
+        <category>SJTU</category>
+      </categories>
+      <tags>
+        <tag>MachineLearning</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Anagram]]></title>
     <url>%2F2019%2F03%2F09%2Fanagram%2F</url>
     <content type="text"><![CDATA[一个很有意思的易位构词本来想在寝室四人的合影上刻上一句话 结果想到了易位构词 Three hero outwit few gamer. Together with me, we are four.]]></content>
@@ -45,17 +56,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Future]]></title>
-    <url>%2F2019%2F02%2F17%2FFuture%2F</url>
-    <content type="text"><![CDATA[刚刚和父母聊了聊他们对于我未来的规划，重大的选择之前，我总是会考虑他们的意见。 无论对我的任何选择，母亲总是会理解我、支持我，而父亲则是站在了一个完全理性的角度给我指明可预见的最好的那条路。 我说我打算出国，美国太乱的话欧洲也可以。 父亲指出：我目前自理能力全无，衣食住行没有一样是能够独立的。以我的能力，能申请到的也都是些野鸡学校。 我反驳，我自理能力确实不行，但是我绝对能申请到名校！ 父亲说，现在已经不是改革开放了，大家都挤破头往外国去。目前外国的毕业生在就业市场上并没有什么什么优势。 我沉默了。 如果最终的目标还是回国工作的话，为什么要舍近求远呢？ # 晚餐后看了一篇毕世门的推送，感觉自己的内心好像又开始动摇了 想想父母的话，我又觉得心安了。 这是机会啊学了什么会了什么目前有些什么想法任何问题都可以问 大学生涯综述目前掌握的技能一点点把自己培养成技术人员该达到的水平 学习到的 读过的书 网络是怎样连接的 网络部 户根勤 密码学 jsdom编程艺术 编程语言类 课程ics 使用过c/c++/简易汇编/python/matlab/java/js/html/css/ ctf Linux/mac -&gt; 实验室 软件漏洞分析 人工智能的方法 漏洞分析学校的课程软硬皆功 理财 基金 背单词 小说 课余活动 志愿者 团体活动学生组织课业做ps 不会设计 想退实验室 看书 尽快地 运动比较少与人交流比较少认识的朋友也 想法长远考虑读硕士 不读博士走业界 不走学界 读完硕士 在国内就职 不想就简简单单写代码]]></content>
-      <categories>
-        <category>SJTU</category>
-      </categories>
-      <tags>
-        <tag>保研 出国</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[自建服务器]]></title>
     <url>%2F2019%2F02%2F17%2FOpenVpnOnOpenWrt%2F</url>
     <content type="text"><![CDATA[现状目前手上有三台服务器：一台windows，两台linux，还有一台路由器，openwrt固件，上面跑openvpn服务器，客户端安装openvpn客户端实现连接。公网ip从哪里来的还不清楚，暂时默认是从百度云上买来的，算是已知的了。 目标5月份开始正式调试，最多两周的时间要搞定，不想拖的时间太长了。 最终实现的目标是完整地复制已有的路由器的所有功能，目前主要只有openvpn的配置。]]></content>
@@ -64,6 +64,17 @@
       </categories>
       <tags>
         <tag>vpn 计算机网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Future]]></title>
+    <url>%2F2019%2F02%2F17%2FFuture%2F</url>
+    <content type="text"><![CDATA[刚刚和父母聊了聊他们对于我未来的规划，重大的选择之前，我总是会考虑他们的意见。 无论对我的任何选择，母亲总是会理解我、支持我，而父亲则是站在了一个完全理性的角度给我指明可预见的最好的那条路。 我说我打算出国，美国太乱的话欧洲也可以。 父亲指出：我目前自理能力全无，衣食住行没有一样是能够独立的。以我的能力，能申请到的也都是些野鸡学校。 我反驳，我自理能力确实不行，但是我绝对能申请到名校！ 父亲说，现在已经不是改革开放了，大家都挤破头往外国去。目前外国的毕业生在就业市场上并没有什么什么优势。 我沉默了。 如果最终的目标还是回国工作的话，为什么要舍近求远呢？ # 晚餐后看了一篇毕世门的推送，感觉自己的内心好像又开始动摇了 想想父母的话，我又觉得心安了。 这是机会啊学了什么会了什么目前有些什么想法任何问题都可以问 大学生涯综述目前掌握的技能一点点把自己培养成技术人员该达到的水平 学习到的 读过的书 网络是怎样连接的 网络部 户根勤 密码学 jsdom编程艺术 编程语言类 课程ics 使用过c/c++/简易汇编/python/matlab/java/js/html/css/ ctf Linux/mac -&gt; 实验室 软件漏洞分析 人工智能的方法 漏洞分析学校的课程软硬皆功 理财 基金 背单词 小说 课余活动 志愿者 团体活动学生组织课业做ps 不会设计 想退实验室 看书 尽快地 运动比较少与人交流比较少认识的朋友也 想法长远考虑读硕士 不读博士走业界 不走学界 读完硕士 在国内就职 不想就简简单单写代码]]></content>
+      <categories>
+        <category>SJTU</category>
+      </categories>
+      <tags>
+        <tag>保研 出国</tag>
       </tags>
   </entry>
   <entry>
@@ -176,9 +187,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[01-复杂度2 Maximum Subsequence Sum]]></title>
-    <url>%2F2018%2F09%2F12%2FDS-01-%E5%A4%8D%E6%9D%82%E5%BA%A62%2F</url>
-    <content type="text"><![CDATA[主要做的几个改动 引入track变量来控制ij的记录时间点 修补了maxsum=0的一个小bug 反思 好好看清楚题目再做很重要，不要觉得自己做过一遍就有多懂了，还不是花了2h多吗，看看清楚要输出序号还是要输出值。]]></content>
+    <title><![CDATA[02-线性结构3 Reversing Linked List]]></title>
+    <url>%2F2018%2F09%2F12%2FDS-02-%E7%BA%BF%E6%80%A7%E7%BB%93%E6%9E%843%2F</url>
+    <content type="text"><![CDATA[进展 时间 进展 2018年9月12日中午 到目前为止还有两个测试点没过一个是全部反转，我测试的时候是对的呀；还有一个是超时 2018年9月13日21:02:58 AC 难点 容易想到一些歪门邪道，比如说我第一次想到的排序方法。 模拟内存的想法。 具体进行逆转的时候的操作 反思 做OJ的题目有一些注意事项是你不得不放在心上的 边界条件 代码1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980#include &lt;iostream&gt;#include &lt;iomanip&gt;#define max 100005using namespace std;struct node &#123; int ads; int data; int next;&#125;;node memory[max];int getlength(node * head);node * reverse(node * head, int k);void print(node * head, int length);int main(int argc, char const *argv[]) &#123; freopen("D:\\SJTU\\Freshman Summer\\DS\\test.txt", "r", stdin); int ads, n, k;cin &gt;&gt; ads &gt;&gt; n &gt;&gt; k; int address, data, next; for (int i = 0; i &lt; n; i++) &#123; cin &gt;&gt; address &gt;&gt; data &gt;&gt; next; memory[address].ads = address; memory[address].data = data; memory[address].next = next; &#125; node head, *headptr; head.next = ads; headptr = &amp;head; int length = getlength(headptr); for (size_t i = k; i &lt;= length; i+=k) &#123; int front = headptr-&gt;next; headptr-&gt;next = reverse(headptr,k)-&gt;ads; headptr = &amp;memory[front]; //print(&amp;head,length);cout &lt;&lt; endl; &#125; headptr = &amp;head; print(headptr,length); return 0;&#125;node * reverse(node * head, int k) &#123; node * front = &amp;memory[head-&gt;next]; node * rear = &amp;memory[front-&gt;next]; node * temp; int cnt = 1; while (cnt&lt;k) &#123; temp = &amp;memory[rear-&gt;next]; rear-&gt;next = front-&gt;ads; front = rear; rear = temp; cnt++; &#125; memory[head-&gt;next].next = rear-&gt;ads; return front;&#125;int getlength(node * head) &#123; int cnt = 0, adds = head-&gt;next; while (adds!=-1) &#123; cnt++; adds = memory[adds].next; &#125; return cnt;&#125;void print(node * head, int length) &#123; node * ptr = &amp;memory[head-&gt;next]; for (size_t i = 0; i &lt; length; i++) &#123; cout &lt;&lt; setw(5) &lt;&lt; setfill('0') &lt;&lt; ptr-&gt;ads; cout &lt;&lt; ' ' &lt;&lt; ptr-&gt;data &lt;&lt; ' '; if ( i==length-1 ) cout &lt;&lt; "-1"; else cout &lt;&lt; setw(5) &lt;&lt; setfill('0') &lt;&lt; ptr-&gt;next &lt;&lt; endl; ptr = &amp;memory[ptr-&gt;next]; &#125;&#125;]]></content>
       <categories>
         <category>数据结构与算法</category>
       </categories>
@@ -187,9 +198,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[02-线性结构3 Reversing Linked List]]></title>
-    <url>%2F2018%2F09%2F12%2FDS-02-%E7%BA%BF%E6%80%A7%E7%BB%93%E6%9E%843%2F</url>
-    <content type="text"><![CDATA[进展 时间 进展 2018年9月12日中午 到目前为止还有两个测试点没过一个是全部反转，我测试的时候是对的呀；还有一个是超时 2018年9月13日21:02:58 AC 难点 容易想到一些歪门邪道，比如说我第一次想到的排序方法。 模拟内存的想法。 具体进行逆转的时候的操作 反思 做OJ的题目有一些注意事项是你不得不放在心上的 边界条件 代码1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980#include &lt;iostream&gt;#include &lt;iomanip&gt;#define max 100005using namespace std;struct node &#123; int ads; int data; int next;&#125;;node memory[max];int getlength(node * head);node * reverse(node * head, int k);void print(node * head, int length);int main(int argc, char const *argv[]) &#123; freopen("D:\\SJTU\\Freshman Summer\\DS\\test.txt", "r", stdin); int ads, n, k;cin &gt;&gt; ads &gt;&gt; n &gt;&gt; k; int address, data, next; for (int i = 0; i &lt; n; i++) &#123; cin &gt;&gt; address &gt;&gt; data &gt;&gt; next; memory[address].ads = address; memory[address].data = data; memory[address].next = next; &#125; node head, *headptr; head.next = ads; headptr = &amp;head; int length = getlength(headptr); for (size_t i = k; i &lt;= length; i+=k) &#123; int front = headptr-&gt;next; headptr-&gt;next = reverse(headptr,k)-&gt;ads; headptr = &amp;memory[front]; //print(&amp;head,length);cout &lt;&lt; endl; &#125; headptr = &amp;head; print(headptr,length); return 0;&#125;node * reverse(node * head, int k) &#123; node * front = &amp;memory[head-&gt;next]; node * rear = &amp;memory[front-&gt;next]; node * temp; int cnt = 1; while (cnt&lt;k) &#123; temp = &amp;memory[rear-&gt;next]; rear-&gt;next = front-&gt;ads; front = rear; rear = temp; cnt++; &#125; memory[head-&gt;next].next = rear-&gt;ads; return front;&#125;int getlength(node * head) &#123; int cnt = 0, adds = head-&gt;next; while (adds!=-1) &#123; cnt++; adds = memory[adds].next; &#125; return cnt;&#125;void print(node * head, int length) &#123; node * ptr = &amp;memory[head-&gt;next]; for (size_t i = 0; i &lt; length; i++) &#123; cout &lt;&lt; setw(5) &lt;&lt; setfill('0') &lt;&lt; ptr-&gt;ads; cout &lt;&lt; ' ' &lt;&lt; ptr-&gt;data &lt;&lt; ' '; if ( i==length-1 ) cout &lt;&lt; "-1"; else cout &lt;&lt; setw(5) &lt;&lt; setfill('0') &lt;&lt; ptr-&gt;next &lt;&lt; endl; ptr = &amp;memory[ptr-&gt;next]; &#125;&#125;]]></content>
+    <title><![CDATA[01-复杂度2 Maximum Subsequence Sum]]></title>
+    <url>%2F2018%2F09%2F12%2FDS-01-%E5%A4%8D%E6%9D%82%E5%BA%A62%2F</url>
+    <content type="text"><![CDATA[主要做的几个改动 引入track变量来控制ij的记录时间点 修补了maxsum=0的一个小bug 反思 好好看清楚题目再做很重要，不要觉得自己做过一遍就有多懂了，还不是花了2h多吗，看看清楚要输出序号还是要输出值。]]></content>
       <categories>
         <category>数据结构与算法</category>
       </categories>
