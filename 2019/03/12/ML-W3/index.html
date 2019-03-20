@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="Ainevsia&#39;s Blog">
 <meta property="og:description" content="ClassificationTo attempt classification, one method is to use linear regression and map all predictions greater than 0.5 as a 1 and all less than 0.5 as a 0. However, this method doesn’t work well bec">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-12T09:20:53.446Z">
+<meta property="og:updated_time" content="2019-03-20T07:03:28.523Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Machine Learning Note Week 3">
 <meta name="twitter:description" content="ClassificationTo attempt classification, one method is to use linear regression and map all predictions greater than 0.5 as a 1 and all less than 0.5 as a 0. However, this method doesn’t work well bec">
@@ -429,12 +429,24 @@
                 
               
 
-              <time title="创建时间：2019年03月12日 17:18:05 / 修改时间：17:20:53" itemprop="dateCreated datePublished" datetime="2019-03-12T17:18:05+08:00">2019年03月12日</time>
+              <time title="创建时间：2019年03月12日 17:18:05" itemprop="dateCreated datePublished" datetime="2019-03-12T17:18:05+08:00">2019年03月12日</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019年03月20日 15:03:28" itemprop="dateModified" datetime="2019-03-20T15:03:28+08:00">2019年03月20日</time>
               
             
           </span>
@@ -501,7 +513,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">1k</span>
+                <span title="本文字数">1.5k</span>
               
 
               
@@ -536,8 +548,12 @@
 
       
         <h1 id="Classification"><a href="#Classification" class="headerlink" title="Classification"></a>Classification</h1><p>To attempt classification, one method is to use linear regression and map all predictions greater than 0.5 as a 1 and all less than 0.5 as a 0. However, this method doesn’t work well because classification is not actually a linear function.</p>
-<p>The classification problem is just like the regression problem, except that the values we now want to predict take on only a small number of discrete values. For now, we will focus on the <strong>binary classification problem</strong> in which y can take on only two values, 0 and 1. (Most of what we say here will also generalize to the multiple-class case.) </p>
-<p>For instance, if we are trying to build a spam classifier for email, then $x^{(i)}$may be some features of a piece of email, and y may be 1 if it is a piece of spam mail, and 0 otherwise. Hence, y∈{0,1}. 0 is also called the <strong>negative class</strong>, and 1 the <strong>positive class</strong>, and they are sometimes also denoted by the symbols “-” and “+.” Given $x^{(i)}$, the corresponding $y^{(i)}$ is also called the <strong>label</strong> for the training example. </p>
+<p>The classification problem is just like the regression problem, except that the values we now want to predict take on only a small number of discrete values. For now, we will focus on the <strong>binary classification problem</strong> in which y can take on only two values, 0 and 1. (Most of what we say here will also generalize to the multiple-class case.)<br><a id="more"></a><br>For instance, if we are trying to build a spam classifier for email, then $x^{(i)}$may be some features of a piece of email, and y may be 1 if it is a piece of spam mail, and 0 otherwise. Hence, y∈{0,1}. 0 is also called the <strong>negative class</strong>, and 1 the <strong>positive class</strong>, and they are sometimes also denoted by the symbols “-” and “+.” Given $x^{(i)}$, the corresponding $y^{(i)}$ is also called the <strong>label</strong> for the training example. </p>
+<h1 id="Simplified-Cost-Function-and-Gradient-Descent"><a href="#Simplified-Cost-Function-and-Gradient-Descent" class="headerlink" title="Simplified Cost Function and Gradient Descent"></a>Simplified Cost Function and Gradient Descent</h1><p>We can fully write out our entire cost function as follows:</p>
+<p>$J(\theta)=-\frac{1}{m} \sum_{i=1}^{m}\left[y^{(i)} \log \left(h_{\theta}\left(x^{(i)}\right)\right)+\left(1-y^{(i)}\right) \log \left(1-h_{\theta}\left(x^{(i)}\right)\right)\right]$</p>
+<p>$\theta_{j} :=\theta_{j}-\frac{\alpha}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right) x_{j}^{(i)}$</p>
+<p>A <strong>vectorized</strong> implementation is:</p>
+<p>$\theta :=\theta-\frac{\alpha}{m} X^{T}(g(X \theta)-\vec{y})$</p>
 
       
     </div>
@@ -847,7 +863,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Classification"><span class="nav-number">1.</span> <span class="nav-text">Classification</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Classification"><span class="nav-number">1.</span> <span class="nav-text">Classification</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Simplified-Cost-Function-and-Gradient-Descent"><span class="nav-number">2.</span> <span class="nav-text">Simplified Cost Function and Gradient Descent</span></a></li></ol></div>
             
 
           </div>
@@ -881,7 +897,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">77k</span>
+    <span title="站点总字数">78k</span>
   
 
   
@@ -1408,6 +1424,50 @@
   
 
   
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+      for (i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<style>
+.MathJax_Display {
+  overflow: auto hidden;
+}
+</style>
+
+    
+  
+
 
   
 

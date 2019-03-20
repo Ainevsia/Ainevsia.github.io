@@ -104,13 +104,12 @@
 <meta property="og:site_name" content="Ainevsia&#39;s Blog">
 <meta property="og:description" content="Multiple FeaturesLinear regression with multiple variables is also known as “multivariate linear regression”. We now introduce notation for equations where we can have any number of input variables.">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/MYm8uqafEeaZoQ7hPZtKqg_c974c2e2953662e9578b38c7b04591ed_Screenshot-2016-11-09-09.07.04.png?expiry=1552435200000&hmac=RspVcKj3R6BrlAMBNWp4Z7DKF6p7BPmyOHfqDgh_IUs">
 <meta property="og:image" content="https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/dykma6dwEea3qApInhZCFg_333df5f11086fee19c4fb81bc34d5125_Screenshot-2016-11-10-10.06.16.png?expiry=1552435200000&hmac=ucNJq4DBJZOEI6M94TxXCO6mjFRhtPEFHjNYAXpTlSY">
-<meta property="og:updated_time" content="2019-03-11T08:15:58.993Z">
+<meta property="og:updated_time" content="2019-03-20T07:03:29.842Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Machine Learning Note Week 2">
 <meta name="twitter:description" content="Multiple FeaturesLinear regression with multiple variables is also known as “multivariate linear regression”. We now introduce notation for equations where we can have any number of input variables.">
-<meta name="twitter:image" content="https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/MYm8uqafEeaZoQ7hPZtKqg_c974c2e2953662e9578b38c7b04591ed_Screenshot-2016-11-09-09.07.04.png?expiry=1552435200000&hmac=RspVcKj3R6BrlAMBNWp4Z7DKF6p7BPmyOHfqDgh_IUs">
+<meta name="twitter:image" content="https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/dykma6dwEea3qApInhZCFg_333df5f11086fee19c4fb81bc34d5125_Screenshot-2016-11-10-10.06.16.png?expiry=1552435200000&hmac=ucNJq4DBJZOEI6M94TxXCO6mjFRhtPEFHjNYAXpTlSY">
 
 
 
@@ -432,12 +431,24 @@
                 
               
 
-              <time title="创建时间：2019年03月11日 11:20:39 / 修改时间：16:15:58" itemprop="dateCreated datePublished" datetime="2019-03-11T11:20:39+08:00">2019年03月11日</time>
+              <time title="创建时间：2019年03月11日 11:20:39" itemprop="dateCreated datePublished" datetime="2019-03-11T11:20:39+08:00">2019年03月11日</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019年03月20日 15:03:29" itemprop="dateModified" datetime="2019-03-20T15:03:29+08:00">2019年03月20日</time>
               
             
           </span>
@@ -539,12 +550,11 @@
 
       
         <h1 id="Multiple-Features"><a href="#Multiple-Features" class="headerlink" title="Multiple Features"></a>Multiple Features</h1><p>Linear regression with multiple variables is also known as “multivariate linear regression”.</p>
-<p>We now introduce notation for equations where we can have any number of input variables.</p>
-<p><img src="https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/MYm8uqafEeaZoQ7hPZtKqg_c974c2e2953662e9578b38c7b04591ed_Screenshot-2016-11-09-09.07.04.png?expiry=1552435200000&amp;hmac=RspVcKj3R6BrlAMBNWp4Z7DKF6p7BPmyOHfqDgh_IUs" alt="d"></p>
+<p>We now introduce notation for equations where we can have any number of input variables.<br><a id="more"></a></p>
 <h1 id="Gradient-Descent-in-Practice-I-Feature-Scaling-特征缩放"><a href="#Gradient-Descent-in-Practice-I-Feature-Scaling-特征缩放" class="headerlink" title="Gradient Descent in Practice I - Feature Scaling 特征缩放"></a>Gradient Descent in Practice I - Feature Scaling 特征缩放</h1><p>We can speed up gradient descent by having each of our input values in roughly the same range. This is because θ will descend quickly on small ranges and slowly on large ranges, and so will oscillate inefficiently down to the optimum when the variables are very uneven.</p>
 <p>The way to prevent this is to modify the ranges of our input variables so that they are all roughly the same. The goal is to get all input variables into roughly one of these ranges, give or take a few.</p>
 <p>Two techniques to help with this are feature scaling and mean normalization. Feature scaling involves dividing the input values by the range (i.e. the maximum value minus the minimum value) of the input variable, resulting in a new range of just 1. Mean normalization involves subtracting the average value for an input variable from the values for that input variable resulting in a new average value for the input variable of just zero. To implement both of these techniques, adjust your input values as shown in this formula:</p>
-<p>$x<em>{i} :=\frac{x</em>{i}-\mu<em>{i}}{s</em>{i}}$</p>
+<p>$x_{i} :=\frac{x_{i}-\mu_{i}}{s_{i}}$</p>
 <p>Note that dividing by the range, or dividing by the standard deviation, give different results. The quizzes in this course use range - the programming exercises use standard deviation.</p>
 <h1 id="Normal-Equation"><a href="#Normal-Equation" class="headerlink" title="Normal Equation"></a>Normal Equation</h1><p>Gradient descent gives one way of minimizing J. Let’s discuss a second way of doing so, this time performing the minimization explicitly and without resorting to an iterative algorithm. In the “Normal Equation” method, we will minimize J by explicitly taking its derivatives with respect to the θj ’s, and setting them to zero. This allows us to find the optimum theta without iteration. The normal equation formula is given below:</p>
 <p>$\theta=\left(X^{T} X\right)^{-1} X^{T} y$<br><img src="https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/dykma6dwEea3qApInhZCFg_333df5f11086fee19c4fb81bc34d5125_Screenshot-2016-11-10-10.06.16.png?expiry=1552435200000&amp;hmac=ucNJq4DBJZOEI6M94TxXCO6mjFRhtPEFHjNYAXpTlSY" alt=""></p>
@@ -898,7 +908,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">77k</span>
+    <span title="站点总字数">78k</span>
   
 
   
@@ -1425,6 +1435,50 @@
   
 
   
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+      for (i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<style>
+.MathJax_Display {
+  overflow: auto hidden;
+}
+</style>
+
+    
+  
+
 
   
 
