@@ -96,17 +96,18 @@
 
 
 
-  <meta name="description" content="fancyBox 3 for NexT  If you want fancybox v2, please go to theme-next-fancybox  Installation  Step 0 &amp;rarr; Delete fancybox 2 (if you want to upgrade from v2)  1$ rm -rf themes/next/source/lib/fancybo">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Ainevsia&#39;s Blog">
-<meta property="og:url" content="https://ainevsia.github.io/lib/fancybox/README.html">
+  <meta name="description" content="起因去next配置里开了mathjax功能试了一下，遇到了些问题。 举个栗子当你按照LaTeX语法在md文件里输入如下公式时，在本地的Markdown preview里是没有任何错误的，但是部署上线后会是如下的效果">
+<meta name="keywords" content="LaTeX hexo-nex">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用hexo-next+LaTeX输入公式时遇到的一些错误">
+<meta property="og:url" content="https://ainevsia.github.io/2019/03/23/usingLaTeXinmd/index.html">
 <meta property="og:site_name" content="Ainevsia&#39;s Blog">
-<meta property="og:description" content="fancyBox 3 for NexT  If you want fancybox v2, please go to theme-next-fancybox  Installation  Step 0 &amp;rarr; Delete fancybox 2 (if you want to upgrade from v2)  1$ rm -rf themes/next/source/lib/fancybo">
+<meta property="og:description" content="起因去next配置里开了mathjax功能试了一下，遇到了些问题。 举个栗子当你按照LaTeX语法在md文件里输入如下公式时，在本地的Markdown preview里是没有任何错误的，但是部署上线后会是如下的效果">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-15T07:57:56.277Z">
+<meta property="og:updated_time" content="2019-03-23T06:54:30.631Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Ainevsia&#39;s Blog">
-<meta name="twitter:description" content="fancyBox 3 for NexT  If you want fancybox v2, please go to theme-next-fancybox  Installation  Step 0 &amp;rarr; Delete fancybox 2 (if you want to upgrade from v2)  1$ rm -rf themes/next/source/lib/fancybo">
+<meta name="twitter:title" content="使用hexo-next+LaTeX输入公式时遇到的一些错误">
+<meta name="twitter:description" content="起因去next配置里开了mathjax功能试了一下，遇到了些问题。 举个栗子当你按照LaTeX语法在md文件里输入如下公式时，在本地的Markdown preview里是没有任何错误的，但是部署上线后会是如下的效果">
 
 
 
@@ -115,7 +116,7 @@
 
 
 
-  <link rel="canonical" href="https://ainevsia.github.io/lib/fancybox/README.html"/>
+  <link rel="canonical" href="https://ainevsia.github.io/2019/03/23/usingLaTeXinmd/"/>
 
 
 
@@ -125,7 +126,7 @@
   };
 </script>
 
-  <title> | Ainevsia's Blog</title>
+  <title>使用hexo-next+LaTeX输入公式时遇到的一些错误 | Ainevsia's Blog</title>
   
 
 
@@ -365,163 +366,276 @@
           
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
           
           <div id="content" class="content">
             
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://ainevsia.github.io/2019/03/23/usingLaTeXinmd/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ainevsia"/>
+      <meta itemprop="description" content="Personal Blog"/>
+      <meta itemprop="image" content="https://avatars2.githubusercontent.com/u/31178818?s=400&u=04fe60fc9fd9e159806f4c2363ab9a4da748bf84&v=4"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ainevsia's Blog"/>
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-<h1 class="post-title" itemprop="name headline">
-
-</h1>
-
-<div class="post-meta">
-  
-  
-
-
-  
-  
-  <ul class="breadcrumb">
-    
-      
-      
         
+        
+          <h1 class="post-title" itemprop="name headline">使用hexo-next+LaTeX输入公式时遇到的一些错误
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019年03月23日 14:37:00 / 修改时间：14:54:30" itemprop="dateCreated datePublished" datetime="2019-03-23T14:37:00+08:00">2019年03月23日</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/hexo/" itemprop="url" rel="index"><span itemprop="name">hexo</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
           
             
-          
-          <li><a href="/lib/">LIB</a></li>
-        
-      
-    
-      
-      
-        
-          <li>FANCYBOX</li>
-        
-      
-    
-      
-      
-        
-          
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2019/03/23/usingLaTeXinmd/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/03/23/usingLaTeXinmd/" itemprop="commentCount"></span>
+                </a>
+              </span>
             
           
-          <li><a href="/lib/README.html/">README.HTML</a></li>
-        
-      
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon"
+            >
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">1.2k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">1 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
     
-  </ul>
 
-
-</div>
-
-</header>
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
       
+
       
-      <div class="post-body">
-        
-        
-          <h1 align="center"><a href="https://github.com/fancyapps/fancybox" target="_blank" rel="noopener">fancyBox 3</a> for <a href="https://github.com/theme-next" target="_blank" rel="noopener">NexT</a></h1>
+        <h1 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h1><p>去next配置里开了mathjax功能试了一下，遇到了些问题。</p>
+<h1 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子"></a>举个栗子</h1><p>当你按照LaTeX语法在md文件里输入如下公式时，在本地的Markdown preview里是没有任何错误的，但是部署上线后会是如下的效果</p>
+<a id="more"></a>
+<blockquote>
+<p>公式</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$J(\theta)=-\frac&#123;1&#125;&#123;m&#125; \sum_&#123;i=1&#125;^&#123;m&#125;\left[y^&#123;(i)&#125; \log \left(h_&#123;\theta&#125;\left(x^&#123;(i)&#125;\right)\right)+\left(1-y^&#123;(i)&#125;\right) \log \left(1-h_&#123;\theta&#125;\left(x^&#123;(i)&#125;\right)\right)\right]$</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>效果</p>
+</blockquote>
+<p>$J(\theta)=-\frac{1}{m} \sum<em>{i=1}^{m}\left[y^{(i)} \log \left(h</em>{\theta}\left(x^{(i)}\right)\right)+\left(1-y^{(i)}\right) \log \left(1-h_{\theta}\left(x^{(i)}\right)\right)\right]$</p>
+<p>注意在<code>_</code>之间的部分全部被解析成了Markdown语法中的斜体，其实原因就是hexo在静态生成网页时是先用Markdown的语法解析器解析你的md文件，然后再交给mathjax解析其中的公式。</p>
+<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><p>在<code>_</code>前全部加上Markdown语法中的转义符<code>\</code>。</p>
+<p>不过这样感觉就即不是纯正的Markdown，也不是是纯正的LaTeX了。</p>
+<blockquote>
+<p>公式</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$J(\theta)=-\frac&#123;1&#125;&#123;m&#125; \sum\_&#123;i=1&#125;^&#123;m&#125;\left[y^&#123;(i)&#125; \log \left(h\_&#123;\theta&#125;\left(x^&#123;(i)&#125;\right)\right)+\left(1-y^&#123;(i)&#125;\right) \log \left(1-h\_&#123;\theta&#125;\left(x^&#123;(i)&#125;\right)\right)\right]$</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>效果</p>
+</blockquote>
+<p>$J(\theta)=-\frac{1}{m} \sum_{i=1}^{m}\left[y^{(i)} \log \left(h_{\theta}\left(x^{(i)}\right)\right)+\left(1-y^{(i)}\right) \log \left(1-h_{\theta}\left(x^{(i)}\right)\right)\right]$</p>
 
-<h2 align="center">If you want fancybox v2, please go to <a href="https://github.com/theme-next/theme-next-fancybox" target="_blank" rel="noopener">theme-next-fancybox</a></h2>
-
-<h1 align="center">Installation</h1>
-
-<h2 align="center">Step 0 &rarr; Delete fancybox 2 (if you want to upgrade from v2)</h2>
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rm -rf themes/next/<span class="built_in">source</span>/lib/fancybox</span><br></pre></td></tr></table></figure>
-<h2 align="center">Step 1 &rarr; Go to NexT dir</h2>
-
-<p>Change dir to <strong>NexT</strong> directory. There must be <code>layout</code>, <code>source</code>, <code>languages</code> and other directories:</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> themes/next</span><br><span class="line">$ ls</span><br><span class="line">bower.json  _config.yml  docs  gulpfile.coffee  languages  layout  LICENSE.md  package.json  README.md  scripts  <span class="built_in">source</span>  <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
-<h2 align="center">Step 2 &rarr; Get module</h2>
-
-<p>Install module to <code>source/lib</code> directory:</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/theme-next/theme-next-fancybox3 <span class="built_in">source</span>/lib/fancybox</span><br></pre></td></tr></table></figure>
-<h2 align="center">Step 3 &rarr; Set it up</h2>
-
-<p>Enable module in <strong>NexT</strong> <code>_config.yml</code> file:</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">fancybox:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-<h1 align="center">Update</h1>
-
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> themes/next/<span class="built_in">source</span>/lib/fancybox</span><br><span class="line">$ git pull</span><br></pre></td></tr></table></figure>
-
-        
-      </div>
-      
-      
       
     </div>
+
     
 
+    
+    
+    
 
+    <div>    
+    
+      
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+              <strong>本文作者：</strong>Ainevsia
+          </li>
+          <li class="post-copyright-link">
+            <strong>本文链接：</strong>
+            <a href="/2019/03/23/usingLaTeXinmd/" title="使用hexo-next+LaTeX输入公式时遇到的一些错误">https://ainevsia.github.io/2019/03/23/usingLaTeXinmd/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>版权声明： </strong>
+            本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+          </li>
+        </ul>
+      
+    </div>
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/LaTeX-hexo-nex/" rel="tag"># LaTeX hexo-nex</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/12/ML-W3/" rel="next" title="Machine Learning Note Week 3">
+                <i class="fa fa-chevron-left"></i> Machine Learning Note Week 3
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
   
   
-  <ul class="breadcrumb">
-    
-      
-      
-        
-          
-            
-          
-          <li><a href="/lib/">LIB</a></li>
-        
-      
-    
-      
-      
-        
-          <li>FANCYBOX</li>
-        
-      
-    
-      
-      
-        
-          
-            
-          
-          <li><a href="/lib/README.html/">README.HTML</a></li>
-        
-      
-    
-  </ul>
+  
+  </article>
 
 
-    
-    
-    
   </div>
 
 
@@ -756,7 +870,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">fancyBox 3 for NexT</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.1.</span> <span class="nav-text">If you want fancybox v2, please go to theme-next-fancybox</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">Installation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.1.</span> <span class="nav-text">Step 0 → Delete fancybox 2 (if you want to upgrade from v2)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.2.</span> <span class="nav-text">Step 1 → Go to NexT dir</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.3.</span> <span class="nav-text">Step 2 → Get module</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.4.</span> <span class="nav-text">Step 3 → Set it up</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">Update</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#起因"><span class="nav-number">1.</span> <span class="nav-text">起因</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#举个栗子"><span class="nav-number">2.</span> <span class="nav-text">举个栗子</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解决"><span class="nav-number">3.</span> <span class="nav-text">解决</span></a></li></ol></div>
             
 
           </div>
