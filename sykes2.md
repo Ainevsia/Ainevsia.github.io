@@ -1,0 +1,187 @@
+---
+layout: blog
+title: 2006混淆C语言大赛-sykes2源码解析
+date: 2019年4月19日13:56:13
+tags: ioccc
+categories: C
+---
+
+上周六在准备华为网络技术考试的闲暇之余发现了一段[超级有趣的代码](https://zhuanlan.zhihu.com/p/60607289)，出自**国际C语言混乱代码大赛**。或许你像我一样第一次听说这个比赛，那就摘一段维基百科的介绍：
+
+>国际C语言混乱代码大赛（*IOCCC, The International Obfuscated C Code Contest*）是一项国际程序设计赛事。从1984年开始，本赛事每年举办一次。本赛事的目的是写出最有创意和最让人难以理解的C语言代码。 
+
+
+<!--more-->
+
+
+## 先看一眼这段小巧玲珑的代码
+```c
+main(_){_^448&&main(-~_);putchar(--_%64?32|-~7[__TIME__-_/8%8][">'txiZ^(~z?"-48]>>";;;====~$::199"[_*2&8|_/64]/(_&2?1:8)%8&1:10);}
+```
+
+## 运行这段代码看看干了啥
+
+```
+$ gcc ioccc.c -o a.out
+$ ./a.out
+    !!      !!              !!  !!!!!!          !!!!!!  !!!!
+    !!  !!  !!              !!  !!  !!              !!  !!
+    !!  !!  !!              !!  !!  !!              !!  !!
+    !!  !!!!!!    !!        !!  !!  !!    !!      !!!!  !!!!
+    !!      !!              !!  !!  !!              !!  !!  !!
+    !!      !!              !!  !!  !!              !!  !!  !!
+    !!      !!              !!  !!!!!!          !!!!!!  !!!!!!
+
+```
+
+
+发现有6条warning
+
+```bash
+$ gcc -Wall ioccc.c -o a.out
+ioccc.c:1:1: warning: return type defaults to 'int' [-Wreturn-type]
+ main(_){_^448&&main(-~_);putchar(--_%64?32|-~7[__TIME__-_/8%8][">'txiZ^(~z?"-48]>>";;;====~$::199"[_*2&8|_/64]/(_&2?1:8)%8&1:10);}
+ ^
+ioccc.c: In function 'main':
+ioccc.c:1:14: warning: value computed is not used [-Wunused-value]
+ main(_){_^448&&main(-~_);putchar(--_%64?32|-~7[__TIME__-_/8%8][">'txiZ^(~z?"-48]>>";;;====~$::199"[_*2&8|_/64]/(_&2?1:8)%8&1:10);}
+              ^
+ioccc.c:1:1: warning: implicit declaration of function 'putchar' [-Wimplicit-function-declaration]
+ main(_){_^448&&main(-~_);putchar(--_%64?32|-~7[__TIME__-_/8%8][">'txiZ^(~z?"-48]>>";;;====~$::199"[_*2&8|_/64]/(_&2?1:8)%8&1:10);}
+ ^
+ioccc.c:1:103: warning: suggest parentheses around arithmetic in operand of '|' [-Wparentheses]
+ main(_){_^448&&main(-~_);putchar(--_%64?32|-~7[__TIME__-_/8%8][">'txiZ^(~z?"-48]>>";;;====~$::199"[_*2&8|_/64]/(_&2?1:8)%8&1:10);}
+                                                                                                       ^
+ioccc.c:1:123: warning: suggest parentheses around arithmetic in operand of '|' [-Wparentheses]
+ main(_){_^448&&main(-~_);putchar(--_%64?32|-~7[__TIME__-_/8%8][">'txiZ^(~z?"-48]>>";;;====~$::199"[_*2&8|_/64]/(_&2?1:8)%8&1:10);}
+                                                                                                                           ^
+ioccc.c:1:1: warning: control reaches end of non-void function [-Wreturn-type]
+ main(_){_^448&&main(-~_);putchar(--_%64?32|-~7[__TIME__-_/8%8][">'txiZ^(~z?"-48]>>";;;====~$::199"[_*2&8|_/64]/(_&2?1:8)%8&1:10);}
+ ^
+
+
+```
+
+这段代码能够将**编译时刻系统时间**（非运行程序时间）按照ASCII风格输出，太强了。
+
+说实话，第一次看到这种操作的我感觉已经被秀了一脸了；等我仔细研究完这行代码之后的感觉是：太骚了，代码居然还能这么写！
+
+接下来准备详细分析这一行小小的代码是如何实现如此炫酷复杂吊炸天的功能的。
+
+**烧脑预警**
+
+*在文章开始之前你可能需要思考一些你从来没有考虑过的问题*
+
+
+### 何时可以不指明返回类型？
+
+正常的main函数声明都是这样的
+
+```c
+int main(int argc, char * arcgc[])
+{
+
+    return 0;
+}
+```
+
+当然main函数的参数是可以省略的，可以单单写成`main()`。`return 0`也是可以省略的，程序会正常终止，只不过会多一条warning。
+
+> 在实际生产环境中当然不会出现这样的代码，这只是极客们利用c语言的细节追求极简的成果。
+
+甚至，main前面的int声明都可以省略。
+
+[Stack Overflow](https://stackoverflow.com/questions/13935104/what-if-i-omit-the-return-type-of-main-function-in-c)上有讨论这个默认类型声明：
+
+> C89/90 still has the implicit int rule, **so main() is equivalent to int main()**. By leaving off the return type, you've implicitly defined the return type as **int**. 
+
+> "implicit int" in the C89/90 standard isn't really a single rule in a single place -- it's spread around in a couple of places. 
+
+> For function parameters, there's a separate specification (at §6.7.1) that: "Any parameter that is not declared has type int."
+
+在K&R的经典教材*C Programming Language*的§6.5.2.1中列举了一些隐含的类型声明：
+
+> int, signed, signed int, or no type specifiers
+
+这句话的意思是：int, signed, signed int 或是没有声明类型这四者是等价的。
+
+所以main前面的int可以省略，参数列表里的int也可以省略，最后就会只剩下代码中的：
+
+```c
+main(_){}
+```
+
+注意到`_`是一个变量名，处在原本argc的位置，经过试验发现，其功能就是记录传入的[参数个数](https://stackoverflow.com/questions/3734111/what-are-the-arguments-to-main-for)。当你想我一样使用`$ ./a.out`不加任何参数调用的时候，其值就是1。
+
+- argc is 1; 
+- argv[0] is the string "./a.out" 
+- argv[1] is a NULL pointer
+
+### 何时可以不包含头文件？
+[putchar()](https://stackoverflow.com/questions/23754183/why-doesn-t-putchar-require-a-header)函数可以不用include头文件。虽然它不是系统函数，但是实测确实可以。
+
+这样我们可以愉快地把这段代码的格式排排好，把省略的声明补齐，顺便加上头函数。
+
+```c
+#include <stdio.h>
+
+int main(int i){
+    i^448&&main(-~i);
+    putchar(--i%64?32|-~7[__TIME__-i/8%8][">'txiZ^(~z?"-48]>>";;;====~$::199"[i*2&8|i/64]/(i&2?1:8)%8&1:10);
+    return 0;
+}
+```
+
+利用`&&`的短路求值特性将第一行展开，`^`亦或运算符仅在i==448时为假，-~i将i取反之后取负数。由于int是使用补码在计算机内部存储的，取负数操作实际上等效于按位取反后加1，-~i等效于i+1。所以可以发现第一行就是一个条件递归。
+
+```c
+int main(int i){
+    if (i != 448) main(i+1);
+    i--;
+    putchar(i%64?32|-~7[__TIME__-i/8%8][">'txiZ^(~z?"-48]>>";;;====~$::199"[i*2&8|i/64]/(i&2?1:8)%8&1:10);
+    return 0;
+}
+```
+此时需要知道我们在第一次进入main函数的时候i的初始值是1（不加参数的话）。此时需要把之后会对i有操作的--i提取到putchar外面（不然没法转化），这句递归可以转化为循环（非常不直观，需要花点时间好好想想）。
+
+```c
+int main(){
+    for (int i=447; i>=0; i--) { //由于外层i--的操作，这里从447到0
+        putchar(i%64?32|-~7[__TIME__-i/8%8][">'txiZ^(~z?"-48]>>";;;====~$::199"[i*2&8|i/64]/(i&2?1:8)%8&1:10);
+    }
+}
+```
+要注意i是从447减小到0的，一共执行448次。因为递归调用的时候是从main(1)一直到main(448)。i=448时不再继续递归，但该次main剩下的操作还是要进行。
+
+接下来只有一句putchar了，看来一共会输出448个字符。最后的`:10`可以知道根据条件输出会有回车`LF(ASCII:10)`，数一数最开始输出的图形的行数，我们发现有7行，可以猜测一下这个输出回车的条件应该会是与7的倍数有关。但是中间这一行putchar实在太长，我们一点一点看。首先看一看第一个?:运算符的条件
+
+```c
+putchar(i%64?/*some value*/:10);
+```
+
+这时我们突然发现每行的字符448/7=64。于是我们知道了每64个字符会出现一个换行符。
+
+把:?运算符写成if-else形式会更加直观
+```c
+int main(){
+    for (int i=447; i>=0; i--) {
+        if (i%64 == 0) putchar('\n');
+        else 
+            putchar(32|-~7[__TIME__-i/8%8][">'txiZ^(~z?"-48]>>";;;====~$::199"[i*2&8|i/64]/(i&2?1:8)%8&1);
+    }
+}
+```
+
+
+你看的精疲力尽了吗？
+
+哈哈我也写的累了。但是正真巧妙的东西还没有开始呢！
+
+我们需要花非常大的力气去看看putchar里到底写了什么。
+
+来看这个输出，发现里面有两个字符串常量，还有移位运算和许多的位运算。这时候我不得不默默地掏出了好久没看的运算符优先级顺序表，给优先级加上括号。一句话就是算数运算优先，位运算次之，最后逻辑运算。
+
+
+```c
+32|-~7[__TIME__-(i/8%8)][">'txiZ^(~z?"-48] >> ";;;====~$::199"[(i*2)&8|i/64]/(((i&2)?1:8)%8)&1
+```
