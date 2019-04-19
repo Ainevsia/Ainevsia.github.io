@@ -100,17 +100,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[寒假回顾+学期计划]]></title>
-    <url>%2F2019%2F02%2F17%2Fsophomore-Winter%2F</url>
-    <content type="text"><![CDATA[寒假见闻寒假从1月14日开始执行，由于在1月25日约了朋友一起参加美赛，所以14日到25日这两个礼拜就是常规培训、准备美赛。由于我和密院同年级的同学组队，中途跑了一个，只好带了一个大一小学妹凑满3个人，十足的菜鸡队配置。好像是第一次认认真真地参加大型团队竞赛，内心也没有什么底，抱着纯粹体验一把的心态稀里糊涂地就混到了25日。 我个人确实是极其不擅长与他人合作完成一个项目。开赛两小时我去图书馆借走了相关的书，我一度认为这些书能成为我们队的优势。但是，可能就是这些书限制了思路。书上用了CA，虽然到最后我们也没有能实现这个程序。当我和别人发生意见上的分歧时，我总是很难说服对方，我总是倾向于放弃我自己的想法，去听别人的指挥做事。我觉得自己除了第一天状态是在线的，剩下的4天智商全面下线，程序不想写，模型不知道怎么建，自暴自弃。 最后一天的通宵也是非常有意思。人生中第一次通宵，0点小憩了10分钟左右，之后完全没有很难受的感觉。整个教室挤满了人，没有回去睡觉的……虽然如此，如果是为了我个人的事情，我是绝对不会通宵的。 我也很想变的强一点，想一个更好的模型云云。美赛结束就已经29日了，再过一个礼拜就春节了。29日到除夕这个礼拜就完全是放飞自我的状态，每天打网游、补番、刷小说，干着自己每次放假都会干的事。把自己玩过的游戏一个个地玩过来，没有一个游戏能让我玩超过半天。我已经不再年轻了，曾经陪我一起打网游的人，现在也都各奔东西，再也找不到曾今的感觉了。而那些游戏，也随之失去了意义。嘛总之，花了不超过两周吧，把那些令人放纵的东西都玩腻了，把目光转向修养身心的东西上。 阅读文学类的从学期结束之前就已经在知米阅读上看原版的《时间机器》和《弗兰肯斯坦》，也不是会每天都读，会把情节攒起来一口气看。开学之后必须要养成每日打卡的习惯了，因为没什么时间能一口气看了。 非文学类的看了《万万没想到》、《csapp》、《算法》，这三本都是只看了10页的那种看，真正看的主要是老师要求的《漏洞分析》。 春节的时候，我轻哼：三个礼拜二十一天三百页十七章，按照我三天四章的速度，真的是绰绰有余。今天已经是寒假最后一天了，我正好看了一半。 有些时候吧，求其上者得其中，这种感觉真的实在是太强烈了。像我这种懒惰的人，在设定目标的时候就应该设置的高一点。压力对我来说并不是朋友，在高压下我只会惊慌失措，只有在心情平稳的时候我的效率才是最高的。所以说，大段的连续的时间是我必须要全神贯注地工作学习的时候。 有的时候我会问自己：我这是在干什么？当舍友告诉我他因为组会没法参加而决定退出的时候，我问自己：我是真的喜欢漏洞挖掘所以来到目前的这个实验室吗？我思考问题的时候一直是一种小农思想，即使进入大学这种想法也没法改正过来。过分地关注短期将会得到的利益，而不做长远的考虑。我害怕做出选择，选择之后又患得患失。我还需学习的知识实在是太多了，不知道我学什么能够学好。解决这种选择困难的方法就是安慰自己：我的生活并不会因为这一个选择就能变好，选了就选了，硬着头皮干下去，时间和努力不会亏待你的。 未来规划这个寒假和父母稍微聊了一下关于自己未来准备走的路线。我个人还是非常向往国外的教育的，但是父亲指出我根本不具备一个人在异国独立生活的基本能力。我想想也是，所以还是把目标定在了保研或是考研国内升学的方向。 上个学期给自己定下的每门课不低于85分的目标完美地完成了，更多的还是因为课程考试不难的原因，但是这学期出现了信号与系统和模电，我不敢再轻言不下85了。我渐渐意识到这种单纯以成绩来评价一学期是不科学的，因为这学期我还会有实验室的工作要做，难免会占去学习课内知识的时间。 我这学期的计划是信安的专业课我绝对是放在第一优先级的事情，然后再是电院的平台课，中间穿插实验室的研究吧。 写的非常的乱，但都是心底想说的话，暂且作为人生这一小段时光的总结吧。]]></content>
-      <categories>
-        <category>SJTU</category>
-      </categories>
-      <tags>
-        <tag>保研 出国</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[自建服务器]]></title>
     <url>%2F2019%2F02%2F17%2FOpenVpnOnOpenWrt%2F</url>
     <content type="text"><![CDATA[现状目前手上有三台服务器：一台windows，两台linux，还有一台路由器，openwrt固件，上面跑openvpn服务器，客户端安装openvpn客户端实现连接。公网ip从哪里来的还不清楚，暂时默认是从百度云上买来的，算是已知的了。 目标5月份开始正式调试，最多两周的时间要搞定，不想拖的时间太长了。 最终实现的目标是完整地复制已有的路由器的所有功能，目前主要只有openvpn的配置。]]></content>
@@ -119,6 +108,17 @@
       </categories>
       <tags>
         <tag>vpn 计算机网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[寒假回顾+学期计划]]></title>
+    <url>%2F2019%2F02%2F17%2Fsophomore-Winter%2F</url>
+    <content type="text"><![CDATA[寒假见闻寒假从1月14日开始执行，由于在1月25日约了朋友一起参加美赛，所以14日到25日这两个礼拜就是常规培训、准备美赛。由于我和密院同年级的同学组队，中途跑了一个，只好带了一个大一小学妹凑满3个人，十足的菜鸡队配置。好像是第一次认认真真地参加大型团队竞赛，内心也没有什么底，抱着纯粹体验一把的心态稀里糊涂地就混到了25日。 我个人确实是极其不擅长与他人合作完成一个项目。开赛两小时我去图书馆借走了相关的书，我一度认为这些书能成为我们队的优势。但是，可能就是这些书限制了思路。书上用了CA，虽然到最后我们也没有能实现这个程序。当我和别人发生意见上的分歧时，我总是很难说服对方，我总是倾向于放弃我自己的想法，去听别人的指挥做事。我觉得自己除了第一天状态是在线的，剩下的4天智商全面下线，程序不想写，模型不知道怎么建，自暴自弃。 最后一天的通宵也是非常有意思。人生中第一次通宵，0点小憩了10分钟左右，之后完全没有很难受的感觉。整个教室挤满了人，没有回去睡觉的……虽然如此，如果是为了我个人的事情，我是绝对不会通宵的。 我也很想变的强一点，想一个更好的模型云云。美赛结束就已经29日了，再过一个礼拜就春节了。29日到除夕这个礼拜就完全是放飞自我的状态，每天打网游、补番、刷小说，干着自己每次放假都会干的事。把自己玩过的游戏一个个地玩过来，没有一个游戏能让我玩超过半天。我已经不再年轻了，曾经陪我一起打网游的人，现在也都各奔东西，再也找不到曾今的感觉了。而那些游戏，也随之失去了意义。嘛总之，花了不超过两周吧，把那些令人放纵的东西都玩腻了，把目光转向修养身心的东西上。 阅读文学类的从学期结束之前就已经在知米阅读上看原版的《时间机器》和《弗兰肯斯坦》，也不是会每天都读，会把情节攒起来一口气看。开学之后必须要养成每日打卡的习惯了，因为没什么时间能一口气看了。 非文学类的看了《万万没想到》、《csapp》、《算法》，这三本都是只看了10页的那种看，真正看的主要是老师要求的《漏洞分析》。 春节的时候，我轻哼：三个礼拜二十一天三百页十七章，按照我三天四章的速度，真的是绰绰有余。今天已经是寒假最后一天了，我正好看了一半。 有些时候吧，求其上者得其中，这种感觉真的实在是太强烈了。像我这种懒惰的人，在设定目标的时候就应该设置的高一点。压力对我来说并不是朋友，在高压下我只会惊慌失措，只有在心情平稳的时候我的效率才是最高的。所以说，大段的连续的时间是我必须要全神贯注地工作学习的时候。 有的时候我会问自己：我这是在干什么？当舍友告诉我他因为组会没法参加而决定退出的时候，我问自己：我是真的喜欢漏洞挖掘所以来到目前的这个实验室吗？我思考问题的时候一直是一种小农思想，即使进入大学这种想法也没法改正过来。过分地关注短期将会得到的利益，而不做长远的考虑。我害怕做出选择，选择之后又患得患失。我还需学习的知识实在是太多了，不知道我学什么能够学好。解决这种选择困难的方法就是安慰自己：我的生活并不会因为这一个选择就能变好，选了就选了，硬着头皮干下去，时间和努力不会亏待你的。 未来规划这个寒假和父母稍微聊了一下关于自己未来准备走的路线。我个人还是非常向往国外的教育的，但是父亲指出我根本不具备一个人在异国独立生活的基本能力。我想想也是，所以还是把目标定在了保研或是考研国内升学的方向。 上个学期给自己定下的每门课不低于85分的目标完美地完成了，更多的还是因为课程考试不难的原因，但是这学期出现了信号与系统和模电，我不敢再轻言不下85了。我渐渐意识到这种单纯以成绩来评价一学期是不科学的，因为这学期我还会有实验室的工作要做，难免会占去学习课内知识的时间。 我这学期的计划是信安的专业课我绝对是放在第一优先级的事情，然后再是电院的平台课，中间穿插实验室的研究吧。 写的非常的乱，但都是心底想说的话，暂且作为人生这一小段时光的总结吧。]]></content>
+      <categories>
+        <category>SJTU</category>
+      </categories>
+      <tags>
+        <tag>保研 出国</tag>
       </tags>
   </entry>
   <entry>
@@ -242,9 +242,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[02-线性结构3 Reversing Linked List]]></title>
-    <url>%2F2018%2F09%2F12%2FDS-02-%E7%BA%BF%E6%80%A7%E7%BB%93%E6%9E%843%2F</url>
-    <content type="text"><![CDATA[进展 时间 进展 2018年9月12日中午 到目前为止还有两个测试点没过一个是全部反转，我测试的时候是对的呀；还有一个是超时 2018年9月13日21:02:58 AC 难点 容易想到一些歪门邪道，比如说我第一次想到的排序方法。 模拟内存的想法。 具体进行逆转的时候的操作 反思 做OJ的题目有一些注意事项是你不得不放在心上的 边界条件 代码1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980#include &lt;iostream&gt;#include &lt;iomanip&gt;#define max 100005using namespace std;struct node &#123; int ads; int data; int next;&#125;;node memory[max];int getlength(node * head);node * reverse(node * head, int k);void print(node * head, int length);int main(int argc, char const *argv[]) &#123; freopen("D:\\SJTU\\Freshman Summer\\DS\\test.txt", "r", stdin); int ads, n, k;cin &gt;&gt; ads &gt;&gt; n &gt;&gt; k; int address, data, next; for (int i = 0; i &lt; n; i++) &#123; cin &gt;&gt; address &gt;&gt; data &gt;&gt; next; memory[address].ads = address; memory[address].data = data; memory[address].next = next; &#125; node head, *headptr; head.next = ads; headptr = &amp;head; int length = getlength(headptr); for (size_t i = k; i &lt;= length; i+=k) &#123; int front = headptr-&gt;next; headptr-&gt;next = reverse(headptr,k)-&gt;ads; headptr = &amp;memory[front]; //print(&amp;head,length);cout &lt;&lt; endl; &#125; headptr = &amp;head; print(headptr,length); return 0;&#125;node * reverse(node * head, int k) &#123; node * front = &amp;memory[head-&gt;next]; node * rear = &amp;memory[front-&gt;next]; node * temp; int cnt = 1; while (cnt&lt;k) &#123; temp = &amp;memory[rear-&gt;next]; rear-&gt;next = front-&gt;ads; front = rear; rear = temp; cnt++; &#125; memory[head-&gt;next].next = rear-&gt;ads; return front;&#125;int getlength(node * head) &#123; int cnt = 0, adds = head-&gt;next; while (adds!=-1) &#123; cnt++; adds = memory[adds].next; &#125; return cnt;&#125;void print(node * head, int length) &#123; node * ptr = &amp;memory[head-&gt;next]; for (size_t i = 0; i &lt; length; i++) &#123; cout &lt;&lt; setw(5) &lt;&lt; setfill('0') &lt;&lt; ptr-&gt;ads; cout &lt;&lt; ' ' &lt;&lt; ptr-&gt;data &lt;&lt; ' '; if ( i==length-1 ) cout &lt;&lt; "-1"; else cout &lt;&lt; setw(5) &lt;&lt; setfill('0') &lt;&lt; ptr-&gt;next &lt;&lt; endl; ptr = &amp;memory[ptr-&gt;next]; &#125;&#125;]]></content>
+    <title><![CDATA[01-复杂度2 Maximum Subsequence Sum]]></title>
+    <url>%2F2018%2F09%2F12%2FDS-01-%E5%A4%8D%E6%9D%82%E5%BA%A62%2F</url>
+    <content type="text"><![CDATA[主要做的几个改动 引入track变量来控制ij的记录时间点 修补了maxsum=0的一个小bug 反思 好好看清楚题目再做很重要，不要觉得自己做过一遍就有多懂了，还不是花了2h多吗，看看清楚要输出序号还是要输出值。]]></content>
       <categories>
         <category>数据结构与算法</category>
       </categories>
@@ -253,9 +253,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[01-复杂度2 Maximum Subsequence Sum]]></title>
-    <url>%2F2018%2F09%2F12%2FDS-01-%E5%A4%8D%E6%9D%82%E5%BA%A62%2F</url>
-    <content type="text"><![CDATA[主要做的几个改动 引入track变量来控制ij的记录时间点 修补了maxsum=0的一个小bug 反思 好好看清楚题目再做很重要，不要觉得自己做过一遍就有多懂了，还不是花了2h多吗，看看清楚要输出序号还是要输出值。]]></content>
+    <title><![CDATA[02-线性结构3 Reversing Linked List]]></title>
+    <url>%2F2018%2F09%2F12%2FDS-02-%E7%BA%BF%E6%80%A7%E7%BB%93%E6%9E%843%2F</url>
+    <content type="text"><![CDATA[进展 时间 进展 2018年9月12日中午 到目前为止还有两个测试点没过一个是全部反转，我测试的时候是对的呀；还有一个是超时 2018年9月13日21:02:58 AC 难点 容易想到一些歪门邪道，比如说我第一次想到的排序方法。 模拟内存的想法。 具体进行逆转的时候的操作 反思 做OJ的题目有一些注意事项是你不得不放在心上的 边界条件 代码1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980#include &lt;iostream&gt;#include &lt;iomanip&gt;#define max 100005using namespace std;struct node &#123; int ads; int data; int next;&#125;;node memory[max];int getlength(node * head);node * reverse(node * head, int k);void print(node * head, int length);int main(int argc, char const *argv[]) &#123; freopen("D:\\SJTU\\Freshman Summer\\DS\\test.txt", "r", stdin); int ads, n, k;cin &gt;&gt; ads &gt;&gt; n &gt;&gt; k; int address, data, next; for (int i = 0; i &lt; n; i++) &#123; cin &gt;&gt; address &gt;&gt; data &gt;&gt; next; memory[address].ads = address; memory[address].data = data; memory[address].next = next; &#125; node head, *headptr; head.next = ads; headptr = &amp;head; int length = getlength(headptr); for (size_t i = k; i &lt;= length; i+=k) &#123; int front = headptr-&gt;next; headptr-&gt;next = reverse(headptr,k)-&gt;ads; headptr = &amp;memory[front]; //print(&amp;head,length);cout &lt;&lt; endl; &#125; headptr = &amp;head; print(headptr,length); return 0;&#125;node * reverse(node * head, int k) &#123; node * front = &amp;memory[head-&gt;next]; node * rear = &amp;memory[front-&gt;next]; node * temp; int cnt = 1; while (cnt&lt;k) &#123; temp = &amp;memory[rear-&gt;next]; rear-&gt;next = front-&gt;ads; front = rear; rear = temp; cnt++; &#125; memory[head-&gt;next].next = rear-&gt;ads; return front;&#125;int getlength(node * head) &#123; int cnt = 0, adds = head-&gt;next; while (adds!=-1) &#123; cnt++; adds = memory[adds].next; &#125; return cnt;&#125;void print(node * head, int length) &#123; node * ptr = &amp;memory[head-&gt;next]; for (size_t i = 0; i &lt; length; i++) &#123; cout &lt;&lt; setw(5) &lt;&lt; setfill('0') &lt;&lt; ptr-&gt;ads; cout &lt;&lt; ' ' &lt;&lt; ptr-&gt;data &lt;&lt; ' '; if ( i==length-1 ) cout &lt;&lt; "-1"; else cout &lt;&lt; setw(5) &lt;&lt; setfill('0') &lt;&lt; ptr-&gt;next &lt;&lt; endl; ptr = &amp;memory[ptr-&gt;next]; &#125;&#125;]]></content>
       <categories>
         <category>数据结构与算法</category>
       </categories>
