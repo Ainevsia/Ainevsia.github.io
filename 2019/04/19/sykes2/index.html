@@ -104,10 +104,13 @@
 <meta property="og:site_name" content="无花果">
 <meta property="og:description" content="上周六在准备华为网络技术考试的闲暇之余发现了一段超级有趣的代码，出自国际C语言混乱代码大赛。或许你像我一样第一次听说这个比赛，那就摘一段维基百科的介绍：  国际C语言混乱代码大赛（IOCCC, The International Obfuscated C Code Contest）是一项国际程序设计赛事。从1984年开始，本赛事每年举办一次。本赛事的目的是写出最有创意和最让人难以理解的C语言代码。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-10T09:17:01.104Z">
+<meta property="og:image" content="https://res.cloudinary.com/ainevsia/image/upload/v1557491865/syskes.png">
+<meta property="og:image" content="https://res.cloudinary.com/ainevsia/image/upload/v1557492557/111.png">
+<meta property="og:updated_time" content="2019-05-10T13:11:55.030Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2006混淆C语言大赛-sykes2源码解析">
 <meta name="twitter:description" content="上周六在准备华为网络技术考试的闲暇之余发现了一段超级有趣的代码，出自国际C语言混乱代码大赛。或许你像我一样第一次听说这个比赛，那就摘一段维基百科的介绍：  国际C语言混乱代码大赛（IOCCC, The International Obfuscated C Code Contest）是一项国际程序设计赛事。从1984年开始，本赛事每年举办一次。本赛事的目的是写出最有创意和最让人难以理解的C语言代码。">
+<meta name="twitter:image" content="https://res.cloudinary.com/ainevsia/image/upload/v1557491865/syskes.png">
 
 
 
@@ -446,7 +449,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019年05月10日 17:17:01" itemprop="dateModified" datetime="2019-05-10T17:17:01+08:00">2019年05月10日</time>
+                <time title="修改时间：2019年05月10日 21:11:55" itemprop="dateModified" datetime="2019-05-10T21:11:55+08:00">2019年05月10日</time>
               
             
           </span>
@@ -513,7 +516,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">6.3k</span>
+                <span title="本文字数">11k</span>
               
 
               
@@ -527,7 +530,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">6 分钟</span>
+                <span title="阅读时长">10 分钟</span>
               
             </div>
           
@@ -558,7 +561,7 @@
 <p>说实话，第一次看到这种操作的我感觉已经被秀了一脸了；等我仔细研究完这行代码之后的感觉是：太骚了，代码居然还能这么写！</p>
 <p>接下来准备详细分析这一行小小的代码是如何实现如此炫酷复杂吊炸天的功能的。</p>
 <blockquote>
-<p><strong>烧脑预警</strong></p>
+<p><strong>全文极度烧脑预警</strong></p>
 </blockquote>
 <h2 id="一些你可能从来没有考虑过的问题"><a href="#一些你可能从来没有考虑过的问题" class="headerlink" title="一些你可能从来没有考虑过的问题"></a>一些你可能从来没有考虑过的问题</h2><h3 id="何时可以不指明返回类型？"><a href="#何时可以不指明返回类型？" class="headerlink" title="何时可以不指明返回类型？"></a>何时可以不指明返回类型？</h3><p>正常的main函数声明都是这样的</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> * arcgc[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -568,16 +571,7 @@
 </blockquote>
 <p>甚至，main前面的int声明都可以省略。</p>
 <p><a href="https://stackoverflow.com/questions/13935104/what-if-i-omit-the-return-type-of-main-function-in-c" target="_blank" rel="noopener">Stack Overflow</a>上有讨论这个默认类型声明：</p>
-<blockquote>
-<p>C89/90 still has the implicit int rule, <strong>so main() is equivalent to int main()</strong>. By leaving off the return type, you’ve implicitly defined the return type as <strong>int</strong>. </p>
-<p>“implicit int” in the C89/90 standard isn’t really a single rule in a single place – it’s spread around in a couple of places. </p>
-<p>For function parameters, there’s a separate specification (at §6.7.1) that: “Any parameter that is not declared has type int.”</p>
-</blockquote>
-<p>在K&amp;R的经典教材<em>C Programming Language</em>的§6.5.2.1中列举了一些隐含的类型声明：</p>
-<blockquote>
-<p>int, signed, signed int, or no type specifiers</p>
-</blockquote>
-<p>这句话的意思是：int, signed, signed int 或是没有声明类型这四者是等价的。</p>
+<p>在K&amp;R的经典教材<em>C Programming Language</em>的§6.5.2.1中列举了一些隐含的类型声明：int, signed, signed int 或是没有声明类型这四者是等价的。</p>
 <p>所以main前面的int可以省略，参数列表里的int也可以省略，最后就会只剩下代码中的：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">main(_)&#123;&#125;</span><br></pre></td></tr></table></figure>
 <p>注意到<code>_</code>是一个变量名，处在原本argc的位置，经过试验发现，其功能就是记录传入的<a href="https://stackoverflow.com/questions/3734111/what-are-the-arguments-to-main-for" target="_blank" rel="noopener">参数个数</a>。当你想我一样使用<code>$ ./a.out</code>不加任何参数调用的时候，其值就是1。</p>
@@ -610,7 +604,73 @@
 <p>我们知道，在<code>&gt;&gt;</code>号右边的应该是一个数来表示位移量，于是我们再引入一个shift变量，并且根据优先级展开b变量，用c表示<code>a&gt;&gt;b</code>。注意到，<code>(i&amp;2)?1:8</code>里还有一个条件判断，把他展开成一个分支语句。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">447</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        <span class="keyword">if</span> (i % <span class="number">64</span> == <span class="number">0</span>) <span class="built_in">putchar</span>(<span class="string">'\n'</span>);</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">char</span> t = __TIME__[<span class="number">7</span> - i / <span class="number">8</span> % <span class="number">8</span>];</span><br><span class="line">            <span class="keyword">char</span> a = <span class="string">"&gt;'txiZ^(~z?"</span>[t - <span class="number">48</span>] + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">char</span> shift = <span class="string">";;;====~$::199"</span>[(i*<span class="number">2</span>)&amp;<span class="number">8</span> | i/<span class="number">64</span>];</span><br><span class="line">            <span class="keyword">if</span> ((i&amp;<span class="number">2</span>) == <span class="number">0</span>)</span><br><span class="line">                shift /= <span class="number">8</span>;</span><br><span class="line">            shift = shift % <span class="number">8</span>;</span><br><span class="line">            <span class="keyword">char</span> c = a &gt;&gt; shift;</span><br><span class="line">            <span class="built_in">putchar</span>(<span class="number">32</span> | c&amp;<span class="number">1</span>);</span><br><span class="line">        &#125;    </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>写到这里我们先停一下，看上去已经比较像是正常的代码了（误），一些运算符的优先级我们也都已经展开完毕了，好像似乎无法进行简化了，但是程序的逻辑真的是一丝都没有任何的明朗。我们需要从头开始看看整体逻辑。for循环一共执行448次，每64次会换行，这样就会输出7行。不换行的时候会进行一堆判断，最后输出的关键语句是<code>putchar(32 | c&amp;1)</code>，稍微看一下这个逻辑就会发现，<code>32 | c&amp;1</code>只有两个值，要么是32(ASCII 空格)或是33(ASCII !)。这样会给我们真正地深入分析提供思路。</p>
-<h2 id="处理：理清逻辑"><a href="#处理：理清逻辑" class="headerlink" title="处理：理清逻辑"></a>处理：理清逻辑</h2><p>tbc..</p>
+<h2 id="处理：理清逻辑"><a href="#处理：理清逻辑" class="headerlink" title="处理：理清逻辑"></a>处理：理清逻辑</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">!!  !!!!!!          !!!!!!  !!!!!!              !!  !!!!!!</span><br><span class="line">!!      !!          !!  !!      !!          !!  !!  !!  !!</span><br><span class="line">!!      !!          !!  !!      !!          !!  !!  !!  !!</span><br><span class="line">!!      !!    !!    !!  !!    !!!!    !!    !!!!!!  !!!!!!</span><br><span class="line">!!      !!          !!  !!  !!                  !!      !!</span><br><span class="line">!!      !!          !!  !!  !!                  !!      !!</span><br><span class="line">!!      !!          !!!!!!  !!!!                !!  !!!!!!</span><br></pre></td></tr></table></figure>
+<p>再次整理一下我们已经了解的一些信息：</p>
+<ul>
+<li>最终输出一共有7行，每行64个字符。不知大家是否对64和代码中出现了很多次的8这两个数字有些许感觉，其实在这里结合我们观察到的图形，我们已经可以大胆地假设：$64=8\times 8$。有人会想这还要你假设，这不是事实吗？我的意思是一行的64个字符可以被均分为8组，每组8个字符。写到这里你再看看上图就知道：冒号其实和数字是同等的地位，这是后话了。这样的话我们就可以把这个$7\times 64$矩形分割成为八个$7\times 8$的小矩形，分别对应小时的两位数字、冒号、分钟的两位数字、冒号秒的两位数字。</li>
+</ul>
+<p>这样的话我们就有足够的insight可以着眼于shift这个变量了。</p>
+<h2 id="shift-移位变量初探"><a href="#shift-移位变量初探" class="headerlink" title="shift 移位变量初探"></a>shift 移位变量初探</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> shift = <span class="string">";;;====~$::199"</span>[ (i*<span class="number">2</span>)&amp;<span class="number">8</span> | i/<span class="number">64</span>];</span><br><span class="line"><span class="keyword">if</span> ((i&amp;<span class="number">2</span>) == <span class="number">0</span>)</span><br><span class="line">    shift /= <span class="number">8</span>;</span><br><span class="line">shift = shift % <span class="number">8</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>i/64</code>这是两个整型做除法，所以得到向下取整的整数。不难想象这可以表示行号，在0到6之间，用3个bit就可以表示。</li>
+<li><code>(i*2)&amp;8</code>涉及到了位运算。<code>(i*2)</code>等价于i左移1位，<code>(i*2)&amp;8</code>等价于检测原本i的倒数第3位的情况，只要i = 4, 5, 6, 7 mod 8，这位就是1。</li>
+<li><code>(i*2)&amp;8 | i/64</code>前半部分的结果除了倒数第4位有可能有值，其他位全为0；后半部分只有3个bit，与在一起正好是一个4<br>bit的数。相当于<code>x000|0yyy--&gt;xyyy</code>。</li>
+<li>当i = 0, 1, 4, 5 mod 8时，i&amp;2为0，进入if分支，shift将会左移三位。</li>
+<li>最后如论如何，shift mod 8后被映射到了0-7上，那么shift就是一个0-7的数。</li>
+</ul>
+<h2 id="string1-居然是……"><a href="#string1-居然是……" class="headerlink" title="string1 居然是……"></a>string1 居然是……</h2><p>到了这个时候你可能会想了，这个shift居然是一个和行号有关的量，我们完全有理由相信shift就是一个用来表示位置的量。这时候我们再回过神来看前面的那个含宏的变量a。在这之前，补充一个必须的知识点，就是<code>__TIME__</code>这个宏是长啥样的。<code>__TIME__</code>会返回一个字符串，用<code>printf(&quot;%s&quot;, __TIME__)</code>会得如下的结果：<code>19:22:18</code>，形如<code>&quot;HH:MM:SS&quot;。</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> t = __TIME__[<span class="number">7</span> - i / <span class="number">8</span> % <span class="number">8</span>];</span><br><span class="line"><span class="keyword">char</span> a = <span class="string">"&gt;'txiZ^(~z?"</span>[t - <span class="number">48</span>] + <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<p>又是出现了好多的8啊！但是这回你应该可以自己分析出来了，<code>i / 8 % 8</code>得到的是当前位置我应该打印的是什么字符（$7\times 8$的小矩形），用7减是因为i是从448开始减小的，这样随着i的减小，<code>7 - i / 8 % 8</code>可以按照从0到7的顺序反复遍历了。注意到十进制的48在ascii码表中对应的是数字0哦。那样的话，<code>&quot;&gt;&#39;txiZ^(~z?&quot;[t - 48]</code>就相当于根据这一位该显示的数字在字符串<code>&quot;&gt;&#39;txiZ^(~z?&quot;</code>中做选择。</p>
+<p>看到这一步，我们该是不知道这个字符串是干嘛用的，但是大家不用慌，我们已经知道<code>t - 48</code>只能在0-9和10（冒号）中取值，我这就给大家来个枚举法，看看到底是什么。</p>
+<blockquote>
+<p>顺便一提，为什么一定要写成<code>&quot;&gt;&#39;txiZ^(~z?&quot;[t - 48] + 1</code>这种+1的形式而不直接写<code>&quot;另一个字符串&quot;[t-48]</code>呢？这是因为<code>~</code>再加1就不是可打印字符了哦，真是挺凑巧的。</p>
+</blockquote>
+<p>0-&gt;10在字符串中做选择后的值的二进制表示如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">0 00111111</span><br><span class="line">1 00101000</span><br><span class="line">2 01110101</span><br><span class="line">3 01111001</span><br><span class="line">4 01101010</span><br><span class="line">5 01011011</span><br><span class="line">6 01011111</span><br><span class="line">7 00101001</span><br><span class="line">8 01111111</span><br><span class="line">9 01111011</span><br><span class="line">: 01000000</span><br></pre></td></tr></table></figure></p>
+<p>请大家在往下翻之前好好的看几眼这个表，看看每个二进制的第一位，特别是8这个数字所对应的二进制，再看看别的二进制。你想到了什么？</p>
+<p>……</p>
+<p>现在就是拿出你数字电路水平的时候了。其实这tm就是个7段数码管！你可能会想，这我怎么看的出来啊！没事，回过头来看shift你就完全能感受到了。</p>
+<h2 id="shift-移位变量深入"><a href="#shift-移位变量深入" class="headerlink" title="shift 移位变量深入"></a>shift 移位变量深入</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> shift = <span class="string">";;;====~$::199"</span>[ (i*<span class="number">2</span>)&amp;<span class="number">8</span> | i/<span class="number">64</span>];</span><br><span class="line"><span class="keyword">if</span> ((i&amp;<span class="number">2</span>) == <span class="number">0</span>)</span><br><span class="line">    shift /= <span class="number">8</span>;</span><br><span class="line">shift = shift % <span class="number">8</span>;</span><br></pre></td></tr></table></figure>
+<p>这个if条件的除8后模8是不是有点眼熟啊，<code>__TIME__[7 - i / 8 % 8]</code>中就已经出现过了，不过这里的意思是</p>
+<ul>
+<li>当i = 0, 1, 4, 5 mod 8时，i&amp;2为0，进入if分支，shift将会右移三位后取剩下的最低三位。</li>
+<li>当i = 2, 3, 6, 7 mod 8时，shift直接取剩下的最低三位。</li>
+</ul>
+<p>i/64表示行号，(i*2)&amp;8表示在小剧情的左半边还是右半边。</p>
+<p>话不多说，打表！<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">00005577</span><br><span class="line">11775577</span><br><span class="line">11775577</span><br><span class="line">11665577</span><br><span class="line">22773377</span><br><span class="line">22773377</span><br><span class="line">44443377</span><br></pre></td></tr></table></figure></p>
+<p>让我们对着表来理解<code>&quot;;;;====~$::199&quot;[ (i*2)&amp;8 | i/64]</code>，方括号内右边表示我（i）在第几行，左边表示我在这一行的左边还是右边。再次注意到这里的i是7-实际的行号（i是从448开始减小的，而putchar是从左上方到右下方的）。</p>
+<ul>
+<li>在左半边：(i*2)&amp;8==1时就在”$::199”中选择（注意字符串结尾还有一个结束标志<code>\0</code>,行号从0到6，所以有7个选择）。</li>
+<li>如果在右半边：(i*2)&amp;8==0时就在”;;;====~”中做选择。这样就和前面一样有7个选择了。其实我们马上可以意识到最后的~字符完全是用来凑数的，可以换成任何的可打印字符，因为永远用不到（只有7行0-&gt;6，数不到7）。</li>
+</ul>
+<h2 id="7段数码管原理"><a href="#7段数码管原理" class="headerlink" title="7段数码管原理"></a>7段数码管原理</h2><p>再简化一点，$7\times 64$矩形被分割成为八个$7\times 8$的小矩形，每个小矩形按照模8的等价关系再被分为每一行和每一行的左半边和右半边。由于行号是从6减小到0，所以说选择的时候是从”$::199”和”;;;====~”中逆着选的。”$::199”对应行竖着下来”0111224”，”;;;====”对应着行竖着下来”5555333”，为什么左右半边又被分了呢？因为还有if条件的移位啊：</p>
+<ul>
+<li>当i = 0, 1, 4, 5 mod 8时，shift将会右移三位后取剩下的最低三位。</li>
+<li>当i = 2, 3, 6, 7 mod 8时，shift直接取剩下的最低三位。</li>
+</ul>
+<p><img src="https://res.cloudinary.com/ainevsia/image/upload/v1557491865/syskes.png" alt="example-visual"></p>
+<p>也就是说，当在图中红框内时，属于i = 2, 3, 6, 7 mod 8时（再次提醒i是减小的），直接取低3位；别的位置时，取高三位。</p>
+<p>这就很有意思了，看到有一列全是7，是在右边的情况，高位为<code>111</code>，可以验证<code>;:</code>的高三位全1</p>
+<p><img src="https://res.cloudinary.com/ainevsia/image/upload/v1557492557/111.png" alt="111"></p>
+<blockquote>
+<p>给大家贴一张<a href="http://ascii.911cha.com/" target="_blank" rel="noopener">ASCII码表</a></p>
+</blockquote>
+<p>写到这里，大家都明白是怎么一会事了吧。再一次重新看完整的代码。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">447</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        <span class="keyword">if</span> (i % <span class="number">64</span> == <span class="number">0</span>) <span class="built_in">putchar</span>(<span class="string">'\n'</span>);</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">char</span> t = __TIME__[<span class="number">7</span> - i / <span class="number">8</span> % <span class="number">8</span>];</span><br><span class="line">            <span class="keyword">char</span> a = <span class="string">"&gt;'txiZ^(~z?"</span>[t - <span class="number">48</span>] + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">char</span> shift = <span class="string">";;;====~$::199"</span>[(i*<span class="number">2</span>)&amp;<span class="number">8</span> | i/<span class="number">64</span>];</span><br><span class="line">            <span class="keyword">if</span> ((i&amp;<span class="number">2</span>) == <span class="number">0</span>)</span><br><span class="line">                shift /= <span class="number">8</span>;</span><br><span class="line">            shift = shift % <span class="number">8</span>;</span><br><span class="line">            <span class="keyword">char</span> c = a &gt;&gt; shift;</span><br><span class="line">            <span class="built_in">putchar</span>(<span class="number">32</span> | c&amp;<span class="number">1</span>);</span><br><span class="line">        &#125;    </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用单维度i来标志当前打印字符的位置，8位字符a表示这一个区域内：$7\times 8$的小矩形内该显示的数字的七段数码管各管脚的高低电平。shift移位后用来确定当前bit是否应该被点亮。</p>
+<p>大家有部分没有看懂的话没关系的，只需要知道原理就是7段数码管的原理，两个字符串只不过是构造这个7段数码管。</p>
+<p>当然，这里面的思想更加深邃。</p>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>从详细地分析这一行代码的过程中我们得到了些什么呢？</p>
+<ul>
+<li>知道了一行代码到底能干什么事</li>
+<li>知道了看别人写的代码时是什么感受</li>
+<li>知道了c还有这么多我不知道的特性</li>
+<li>知道了一个道理：想的越多，写的越少</li>
+<li>知道了条条大路通底层电子技术原理</li>
+</ul>
+<h2 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">main(_)&#123;_^<span class="number">448</span>&amp;&amp;main(-~_);<span class="built_in">putchar</span>(--_%<span class="number">64</span>?<span class="number">32</span>|-~<span class="number">7</span>[__TIME__-_/<span class="number">8</span>%<span class="number">8</span>][<span class="string">"&gt;'txiZ^(~z?"</span><span class="number">-48</span>]&gt;&gt;<span class="string">";;;====~$::199"</span>[_*<span class="number">2</span>&amp;<span class="number">8</span>|_/<span class="number">64</span>]/(_&amp;<span class="number">2</span>?<span class="number">1</span>:<span class="number">8</span>)%<span class="number">8</span>&amp;<span class="number">1</span>:<span class="number">10</span>);&#125;</span><br></pre></td></tr></table></figure>
+<p>vs<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">447</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        <span class="keyword">if</span> (i % <span class="number">64</span> == <span class="number">0</span>) <span class="built_in">putchar</span>(<span class="string">'\n'</span>);</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">char</span> line_num_inv = i / <span class="number">64</span>;</span><br><span class="line">            <span class="keyword">char</span> section_num_inv = i / <span class="number">8</span> % <span class="number">8</span>;</span><br><span class="line">            <span class="keyword">char</span> section_num = <span class="number">7</span> - section_num_inv;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">char</span> t = __TIME__[section_num];</span><br><span class="line">            <span class="keyword">char</span> a = <span class="string">"&gt;'txiZ^(~z?"</span>[t - <span class="number">48</span>] + <span class="number">1</span>;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">char</span> shift = <span class="string">";;;====!$::199"</span>[(i * <span class="number">2</span>) &amp; <span class="number">8</span> | line_num_inv];</span><br><span class="line">            <span class="keyword">if</span> ((i&amp;<span class="number">2</span>) == <span class="number">0</span>)</span><br><span class="line">                shift /= <span class="number">8</span>;</span><br><span class="line">            shift = shift % <span class="number">8</span>;</span><br><span class="line">            <span class="keyword">char</span> c = a &gt;&gt; shift;</span><br><span class="line">            <span class="built_in">putchar</span>(<span class="number">32</span> | c&amp;<span class="number">1</span>);</span><br><span class="line">        &#125;    </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>do the same thing</p>
+<h1 id="Acknowledgement"><a href="#Acknowledgement" class="headerlink" title="Acknowledgement"></a>Acknowledgement</h1><p>Stack Overflow - <a href="https://stackoverflow.com/questions/15393441/obfuscated-c-code-contest-2006-please-explain-sykes2-c" target="_blank" rel="noopener">Obfuscated C Code Contest 2006. Please explain sykes2.c</a></p>
 
       
     </div>
@@ -951,7 +1011,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#先看一眼这段小巧玲珑的代码"><span class="nav-number">1.</span> <span class="nav-text">先看一眼这段小巧玲珑的代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行这段代码看看干了啥"><span class="nav-number">2.</span> <span class="nav-text">运行这段代码看看干了啥</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些你可能从来没有考虑过的问题"><span class="nav-number">3.</span> <span class="nav-text">一些你可能从来没有考虑过的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#何时可以不指明返回类型？"><span class="nav-number">3.1.</span> <span class="nav-text">何时可以不指明返回类型？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#何时可以不包含头文件？"><span class="nav-number">3.2.</span> <span class="nav-text">何时可以不包含头文件？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#预处理：变得能看"><span class="nav-number">4.</span> <span class="nav-text">预处理：变得能看</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#预处理：变得像人写的"><span class="nav-number">5.</span> <span class="nav-text">预处理：变得像人写的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#处理：理清逻辑"><span class="nav-number">6.</span> <span class="nav-text">处理：理清逻辑</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#先看一眼这段小巧玲珑的代码"><span class="nav-number">1.</span> <span class="nav-text">先看一眼这段小巧玲珑的代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行这段代码看看干了啥"><span class="nav-number">2.</span> <span class="nav-text">运行这段代码看看干了啥</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些你可能从来没有考虑过的问题"><span class="nav-number">3.</span> <span class="nav-text">一些你可能从来没有考虑过的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#何时可以不指明返回类型？"><span class="nav-number">3.1.</span> <span class="nav-text">何时可以不指明返回类型？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#何时可以不包含头文件？"><span class="nav-number">3.2.</span> <span class="nav-text">何时可以不包含头文件？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#预处理：变得能看"><span class="nav-number">4.</span> <span class="nav-text">预处理：变得能看</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#预处理：变得像人写的"><span class="nav-number">5.</span> <span class="nav-text">预处理：变得像人写的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#处理：理清逻辑"><span class="nav-number">6.</span> <span class="nav-text">处理：理清逻辑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shift-移位变量初探"><span class="nav-number">7.</span> <span class="nav-text">shift 移位变量初探</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#string1-居然是……"><span class="nav-number">8.</span> <span class="nav-text">string1 居然是……</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shift-移位变量深入"><span class="nav-number">9.</span> <span class="nav-text">shift 移位变量深入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7段数码管原理"><span class="nav-number">10.</span> <span class="nav-text">7段数码管原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后记"><span class="nav-number">11.</span> <span class="nav-text">后记</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对比"><span class="nav-number">12.</span> <span class="nav-text">对比</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Acknowledgement"><span class="nav-number"></span> <span class="nav-text">Acknowledgement</span></a></div>
             
 
           </div>
@@ -985,7 +1045,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">89k</span>
+    <span title="站点总字数">94k</span>
   
 
   
@@ -996,7 +1056,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">1:21</span>
+    <span title="站点阅读时长">1:25</span>
   
 </div>
 
