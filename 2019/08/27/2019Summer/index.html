@@ -96,19 +96,20 @@
 
 
 
-  <meta name="description" content="主要借鉴 十分钟搭建自己的科学上网SSR梯子非常感谢！  思路 首先你得先租借好专用的VPS，推荐的有Digitalocean和Vultr 我先是试了试Singapore的服务器发现很慢，于是换了LA的，爽的不行。 然后就是在登陆服务器之后通过rrsmu.sh脚本安装ShadowsocksR 最后在自己的客户端装上SSR  奇迹就这样发生了">
+  <meta name="description" content="需求这个假期解锁了公网服务器的一种新的用法：实现内网穿透。就好比在家用电脑连上寝室路由器、在咖啡厅用流量连上公司电脑一样方便。 其实需求非常的简单，可能看上去用到了很复杂的技术，实际上搞懂之后还是非常简单的。">
+<meta name="keywords" content="Openvpn">
 <meta property="og:type" content="article">
-<meta property="og:title" content="自搭梯子翻越GFW">
-<meta property="og:url" content="https://ainevsia.github.io/2018/08/12/GFW/index.html">
+<meta property="og:title" content="透过OpenVpn访问内网服务器">
+<meta property="og:url" content="https://ainevsia.github.io/2019/08/27/2019Summer/index.html">
 <meta property="og:site_name" content="无花果">
-<meta property="og:description" content="主要借鉴 十分钟搭建自己的科学上网SSR梯子非常感谢！  思路 首先你得先租借好专用的VPS，推荐的有Digitalocean和Vultr 我先是试了试Singapore的服务器发现很慢，于是换了LA的，爽的不行。 然后就是在登陆服务器之后通过rrsmu.sh脚本安装ShadowsocksR 最后在自己的客户端装上SSR  奇迹就这样发生了">
+<meta property="og:description" content="需求这个假期解锁了公网服务器的一种新的用法：实现内网穿透。就好比在家用电脑连上寝室路由器、在咖啡厅用流量连上公司电脑一样方便。 其实需求非常的简单，可能看上去用到了很复杂的技术，实际上搞懂之后还是非常简单的。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://res.cloudinary.com/ainevsia/image/upload/v1550225538/vps-LA.png">
-<meta property="og:updated_time" content="2019-03-02T06:44:41.634Z">
+<meta property="og:image" content="https://res.cloudinary.com/ainevsia/image/upload/v1566896401/2019summer.png">
+<meta property="og:updated_time" content="2019-08-27T09:17:40.454Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="自搭梯子翻越GFW">
-<meta name="twitter:description" content="主要借鉴 十分钟搭建自己的科学上网SSR梯子非常感谢！  思路 首先你得先租借好专用的VPS，推荐的有Digitalocean和Vultr 我先是试了试Singapore的服务器发现很慢，于是换了LA的，爽的不行。 然后就是在登陆服务器之后通过rrsmu.sh脚本安装ShadowsocksR 最后在自己的客户端装上SSR  奇迹就这样发生了">
-<meta name="twitter:image" content="https://res.cloudinary.com/ainevsia/image/upload/v1550225538/vps-LA.png">
+<meta name="twitter:title" content="透过OpenVpn访问内网服务器">
+<meta name="twitter:description" content="需求这个假期解锁了公网服务器的一种新的用法：实现内网穿透。就好比在家用电脑连上寝室路由器、在咖啡厅用流量连上公司电脑一样方便。 其实需求非常的简单，可能看上去用到了很复杂的技术，实际上搞懂之后还是非常简单的。">
+<meta name="twitter:image" content="https://res.cloudinary.com/ainevsia/image/upload/v1566896401/2019summer.png">
 
 
 
@@ -117,7 +118,7 @@
 
 
 
-  <link rel="canonical" href="https://ainevsia.github.io/2018/08/12/GFW/">
+  <link rel="canonical" href="https://ainevsia.github.io/2019/08/27/2019Summer/">
 
 
 
@@ -127,7 +128,7 @@
   };
 </script>
 
-  <title>自搭梯子翻越GFW | 无花果</title>
+  <title>透过OpenVpn访问内网服务器 | 无花果</title>
   
 
 
@@ -385,7 +386,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://ainevsia.github.io/2018/08/12/GFW/">
+    <link itemprop="mainEntityOfPage" href="https://ainevsia.github.io/2019/08/27/2019Summer/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Ainevsia">
@@ -402,7 +403,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">自搭梯子翻越GFW
+          <h1 class="post-title" itemprop="name headline">透过OpenVpn访问内网服务器
 
               
             
@@ -428,28 +429,34 @@
                 
               
 
-              <time title="创建时间：2018年08月12日 20:04:23" itemprop="dateCreated datePublished" datetime="2018-08-12T20:04:23+08:00">2018年08月12日</time>
+              <time title="创建时间：2019年08月27日 16:02:05 / 修改时间：17:17:40" itemprop="dateCreated datePublished" datetime="2019-08-27T16:02:05+08:00">2019年08月27日</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019年03月02日 14:44:41" itemprop="dateModified" datetime="2019-03-02T14:44:41+08:00">2019年03月02日</time>
               
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Networking/" itemprop="url" rel="index"><span itemprop="name">Networking</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -463,8 +470,8 @@
                 </span>
             
                 <span class="post-meta-item-text">评论数：</span>
-                <a href="/2018/08/12/GFW/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/08/12/GFW/" itemprop="commentCount"></span>
+                <a href="/2019/08/27/2019Summer/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/08/27/2019Summer/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -493,7 +500,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">172</span>
+                <span title="本文字数">494</span>
               
 
               
@@ -527,16 +534,18 @@
       
 
       
-        <h1 id="主要借鉴"><a href="#主要借鉴" class="headerlink" title="主要借鉴"></a>主要借鉴</h1><blockquote>
-<p><a href="https://blog.csdn.net/LuYiming_Ben/article/details/81571950" target="_blank" rel="noopener">十分钟搭建自己的科学上网SSR梯子</a><br>非常感谢！</p>
+        <h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><p>这个假期解锁了公网服务器的一种新的用法：实现内网穿透。就好比在家用电脑连上寝室路由器、在咖啡厅用流量连上公司电脑一样方便。</p>
+<p>其实需求非常的简单，可能看上去用到了<br>很复杂的技术，实际上搞懂之后还是非常简单的。</p>
+<a id="more"></a>
+<p><img src="https://res.cloudinary.com/ainevsia/image/upload/v1566896401/2019summer.png" alt="网络拓扑结构示意"></p>
+<h1 id="原材料"><a href="#原材料" class="headerlink" title="原材料"></a>原材料</h1><p>带openwrt系统的路由器一台。</p>
+<blockquote>
+<h3 id="关于-OpenWrt"><a href="#关于-OpenWrt" class="headerlink" title="关于 OpenWrt"></a>关于 <a href="http://www.openwrt.org.cn/" target="_blank" rel="noopener">OpenWrt</a></h3><p>openwrt是嵌入式设备上运行的linux系统，并且附带3000左右的软件包，用户可以方便的自定义功能来制作固件，也可以方便的移植各类功能到openwrt下。</p>
 </blockquote>
-<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><ul>
-<li>首先你得先租借好专用的VPS，推荐的有<a href="https://www.digitalocean.com/" target="_blank" rel="noopener">Digitalocean</a>和<a href="https://my.vultr.com/" target="_blank" rel="noopener">Vultr</a><br><img src="https://res.cloudinary.com/ainevsia/image/upload/v1550225538/vps-LA.png" alt="vps-LA"></li>
-<li>我先是试了试Singapore的服务器发现很慢，于是换了LA的，爽的不行。</li>
-<li>然后就是在登陆服务器之后通过<code>rrsmu.sh</code>脚本安装ShadowsocksR</li>
-<li>最后在自己的客户端装上SSR</li>
-</ul>
-<p>奇迹就这样发生了</p>
+<p><a href="https://item.taobao.com/item.htm?spm=a230r.1.14.11.35f13bbcVxmJ45&amp;id=577312475091&amp;ns=1&amp;abbucket=15#detail" target="_blank" rel="noopener">淘宝链接</a></p>
+<p>如何在Linux以及Windows下安装Openvpn就不多介绍了，网上已经有很多详细的教程了：<a href="https://shawn-ji.github.io/2017/06/02/openvpn.html" target="_blank" rel="noopener">openvpn实现内网 映射到 外网 - 纪寿安的个人博客</a>， 第一次配置很定会很难受的，因为步骤非常多。我也是配了三四次才觉的流程稍微有点熟悉了。</p>
+<p>这里特别要注意的是：公网ip服务器装的是openvpn的sever版，在办公室负责构建内网的路由器和自己的连接设备装的是openvpn的client版。</p>
+<p>主要的原理就是利用公网ip服务器暴露在外的公网ip将所有连接上的客户端通过虚拟网卡组成一个局域网，这样就可以实现客户端之间的自由通信了。</p>
 
       
     </div>
@@ -556,7 +565,7 @@
           </li>
           <li class="post-copyright-link">
             <strong>本文链接：</strong>
-            <a href="/2018/08/12/GFW/" title="自搭梯子翻越GFW">https://ainevsia.github.io/2018/08/12/GFW/</a>
+            <a href="/2019/08/27/2019Summer/" title="透过OpenVpn访问内网服务器">https://ainevsia.github.io/2019/08/27/2019Summer/</a>
           </li>
           <li class="post-copyright-license">
             <strong>版权声明： </strong>
@@ -577,6 +586,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/Openvpn/" rel="tag"># Openvpn</a>
+          
+        </div>
+      
 
       
       
@@ -586,8 +601,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/12/DS-7-4/" rel="next" title="7-4 是否同一棵二叉搜索树">
-                <i class="fa fa-chevron-left"></i> 7-4 是否同一棵二叉搜索树
+              <a href="/2019/08/17/AttackLabwriteup/" rel="next" title="CSAPP - AttackLab Writeup">
+                <i class="fa fa-chevron-left"></i> CSAPP - AttackLab Writeup
               </a>
             
           </div>
@@ -595,10 +610,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/08/14/DS-7-6/" rel="prev" title="7-6 列出连通集">
-                7-6 列出连通集 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -872,7 +883,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#主要借鉴"><span class="nav-number">1.</span> <span class="nav-text">主要借鉴</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思路"><span class="nav-number">2.</span> <span class="nav-text">思路</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#需求"><span class="nav-number">1.</span> <span class="nav-text">需求</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#原材料"><span class="nav-number">2.</span> <span class="nav-text">原材料</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于-OpenWrt"><span class="nav-number">2.0.1.</span> <span class="nav-text">关于 OpenWrt</span></a></li></ol></li></ol></div>
             
 
           </div>
