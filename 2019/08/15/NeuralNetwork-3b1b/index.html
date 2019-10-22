@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="概念神经网络只不过是一个巨大的函数，受的是大脑神经元的启发。so that the computer has a brain 复杂由简单组成，计算机显然不能做所有的事情，但是目前计算能力的发展已经能够满足模仿大脑神经元那样的水平了。 神经网络的复杂程度稍微能让我们感觉到完成一些事情确实需要到达这样的复杂程度。 一个训练好的网络就像是一个成年人的大脑（的一部分），relu更加的仿生。 梯度 - 好比">
+  <meta name="description" content="概念神经网络只不过是一个巨大的函数，受的是大脑神经元的启发。so that the computer has a brain 复杂由简单组成，计算机显然不能做所有的事情，但是目前计算能力的发展已经能够满足模仿大脑神经元那样的水平了。">
 <meta name="keywords" content="SJTU">
 <meta property="og:type" content="article">
-<meta property="og:title" content="神经网络学习笔记">
+<meta property="og:title" content="神经网络学习笔记-3b1b">
 <meta property="og:url" content="https://ainevsia.github.io/2019/08/15/NeuralNetwork-3b1b/index.html">
 <meta property="og:site_name" content="无花果">
-<meta property="og:description" content="概念神经网络只不过是一个巨大的函数，受的是大脑神经元的启发。so that the computer has a brain 复杂由简单组成，计算机显然不能做所有的事情，但是目前计算能力的发展已经能够满足模仿大脑神经元那样的水平了。 神经网络的复杂程度稍微能让我们感觉到完成一些事情确实需要到达这样的复杂程度。 一个训练好的网络就像是一个成年人的大脑（的一部分），relu更加的仿生。 梯度 - 好比">
+<meta property="og:description" content="概念神经网络只不过是一个巨大的函数，受的是大脑神经元的启发。so that the computer has a brain 复杂由简单组成，计算机显然不能做所有的事情，但是目前计算能力的发展已经能够满足模仿大脑神经元那样的水平了。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-15T09:15:17.887Z">
+<meta property="og:updated_time" content="2019-10-22T06:21:59.417Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="神经网络学习笔记">
-<meta name="twitter:description" content="概念神经网络只不过是一个巨大的函数，受的是大脑神经元的启发。so that the computer has a brain 复杂由简单组成，计算机显然不能做所有的事情，但是目前计算能力的发展已经能够满足模仿大脑神经元那样的水平了。 神经网络的复杂程度稍微能让我们感觉到完成一些事情确实需要到达这样的复杂程度。 一个训练好的网络就像是一个成年人的大脑（的一部分），relu更加的仿生。 梯度 - 好比">
+<meta name="twitter:title" content="神经网络学习笔记-3b1b">
+<meta name="twitter:description" content="概念神经网络只不过是一个巨大的函数，受的是大脑神经元的启发。so that the computer has a brain 复杂由简单组成，计算机显然不能做所有的事情，但是目前计算能力的发展已经能够满足模仿大脑神经元那样的水平了。">
 
 
 
@@ -126,7 +126,7 @@
   };
 </script>
 
-  <title>神经网络学习笔记 | 无花果</title>
+  <title>神经网络学习笔记-3b1b | 无花果</title>
   
 
 
@@ -401,7 +401,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">神经网络学习笔记
+          <h1 class="post-title" itemprop="name headline">神经网络学习笔记-3b1b
 
               
             
@@ -427,12 +427,24 @@
                 
               
 
-              <time title="创建时间：2019年08月15日 16:52:53 / 修改时间：17:15:17" itemprop="dateCreated datePublished" datetime="2019-08-15T16:52:53+08:00">2019年08月15日</time>
+              <time title="创建时间：2019年08月15日 16:52:53" itemprop="dateCreated datePublished" datetime="2019-08-15T16:52:53+08:00">2019年08月15日</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019年10月22日 14:21:59" itemprop="dateModified" datetime="2019-10-22T14:21:59+08:00">2019年10月22日</time>
               
             
           </span>
@@ -498,7 +510,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">209</span>
+                <span title="本文字数">210</span>
               
 
               
@@ -532,8 +544,9 @@
       
 
       
-        <h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><p>神经网络只不过是一个巨大的函数，受的是大脑神经元的启发。so that the computer has a <strong>brain</strong></p>
+        <h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>神经网络只不过是一个巨大的函数，受的是大脑神经元的启发。so that the computer has a <strong>brain</strong></p>
 <p>复杂由简单组成，计算机显然不能做所有的事情，但是目前计算能力的发展已经能够满足模仿大脑神经元那样的水平了。</p>
+<a id="more"></a>
 <p>神经网络的复杂程度稍微能让我们感觉到完成一些事情确实需要到达这样的复杂程度。</p>
 <p>一个训练好的网络就像是一个成年人的大脑（的一部分），relu更加的仿生。</p>
 <p>梯度 - 好比是向那个方向下山</p>
@@ -556,7 +569,7 @@
           </li>
           <li class="post-copyright-link">
             <strong>本文链接：</strong>
-            <a href="/2019/08/15/NeuralNetwork-3b1b/" title="神经网络学习笔记">https://ainevsia.github.io/2019/08/15/NeuralNetwork-3b1b/</a>
+            <a href="/2019/08/15/NeuralNetwork-3b1b/" title="神经网络学习笔记-3b1b">https://ainevsia.github.io/2019/08/15/NeuralNetwork-3b1b/</a>
           </li>
           <li class="post-copyright-license">
             <strong>版权声明： </strong>
@@ -878,7 +891,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概念"><span class="nav-number">1.</span> <span class="nav-text">概念</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概念"><span class="nav-number">1.</span> <span class="nav-text">概念</span></a></li></ol></div>
             
 
           </div>
@@ -923,7 +936,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">1:31</span>
+    <span title="站点阅读时长">1:30</span>
   
 </div>
 
