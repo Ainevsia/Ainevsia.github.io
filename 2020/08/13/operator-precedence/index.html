@@ -104,14 +104,14 @@
 <meta property="og:site_name" content="无花果">
 <meta property="og:description" content="最近开始学习windows环境下的编程，很多C的知识都有点忘记了，这里碰到两个脑子突然转不过弯的地方，这里记录一下。 优先级">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://ainevsia.github.io/Post-Asset-Folder/operator-precedence/1.png">
-<meta property="og:image" content="https://ainevsia.github.io/Post-Asset-Folder/operator-precedence/2.png">
-<meta property="og:image" content="https://ainevsia.github.io/Post-Asset-Folder/operator-precedence/3.png">
-<meta property="og:updated_time" content="2020-08-13T07:11:19.342Z">
+<meta property="og:image" content="https://ainevsia.github.io/images/operator-precedence/1.png">
+<meta property="og:image" content="https://ainevsia.github.io/images/operator-precedence/2.png">
+<meta property="og:image" content="https://ainevsia.github.io/images/operator-precedence/3.png">
+<meta property="og:updated_time" content="2020-08-13T07:21:04.296Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C () -&gt; 运算符优先级">
 <meta name="twitter:description" content="最近开始学习windows环境下的编程，很多C的知识都有点忘记了，这里碰到两个脑子突然转不过弯的地方，这里记录一下。 优先级">
-<meta name="twitter:image" content="https://ainevsia.github.io/Post-Asset-Folder/operator-precedence/1.png">
+<meta name="twitter:image" content="https://ainevsia.github.io/images/operator-precedence/1.png">
 
 
 
@@ -431,7 +431,7 @@
                 
               
 
-              <time title="创建时间：2020年08月13日 14:45:27 / 修改时间：15:11:19" itemprop="dateCreated datePublished" datetime="2020-08-13T14:45:27+08:00">2020年08月13日</time>
+              <time title="创建时间：2020年08月13日 14:45:27 / 修改时间：15:21:04" itemprop="dateCreated datePublished" datetime="2020-08-13T14:45:27+08:00">2020年08月13日</time>
             
 
             
@@ -537,14 +537,14 @@
 
       
         <p>最近开始学习windows环境下的编程，很多C的知识都有点忘记了，这里碰到两个脑子突然转不过弯的地方，这里记录一下。</p>
-<h2 id="优先级"><a href="#优先级" class="headerlink" title="优先级"></a>优先级</h2><p><img src="/Post-Asset-Folder/operator-precedence/1.png" alt></p>
+<h2 id="优先级"><a href="#优先级" class="headerlink" title="优先级"></a>优先级</h2><p><img src="/images/operator-precedence/1.png" alt></p>
 <a id="more"></a>
 <p><code>(type cast) p -&gt; a</code>这样的表达式有两个运算符，一个是强制类型转换，一个是取指针对象的成员变量，这两个运算符一个在前，一个在后，那么应该先执行哪一个呢？</p>
 <p>事实证明，应该先执行<code>-&gt;</code>，那么我们去查查运算符优先级表。</p>
-<p><img src="/Post-Asset-Folder/operator-precedence/2.png" alt></p>
+<p><img src="/images/operator-precedence/2.png" alt></p>
 <p>第一眼看上去，这括号和<code>-&gt;</code>不是在同一类优先级中吗？那是不是应该遵循从左到有的规则，先做强制类型转换再取成员变量？</p>
 <p>Noooo.这个括号是函数调用啊哥，看第二组的type cast括号，那才是类型转换。</p>
-<h2 id="多重括号"><a href="#多重括号" class="headerlink" title="多重括号"></a>多重括号</h2><p><img src="/Post-Asset-Folder/operator-precedence/3.png" alt></p>
+<h2 id="多重括号"><a href="#多重括号" class="headerlink" title="多重括号"></a>多重括号</h2><p><img src="/images/operator-precedence/3.png" alt></p>
 <p>还有一个我一下子没转过弯来的是这个多加几个括号的问题。我的印象里括号只要成对加多少个都没问题，这里我在sizeof里多加了一对括号咋就不能编译了呢？？</p>
 <p>表达式两边加多少个括号确实无所谓，但是这里不是表达式啊…里面是个类型，编译器认为你是在做类型装换。</p>
 
