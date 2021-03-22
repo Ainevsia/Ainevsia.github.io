@@ -108,7 +108,7 @@
 <meta property="og:image" content="https://ainevsia.github.io/2021/03/22/balsnctf2019-bank/storage.png">
 <meta property="og:image" content="https://ainevsia.github.io/2021/03/22/balsnctf2019-bank/functiontype.png">
 <meta property="og:image" content="https://ainevsia.github.io/2021/03/22/balsnctf2019-bank/jumpdest.png">
-<meta property="og:updated_time" content="2021-03-22T06:35:08.055Z">
+<meta property="og:updated_time" content="2021-03-22T06:37:24.616Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Balsn CTF 2019 - Bank 复现笔记">
 <meta name="twitter:description" content="Balsn CTF 2019 - Bank前几天Retr_0师傅发给我一道区块链题strictmathematician，仔细研究了两三天，学习到了很多新的知识，在此记录一下。由于这道题是pikachu师傅基于Balsn CTF 2019的Bank为原型出的一道题，所以我在pikachu师傅的指点下先去看了Balsn CTF 2019的Bank，以下为复现笔记。（官方wp）">
@@ -432,7 +432,7 @@
                 
               
 
-              <time title="创建时间：2021年03月22日 12:49:25 / 修改时间：14:35:08" itemprop="dateCreated datePublished" datetime="2021-03-22T12:49:25+08:00">2021年03月22日</time>
+              <time title="创建时间：2021年03月22日 12:49:25 / 修改时间：14:37:24" itemprop="dateCreated datePublished" datetime="2021-03-22T12:49:25+08:00">2021年03月22日</time>
             
 
             
@@ -585,6 +585,11 @@
 <li>Call <code>withdraw(0, 0x111111111111110000070f00)</code>.<br>进入onlyPass布置callback指针</li>
 <li>Call <code>withdraw(idx, 0x000000000000000000000000)</code>, and the <code>SendFlag</code> event will be emitted.<br>执行callback指针</li>
 </ol>
+<h1 id="感谢"><a href="#感谢" class="headerlink" title="感谢"></a>感谢</h1><ul>
+<li>Retr_0</li>
+<li>tkmk</li>
+<li>pikachu</li>
+</ul>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>后续希望能够阅读geth的源码深入了解EVM的许多细节。</p>
 
       
@@ -951,7 +956,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Balsn-CTF-2019-Bank"><span class="nav-number">1.</span> <span class="nav-text">Balsn CTF 2019 - Bank</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Source"><span class="nav-number">2.</span> <span class="nav-text">Source</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内存排布"><span class="nav-number">3.</span> <span class="nav-text">内存排布</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#合约本身的Storage布局"><span class="nav-number">3.1.</span> <span class="nav-text">合约本身的Storage布局</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FailedAttempt"><span class="nav-number">3.2.</span> <span class="nav-text">FailedAttempt</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SafeBox"><span class="nav-number">3.3.</span> <span class="nav-text">SafeBox</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#未初始化的Storage指针"><span class="nav-number">4.</span> <span class="nav-text">未初始化的Storage指针</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#function-type"><span class="nav-number">5.</span> <span class="nav-text">function type</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#调试"><span class="nav-number">6.</span> <span class="nav-text">调试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#搭建私链"><span class="nav-number">6.1.</span> <span class="nav-text">搭建私链</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#web3py"><span class="nav-number">6.2.</span> <span class="nav-text">web3py</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Debugger"><span class="nav-number">6.3.</span> <span class="nav-text">Debugger</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Exploit"><span class="nav-number">7.</span> <span class="nav-text">Exploit</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#实例分析"><span class="nav-number">7.1.</span> <span class="nav-text">实例分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">8.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Balsn-CTF-2019-Bank"><span class="nav-number">1.</span> <span class="nav-text">Balsn CTF 2019 - Bank</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Source"><span class="nav-number">2.</span> <span class="nav-text">Source</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内存排布"><span class="nav-number">3.</span> <span class="nav-text">内存排布</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#合约本身的Storage布局"><span class="nav-number">3.1.</span> <span class="nav-text">合约本身的Storage布局</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FailedAttempt"><span class="nav-number">3.2.</span> <span class="nav-text">FailedAttempt</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SafeBox"><span class="nav-number">3.3.</span> <span class="nav-text">SafeBox</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#未初始化的Storage指针"><span class="nav-number">4.</span> <span class="nav-text">未初始化的Storage指针</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#function-type"><span class="nav-number">5.</span> <span class="nav-text">function type</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#调试"><span class="nav-number">6.</span> <span class="nav-text">调试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#搭建私链"><span class="nav-number">6.1.</span> <span class="nav-text">搭建私链</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#web3py"><span class="nav-number">6.2.</span> <span class="nav-text">web3py</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Debugger"><span class="nav-number">6.3.</span> <span class="nav-text">Debugger</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Exploit"><span class="nav-number">7.</span> <span class="nav-text">Exploit</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#实例分析"><span class="nav-number">7.1.</span> <span class="nav-text">实例分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#感谢"><span class="nav-number">8.</span> <span class="nav-text">感谢</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">9.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
