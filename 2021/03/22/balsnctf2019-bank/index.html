@@ -1,0 +1,1583 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Balsn CTF 2019 - Bank前几天Retr_0师傅发给我一道区块链题strictmathematician，仔细研究了两三天，学习到了很多新的知识，在此记录一下。由于这道题是pikachu师傅基于Balsn CTF 2019的Bank为原型出的一道题，所以我在pikachu师傅的指点下先去看了Balsn CTF 2019的Bank，以下为复现笔记。（官方wp）">
+<meta name="keywords" content="Blockchian CTF">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Balsn CTF 2019 - Bank 复现笔记">
+<meta property="og:url" content="https://ainevsia.github.io/2021/03/22/balsnctf2019-bank/index.html">
+<meta property="og:site_name" content="无花果">
+<meta property="og:description" content="Balsn CTF 2019 - Bank前几天Retr_0师傅发给我一道区块链题strictmathematician，仔细研究了两三天，学习到了很多新的知识，在此记录一下。由于这道题是pikachu师傅基于Balsn CTF 2019的Bank为原型出的一道题，所以我在pikachu师傅的指点下先去看了Balsn CTF 2019的Bank，以下为复现笔记。（官方wp）">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://ainevsia.github.io/2021/03/22/balsnctf2019-bank/80.png">
+<meta property="og:image" content="https://ainevsia.github.io/2021/03/22/balsnctf2019-bank/storage.png">
+<meta property="og:image" content="https://ainevsia.github.io/2021/03/22/balsnctf2019-bank/functiontype.png">
+<meta property="og:image" content="https://ainevsia.github.io/2021/03/22/balsnctf2019-bank/jumpdest.png">
+<meta property="og:updated_time" content="2021-03-22T06:35:08.055Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Balsn CTF 2019 - Bank 复现笔记">
+<meta name="twitter:description" content="Balsn CTF 2019 - Bank前几天Retr_0师傅发给我一道区块链题strictmathematician，仔细研究了两三天，学习到了很多新的知识，在此记录一下。由于这道题是pikachu师傅基于Balsn CTF 2019的Bank为原型出的一道题，所以我在pikachu师傅的指点下先去看了Balsn CTF 2019的Bank，以下为复现笔记。（官方wp）">
+<meta name="twitter:image" content="https://ainevsia.github.io/2021/03/22/balsnctf2019-bank/80.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="无花果" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="https://ainevsia.github.io/2021/03/22/balsnctf2019-bank/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Balsn CTF 2019 - Bank 复现笔记 | 无花果</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">无花果</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">浊以静之徐清，安以动之徐生。</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+  
+  
+
+  
+
+  <a href="https://github.com/ainevsia" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" style="fill: #222; color: #fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://ainevsia.github.io/2021/03/22/balsnctf2019-bank/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ainevsia">
+      <meta itemprop="description" content="Personal Blog">
+      <meta itemprop="image" content="https://avatars2.githubusercontent.com/u/31178818?s=400&u=04fe60fc9fd9e159806f4c2363ab9a4da748bf84&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="无花果">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Balsn CTF 2019 - Bank 复现笔记
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2021年03月22日 12:49:25 / 修改时间：14:35:08" itemprop="dateCreated datePublished" datetime="2021-03-22T12:49:25+08:00">2021年03月22日</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2021/03/22/balsnctf2019-bank/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/03/22/balsnctf2019-bank/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">11k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">10 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Balsn-CTF-2019-Bank"><a href="#Balsn-CTF-2019-Bank" class="headerlink" title="Balsn CTF 2019 - Bank"></a>Balsn CTF 2019 - Bank</h1><p>前几天<a href="http://zhaobairen.club/" target="_blank" rel="noopener">Retr_0</a>师傅发给我一道区块链题<a href="https://hitcxy.com/2020/strictmathematician/" target="_blank" rel="noopener">strictmathematician</a>，仔细研究了两三天，学习到了很多新的知识，在此记录一下。由于这道题是pikachu师傅基于Balsn CTF 2019的Bank为原型出的一道题，所以我在pikachu师傅的指点下先去看了Balsn CTF 2019的<a href="https://x9453.github.io/2020/01/16/Balsn-CTF-2019-Bank/" target="_blank" rel="noopener">Bank</a>，以下为复现笔记。（<a href="https://x9453.github.io/2020/01/16/Balsn-CTF-2019-Bank/" target="_blank" rel="noopener">官方wp</a>）</p>
+<a id="more"></a>
+<h1 id="Source"><a href="#Source" class="headerlink" title="Source"></a>Source</h1><p>首先查看题目给出的源码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^<span class="number">0.4</span><span class="number">.24</span>;</span><br><span class="line"></span><br><span class="line">contract Bank &#123;</span><br><span class="line">    event SendEther(address addr);</span><br><span class="line">    event SendFlag(address addr);</span><br><span class="line">    </span><br><span class="line">    address public owner; <span class="comment">// 0</span></span><br><span class="line">    uint randomNumber = RN; <span class="comment">// 1</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">constructor</span>() public &#123;</span><br><span class="line">        owner = msg.sender;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    struct SafeBox &#123;</span><br><span class="line">        bool done;  <span class="comment">// 0_0_1</span></span><br><span class="line">        <span class="function"><span class="keyword">function</span>(<span class="params">uint, bytes12</span>) <span class="title">internal</span> <span class="title">callback</span>;  // 0_1_9</span></span><br><span class="line"><span class="function">        <span class="title">bytes12</span> <span class="title">hash</span>;   // 0_9_21</span></span><br><span class="line"><span class="function">        <span class="title">uint</span> <span class="title">value</span>; // 1</span></span><br><span class="line"><span class="function">    &#125;</span></span><br><span class="line">    SafeBox[] safeboxes; // 2</span><br><span class="line">    </span><br><span class="line">    struct FailedAttempt &#123;</span><br><span class="line">        uint idx; <span class="comment">// 0 </span></span><br><span class="line">        uint time; <span class="comment">// 1</span></span><br><span class="line">        bytes12 triedPass; <span class="comment">// 2_0_12</span></span><br><span class="line">        address origin; <span class="comment">// 2_12_32</span></span><br><span class="line">    &#125;</span><br><span class="line">    mapping(<span class="function"><span class="params">address</span> =&gt;</span> FailedAttempt[]) failedLogs; <span class="comment">// 3</span></span><br><span class="line">    </span><br><span class="line">    modifier onlyPass(uint idx, bytes12 pass) &#123;</span><br><span class="line">        <span class="keyword">if</span> (bytes12(sha3(pass)) != safeboxes[idx].hash) &#123;</span><br><span class="line">            FailedAttempt info;</span><br><span class="line">            info.idx = idx;</span><br><span class="line">            info.time = now;</span><br><span class="line">            info.triedPass = pass;</span><br><span class="line">            info.origin = tx.origin;</span><br><span class="line">            failedLogs[msg.sender].push(info);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            _;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">deposit</span>(<span class="params">bytes12 hash</span>) <span class="title">payable</span> <span class="title">public</span> <span class="title">returns</span>(<span class="params">uint</span>) </span>&#123;</span><br><span class="line">        SafeBox box;</span><br><span class="line">        box.done = <span class="literal">false</span>;</span><br><span class="line">        box.hash = hash;</span><br><span class="line">        box.value = msg.value;</span><br><span class="line">        <span class="keyword">if</span> (msg.sender == owner) &#123;</span><br><span class="line">            box.callback = sendFlag;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">require</span>(msg.value &gt;= <span class="number">1</span> ether);</span><br><span class="line">            box.value -= <span class="number">0.01</span> ether;</span><br><span class="line">            box.callback = sendEther;</span><br><span class="line">        &#125;</span><br><span class="line">        safeboxes.push(box);</span><br><span class="line">        <span class="keyword">return</span> safeboxes.length<span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">withdraw</span>(<span class="params">uint idx, bytes12 pass</span>) <span class="title">public</span> <span class="title">payable</span> </span>&#123;</span><br><span class="line">        SafeBox box = safeboxes[idx];</span><br><span class="line">        <span class="built_in">require</span>(!box.done);</span><br><span class="line">        box.callback(idx, pass);</span><br><span class="line">        box.done = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">sendEther</span>(<span class="params">uint idx, bytes12 pass</span>) <span class="title">internal</span> <span class="title">onlyPass</span>(<span class="params">idx, pass</span>) </span>&#123;</span><br><span class="line">        msg.sender.transfer(safeboxes[idx].value);</span><br><span class="line">        emit SendEther(msg.sender);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">sendFlag</span>(<span class="params">uint idx, bytes12 pass</span>) <span class="title">internal</span> <span class="title">onlyPass</span>(<span class="params">idx, pass</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">require</span>(msg.value &gt;= <span class="number">100000000</span> ether);</span><br><span class="line">        emit SendFlag(msg.sender);</span><br><span class="line">        selfdestruct(owner);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="内存排布"><a href="#内存排布" class="headerlink" title="内存排布"></a>内存排布</h1><p>首先需要弄明白的是两个struct结构体<code>SafeBox</code>和<code>FailedAttempt</code>的内存排布，这里我参考了ctf-wiki。</p>
+<p>一直以来我对EVM的字节序一直搞不清楚，为了弄清数据在内存或者Storage里每个字节到底是怎么存储的，我查阅了一些资料，然后发现ethervm.io上已经说的非常清楚了：Ethereum VM是<strong>大端</strong>机器，字长是256-bits，也就是32个字节。所以说，<strong>数据总是从低地址开始存储</strong>。</p>
+<p>举个例子，<code>uint</code>类型的数据<code>0x80</code>，存放在地址为0x40的内存中的情形，如下图所示：</p>
+<p><img src="./80.png" alt></p>
+<p>0x80所占的字节数是32字节，MSB是<code>\x00</code>，LSB是<code>\x80</code>，因为EVM是大端机，所以说MSB存储在低地址，也就是MSB从地址0x40开始存储，一直到0x5f地址处的字节为LSB<code>\x80</code>。</p>
+<p>对于bytes、string这种类型的变量，首字节也是存放在低地址，然后依次往高地址存储</p>
+<p>这里问了pikachu师傅Remix里Storage存储的k-v对前那一串数字是什么含义，原来是key的keccak值，应该是为了方便定位以该Slot为数组的元素实际的存储地址。</p>
+<p><img src="./storage.png" alt></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">keccak256(<span class="number">0</span>)=<span class="number">0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e563</span></span><br><span class="line">keccak256(<span class="number">1</span>)=<span class="number">0xb10e2d527612073b26eecdfd717e6a320cf44b4afac2b0732d9fcbe2b7fa0cf6</span></span><br><span class="line">w3.keccak(hexstr=<span class="string">'290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e563'</span>)</span><br><span class="line">HexBytes(<span class="string">'0x510e4e770828ddbf7f7b00ab00a9f6adaf81c0dc9cc85f1f8249c256942d61d9'</span>)</span><br></pre></td></tr></table></figure>
+<p>根据<a href="https://ctf-wiki.org/blockchain/ethereum/storage/#_4" target="_blank" rel="noopener">ctf-wiki</a>，结构体成员总是按slot对齐的，并且在每个slot内部从右到左（从高地址到低地址）紧密排列。官方wp里给出的结构体成员布局：</p>
+<h2 id="合约本身的Storage布局"><a href="#合约本身的Storage布局" class="headerlink" title="合约本身的Storage布局"></a>合约本身的Storage布局</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">-----------------------------------------------------</span><br><span class="line">|     unused (12)     |          owner (20)         | &lt;- slot 0</span><br><span class="line">-----------------------------------------------------</span><br><span class="line">|                 randomNumber (32)                 | &lt;- slot 1</span><br><span class="line">-----------------------------------------------------</span><br><span class="line">|               safeboxes.length (32)               | &lt;- slot 2</span><br><span class="line">-----------------------------------------------------</span><br><span class="line">|       occupied by failedLogs but unused (32)      | &lt;- slot 3</span><br><span class="line">-----------------------------------------------------</span><br></pre></td></tr></table></figure>
+<h2 id="FailedAttempt"><a href="#FailedAttempt" class="headerlink" title="FailedAttempt"></a>FailedAttempt</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-----------------------------------------------------</span><br><span class="line">|                      idx (32)                     |</span><br><span class="line">-----------------------------------------------------</span><br><span class="line">|                     time (32)                     |</span><br><span class="line">-----------------------------------------------------</span><br><span class="line">|          origin (20)         |   triedPass (12)   |</span><br><span class="line">-----------------------------------------------------</span><br></pre></td></tr></table></figure>
+<h2 id="SafeBox"><a href="#SafeBox" class="headerlink" title="SafeBox"></a>SafeBox</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-----------------------------------------------------</span><br><span class="line">| unused (11) | hash (12) | callback (8) | done (1) |</span><br><span class="line">-----------------------------------------------------</span><br><span class="line">|                     value (32)                    |</span><br><span class="line">-----------------------------------------------------</span><br></pre></td></tr></table></figure>
+<h1 id="未初始化的Storage指针"><a href="#未初始化的Storage指针" class="headerlink" title="未初始化的Storage指针"></a>未初始化的Storage指针</h1><p>在Solidity 0.5.0之前，没有初始化的结构体默认会指向<code>Stroage[0]</code>，而不是指向memory。这一默认的行为在0.5.0之后被取消，变量的存储位置必须被显式地声明为memory或者是storage才可以通过编译。所以说源代码中onlyPass的info变量和deposit的box变量都是指向合约Storage存储的首地址的。这一行为使得我们可以将合约的<code>Storage[0]</code>视为结构体一样来修改，破坏了合约Storage中原有的值。</p>
+<h1 id="function-type"><a href="#function-type" class="headerlink" title="function type"></a>function type</h1><p>源码中第16行的<code>function(uint, bytes12) internal callback;</code>是我第一次见的用法，在我常用的所有反编译器中都看不到这个变量的用法，而且在solidity文档中也搜索不到，导致我一度认为这个变量是伪变量，不存在实际的操作。</p>
+<p><img src="./functiontype.png" alt></p>
+<p>然后自己调试了，调试完后在官方文档里找到了一段对应的<a href="https://docs.soliditylang.org/en/latest/types.html#function-types" target="_blank" rel="noopener">描述</a></p>
+<blockquote>
+<p> Calling an internal function is realized by jumping to its entry label, just like when calling a function of the current contract internally.</p>
+</blockquote>
+<p>这种function类型的变量占据8个字节，就像C语言里的函数指针一样，调用这个变量所指向的函数的时候会使用JUMP指令跳转到该变量所表示的地址上。</p>
+<p>如果jump到了非JUMPDEST的指令会发生什么？</p>
+<p>经过调试，会直接停止</p>
+<p><img src="./jumpdest.png" alt></p>
+<h1 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h1><p>之前一直用的是Remix套件进行编译和调试，但是调试这个合约的时候运行第一条指令整个Debugger框就没了，想想Remix也不是万能的，不能只会一种工具而产生依赖，于是在tkmk师傅的指导下用geth搭建了自己的私链来调试智能合约交易。</p>
+<h2 id="搭建私链"><a href="#搭建私链" class="headerlink" title="搭建私链"></a>搭建私链</h2><p>参考了网上已有的教程</p>
+<ul>
+<li><a href="https://geth.ethereum.org/docs/interface/private-network" target="_blank" rel="noopener">https://geth.ethereum.org/docs/interface/private-network</a></li>
+<li><a href="https://blog.csdn.net/qq_36124194/article/details/83686740" target="_blank" rel="noopener">https://blog.csdn.net/qq_36124194/article/details/83686740</a></li>
+<li><a href="https://www.jianshu.com/p/c0cd7a3ade8b" target="_blank" rel="noopener">https://www.jianshu.com/p/c0cd7a3ade8b</a></li>
+<li><a href="https://blog.csdn.net/kevinyankai/article/details/102562562" target="_blank" rel="noopener">https://blog.csdn.net/kevinyankai/article/details/102562562</a></li>
+<li><a href="https://ethereum.stackexchange.com/questions/1492/when-is-the-geth-ipc-file-produced" target="_blank" rel="noopener">https://ethereum.stackexchange.com/questions/1492/when-is-the-geth-ipc-file-produced</a></li>
+<li><a href="https://ethereum.stackexchange.com/questions/37972/does-the-latest-version-of-geth-does-not-create-geth-ipc" target="_blank" rel="noopener">https://ethereum.stackexchange.com/questions/37972/does-the-latest-version-of-geth-does-not-create-geth-ipc</a></li>
+</ul>
+<p>自己的启动参数，其中networkid和identity都是可以随便填的，–http –http.corsdomain好像是为了后续调试的，没有细究。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">geth --identity <span class="string">"ainevsia"</span> -networkid=<span class="string">"35634"</span> --datadir data --nodiscover --http --http.corsdomain <span class="string">"http://localhost:8000"</span> --allow-insecure-unlock console</span><br></pre></td></tr></table></figure>
+<p>不想反复unlock自己的账号，用<a href="https://ethereum.stackexchange.com/questions/11102/unlock-account-permanently" target="_blank" rel="noopener">这里的方法</a>。</p>
+<h2 id="web3py"><a href="#web3py" class="headerlink" title="web3py"></a>web3py</h2><p>私链的好处就是自己可以完全掌控整条链，不过我在搭建完私链之后第一个想法就是有没有像etherscan一样的web界面可以让我查交易什么的。搜索一番后，其实是有一些开源的小的web应用的，不过好多都没更新了，网上提到最多的一个我也没安装上，而且看简介功能也很少。询问了tkmk师傅，他是用纯命令行操作的，理论上来说命令行可以完成一切etherscan所支持的操作。</p>
+<p>但是我geth默认的console不会用，js调用合约传参都不知道该怎么传指定类型的参数，于是又请教了tkmk师傅，去学习了web3py的api，感觉对我来说web3py确实比web3.js好用的多。</p>
+<p>web3py的原理是使用JSON-RPC（remote process communication）协议向节点发送指定的RPC操作，接收节点传回的数据。这里的节点就是我们用geth启动起来的。</p>
+<p>列举一些常用的操作</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> web3 <span class="keyword">import</span> Web3</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"></span><br><span class="line">w3 = Web3(Web3.IPCProvider())</span><br><span class="line">w3.isConnected()    <span class="comment"># 确认已经连接上远程节点</span></span><br><span class="line"></span><br><span class="line">bytecode=<span class="string">'0x'</span>   <span class="comment"># 粘贴remix编译好的bytecode，前面要加0x</span></span><br><span class="line">s=<span class="string">'jsonformatstr'</span>   <span class="comment">#  粘贴remix编译好的abi 可以先用http://www.bejson.com/jsonviewernew/ 去掉空格什么的</span></span><br><span class="line">abi=json.loads(s)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 合约对象</span></span><br><span class="line">Bank = w3.eth.contract(abi=abi, bytecode=bytecode)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Submit the transaction that deploys the contract</span></span><br><span class="line">tx_hash = Bank.constructor().transact()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 等待被收入block中</span></span><br><span class="line">tx_receipt = w3.eth.waitForTransactionReceipt(tx_hash)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 合约实例</span></span><br><span class="line">bank = w3.eth.contract(address=tx_receipt.contractAddress,abi=abi)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用合约方法</span></span><br><span class="line">tx_hash = bank.functions.deposit(<span class="string">b'123456789012'</span>).transact(&#123;<span class="string">'gas'</span>:<span class="number">1000000</span>,<span class="string">'value'</span>:w3.toWei(<span class="number">1</span>,<span class="string">'ether'</span>)&#125;)</span><br><span class="line">tx_receipt = w3.eth.waitForTransactionReceipt(tx_hash)</span><br><span class="line">tx_receipt[<span class="string">'status'</span>] <span class="comment"># 返回状态，返回0说明可能revert了或者fail了</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 拉回tx_hash这笔交易的执行日志</span></span><br><span class="line">a=w3.manager.request_blocking(<span class="string">'debug_traceTransaction'</span>, [tx_hash])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 过滤日志</span></span><br><span class="line">list(filter(<span class="keyword">lambda</span> x: x.op==<span class="string">'REVERT'</span>,a.structLogs))</span><br><span class="line">list(filter(<span class="keyword">lambda</span> x: x.pc==<span class="number">0x192</span>, a.structLogs))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示最近一笔交易的时间</span></span><br><span class="line">print(datetime.fromtimestamp(w3.eth.get_block(<span class="string">'latest'</span>)[<span class="string">'timestamp'</span>]))</span><br><span class="line"></span><br><span class="line"><span class="comment"># geth console命令，挖一块block，然后停止</span></span><br><span class="line">miner.start(<span class="number">1</span>); admin.sleepBlocks(<span class="number">1</span>);miner.stop();</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置默认用户</span></span><br><span class="line">w3.eth.default_account = w3.eth.accounts[<span class="number">0</span>]</span><br></pre></td></tr></table></figure>
+<h2 id="Debugger"><a href="#Debugger" class="headerlink" title="Debugger"></a>Debugger</h2><p>我认为只有学会了如何使用调试器去一步步调试一个东西，才能说入门了一个领域，不然怎么知道它最底层的原理呢？</p>
+<p>所以说我刚刚学会了使用<code>w3.manager.request_blocking(&#39;debug_traceTransaction&#39;, [tx_hash])</code>这个api来调试，我才刚刚入门智能合约安全。</p>
+<p>这个api是tkmk师傅告诉我的，我网上搜了也搜不到，但确实就是存在的。</p>
+<p>写了一个python脚本来提供一个半交互式的单步调试环境，提供了快进到某条指令的功能</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> web3 <span class="keyword">import</span> Web3</span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">bcolors</span>:</span></span><br><span class="line">    HEADER = <span class="string">'\033[95m'</span></span><br><span class="line">    OKBLUE = <span class="string">'\033[94m'</span></span><br><span class="line">    OKCYAN = <span class="string">'\033[96m'</span></span><br><span class="line">    OKGREEN = <span class="string">'\033[92m'</span></span><br><span class="line">    WARNING = <span class="string">'\033[93m'</span></span><br><span class="line">    FAIL = <span class="string">'\033[91m'</span></span><br><span class="line">    ENDC = <span class="string">'\033[0m'</span></span><br><span class="line">    BOLD = <span class="string">'\033[1m'</span></span><br><span class="line">    UNDERLINE = <span class="string">'\033[4m'</span></span><br><span class="line"></span><br><span class="line">w3 = Web3(Web3.IPCProvider())</span><br><span class="line"><span class="keyword">assert</span> w3.isConnected()</span><br><span class="line"></span><br><span class="line"><span class="comment"># replace with your tx hash</span></span><br><span class="line">tx_hash_str = <span class="string">'0x8481706e0686aa8e22960456a99c45a29a47b189a074c5d981267bc0113100d7'</span></span><br><span class="line"></span><br><span class="line">print(<span class="string">'[DEBUGing] '</span> + tx_hash_str)</span><br><span class="line"></span><br><span class="line">gdb = w3.manager.request_blocking(<span class="string">'debug_traceTransaction'</span>, [tx_hash_str])</span><br><span class="line">trace = gdb.structLogs</span><br><span class="line">pc = <span class="string">''</span></span><br><span class="line"></span><br><span class="line">tab = <span class="number">8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> state <span class="keyword">in</span> trace:</span><br><span class="line">    <span class="keyword">if</span> pc != <span class="string">''</span>:</span><br><span class="line">        <span class="keyword">if</span> state.pc != int(pc, <span class="number">0x10</span>):   <span class="comment"># jump until pc</span></span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">    print(bcolors.WARNING + <span class="string">'--------------------------------------------------------------------'</span> + bcolors.ENDC)</span><br><span class="line">    print(<span class="string">'PC'</span>.ljust(tab) + hex(state.pc))</span><br><span class="line">    print(<span class="string">'OPCODE'</span>.ljust(tab) + state.op)</span><br><span class="line">    print(bcolors.OKBLUE + <span class="string">'STACK'</span> + bcolors.ENDC)</span><br><span class="line">    <span class="keyword">for</span> e <span class="keyword">in</span> state.stack:</span><br><span class="line">        print(<span class="string">''</span>.ljust(tab) + e)</span><br><span class="line">    print(bcolors.OKCYAN + <span class="string">'MEMORY'</span> + bcolors.ENDC)</span><br><span class="line">    <span class="keyword">for</span> i, e <span class="keyword">in</span> enumerate(state.memory):</span><br><span class="line">        print(hex(<span class="number">0x20</span> * i).ljust(tab) + e)</span><br><span class="line">    <span class="keyword">if</span> len(state.storage) &gt; <span class="number">0</span>:</span><br><span class="line">        print(bcolors.OKGREEN + <span class="string">'STORAGE'</span> + bcolors.ENDC)</span><br><span class="line">        <span class="keyword">for</span> k <span class="keyword">in</span> state.storage:</span><br><span class="line">            print(<span class="string">' '</span>.ljust(tab - <span class="number">4</span>) + <span class="string">'┌── '</span> + k                + <span class="string">' ──┐'</span>)</span><br><span class="line">            print(<span class="string">' '</span>.ljust(tab - <span class="number">4</span>) + <span class="string">'└─&gt; '</span> + state.storage[k] + <span class="string">' &lt;─┘'</span>)</span><br><span class="line">    pc = input(<span class="string">'&gt; '</span>)</span><br><span class="line">    <span class="keyword">if</span> pc == <span class="string">'q'</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">print(<span class="string">'[+] Transaction status: '</span> + str(w3.eth.waitForTransactionReceipt(tx_hash_str)[<span class="string">'status'</span>]))</span><br></pre></td></tr></table></figure>
+<h1 id="Exploit"><a href="#Exploit" class="headerlink" title="Exploit"></a>Exploit</h1><p>所以说这道题的问题就在与未初始化的Storage指针，导致我们可以在对应的safeboxes数组和FailedAttempt数组的push操作执行之前对stroage进行一番操作。</p>
+<p>但是仅仅对<code>slot[0] slot[1] slot[2]</code>进行修改是没有什么作用的，因为push上去的永远都是本次操作所期望的值，我们必须要通过对<code>slot[0] slot[1] slot[2]</code>进行修改产生更加大的影响。</p>
+<p>这一道题非常巧妙的一点在于<code>slot[2]</code>这个位置刚好就是safeboxes数组的长度字段，我们可以通过FailedAttempt数组来将<code>slot[2]</code>改为一个非常大的数值，这样safeboxes数组可以索引到的位置就向后发生了延伸，和FailedAttempt数组的前几个结构体发生了重叠。</p>
+<p>我们通过在FailedAttempt数组提前布局好伪造的safebox结构体，就可以通过safeboxes数组索引到该结构体并执行对应位置的代码。</p>
+<h2 id="实例分析"><a href="#实例分析" class="headerlink" title="实例分析"></a>实例分析</h2><p>攻击者地址0xe2aD27f6079866683a6eD2dF8D7bEa81FA6B19a0</p>
+<ol>
+<li>Calculate <code>target = keccak256(keccak256(msg.sender||3)) + 2</code><br>计算.FailedAttempt 起始地址，+2是发生重叠的地址<br>0x8e40412da029db6c7a0bad33ca5eeb9582fc94c26e3877c561efdc9c03dae65c + 2<br>0x8e40412da029db6c7a0bad33ca5eeb9582fc94c26e3877c561efdc9c03dae65e</li>
+<li>Calculate <code>base = keccak256(2)</code>.<br>计算safebox起始地址<br>0x405787fa12a823e0f2b7631cc41b3ba8828b3321ca811111fa75cd3aa3bb5ace</li>
+<li>Calculate <code>idx = (target - base) // 2</code>.<br>0x26f45c99c6c0dbc5c3aa250b8321d7f68038b0d051dbb359b3bd07b0b00fc5c8</li>
+<li>If <code>(target - base) % 2 == 1</code>, then <code>idx += 2</code>, and do step 7 twice. This happens when the <code>triedPass</code> of the first element of <code>failedLogs</code> does not overlap with the <code>callback</code> variable, so we choose the second element instead.<br>(nop)</li>
+<li>If <code>(msg.sender &lt;&lt; (12*8)) &lt; idx</code>, then choose another player account, and restart from step 1. This happens when the overwritten length of <code>safeboxes</code> is not large enough to overlap with <code>failedLogs</code>.<br>(nop)</li>
+<li>Call <code>deposit(0x000000000000000000000000)</code> with 1 ether.<br>满足safeboxes数组有一个元素，可以进入onlyPass</li>
+<li>Call <code>withdraw(0, 0x111111111111110000070f00)</code>.<br>进入onlyPass布置callback指针</li>
+<li>Call <code>withdraw(idx, 0x000000000000000000000000)</code>, and the <code>SendFlag</code> event will be emitted.<br>执行callback指针</li>
+</ol>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>后续希望能够阅读geth的源码深入了解EVM的许多细节。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    <div>    
+    
+      
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+              <strong>本文作者：</strong>Ainevsia
+          </li>
+          <li class="post-copyright-link">
+            <strong>本文链接：</strong>
+            <a href="/2021/03/22/balsnctf2019-bank/" title="Balsn CTF 2019 - Bank 复现笔记">https://ainevsia.github.io/2021/03/22/balsnctf2019-bank/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>版权声明： </strong>
+            本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+          </li>
+        </ul>
+      
+    </div>
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Blockchian-CTF/" rel="tag"># Blockchian CTF</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/03/15/vnctf2021/" rel="next" title="V&NCTF 2021 Writeup">
+                <i class="fa fa-chevron-left"></i> V&NCTF 2021 Writeup
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars2.githubusercontent.com/u/31178818?s=400&u=04fe60fc9fd9e159806f4c2363ab9a4da748bf84&v=4" alt="Ainevsia">
+            
+              <p class="site-author-name" itemprop="name">Ainevsia</p>
+              <p class="site-description motion-element" itemprop="description">Personal Blog</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">38</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/ainevsia" title="GitHub &rarr; https://github.com/ainevsia" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:zhipengxu@sjtu.edu.cn" title="E-Mail &rarr; mailto:zhipengxu@sjtu.edu.cn" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/u/2852659417" title="Weibo &rarr; https://weibo.com/u/2852659417" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://raw.githubusercontent.com/Ainevsia/Ainevsia.github.io/master/PGP-Public-Key.txt" title="PGP-Key &rarr; https://raw.githubusercontent.com/Ainevsia/Ainevsia.github.io/master/PGP-Public-Key.txt" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>PGP-Key</a>
+                </span>
+              
+            </div>
+          
+
+          
+             <div class="cc-license motion-element" itemprop="license">
+              
+                
+              
+              
+              
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+             </div>
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                我的朋友们
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://zhaobairen.club/" title="http://zhaobairen.club/" rel="noopener" target="_blank">Retr_0</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://rooki3ray.github.io/" title="https://rooki3ray.github.io/" rel="noopener" target="_blank">rooki3ray</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://entropy2333.xyz/" title="https://entropy2333.xyz/" rel="noopener" target="_blank">entropy2333</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://schenk75.github.io/" title="https://schenk75.github.io/" rel="noopener" target="_blank">schenk75</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://thomas-li-sjtu.github.io/" title="https://thomas-li-sjtu.github.io/" rel="noopener" target="_blank">thomas-li-sjtu</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Balsn-CTF-2019-Bank"><span class="nav-number">1.</span> <span class="nav-text">Balsn CTF 2019 - Bank</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Source"><span class="nav-number">2.</span> <span class="nav-text">Source</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内存排布"><span class="nav-number">3.</span> <span class="nav-text">内存排布</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#合约本身的Storage布局"><span class="nav-number">3.1.</span> <span class="nav-text">合约本身的Storage布局</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FailedAttempt"><span class="nav-number">3.2.</span> <span class="nav-text">FailedAttempt</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SafeBox"><span class="nav-number">3.3.</span> <span class="nav-text">SafeBox</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#未初始化的Storage指针"><span class="nav-number">4.</span> <span class="nav-text">未初始化的Storage指针</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#function-type"><span class="nav-number">5.</span> <span class="nav-text">function type</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#调试"><span class="nav-number">6.</span> <span class="nav-text">调试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#搭建私链"><span class="nav-number">6.1.</span> <span class="nav-text">搭建私链</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#web3py"><span class="nav-number">6.2.</span> <span class="nav-text">web3py</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Debugger"><span class="nav-number">6.3.</span> <span class="nav-text">Debugger</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Exploit"><span class="nav-number">7.</span> <span class="nav-text">Exploit</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#实例分析"><span class="nav-number">7.1.</span> <span class="nav-text">实例分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">8.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ainevsia</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">163k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    
+    <span title="站点阅读时长">2:28</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.0.0</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <script id="ribbon" size="200" alpha="0.3" zindex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'uxxXkzDF0R4FFwG4j5rxjPHA-gzGzoHsz',
+    appKey: 'bUp11H8Kr3o92XHiSuaLEAqt',
+    placeholder: 'Do you want to say anything?',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+</script>
+
+
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+      for (i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<style>
+.MathJax_Display {
+  overflow: auto hidden;
+}
+</style>
+
+    
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
