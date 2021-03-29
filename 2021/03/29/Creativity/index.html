@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="无花果">
 <meta property="og:description" content="Balsn CTF 2019 - Creativity周末Retr_0师傅复现了2019Balsn CTF的Creativity，我也跟着学习了一波。出题人x9453的wp在这">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-03-29T06:59:45.597Z">
+<meta property="og:updated_time" content="2021-03-29T07:01:37.865Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Balsn CTF 2019 - Creativity复现笔记">
 <meta name="twitter:description" content="Balsn CTF 2019 - Creativity周末Retr_0师傅复现了2019Balsn CTF的Creativity，我也跟着学习了一波。出题人x9453的wp在这">
@@ -427,7 +427,7 @@
                 
               
 
-              <time title="创建时间：2021年03月29日 14:34:19 / 修改时间：14:59:45" itemprop="dateCreated datePublished" datetime="2021-03-29T14:34:19+08:00">2021年03月29日</time>
+              <time title="创建时间：2021年03月29日 14:34:19 / 修改时间：15:01:37" itemprop="dateCreated datePublished" datetime="2021-03-29T14:34:19+08:00">2021年03月29日</time>
             
 
             
@@ -480,7 +480,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">3.8k</span>
+                <span title="本文字数">3.9k</span>
               
 
               
@@ -494,7 +494,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">3 分钟</span>
+                <span title="阅读时长">4 分钟</span>
               
             </div>
           
@@ -530,6 +530,7 @@
 <p>简化版本</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// SPDX-License-Identifier: MIT</span></span><br><span class="line"></span><br><span class="line">pragma solidity ^<span class="number">0.8</span><span class="number">.0</span>;</span><br><span class="line"></span><br><span class="line">contract Deployer &#123;</span><br><span class="line">    bytes public deployBytecode;</span><br><span class="line">    address deployedAddr;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">deploy</span>(<span class="params">bytes memory code</span>) <span class="title">public</span> </span>&#123;</span><br><span class="line">        deployBytecode = code;</span><br><span class="line">        address a;</span><br><span class="line">        <span class="comment">// Compile Dumper to get this bytecode</span></span><br><span class="line">        bytes memory dumperBytecode = hex<span class="string">'608060405234801561001057600080fd5b50600033905060008173ffffffffffffffffffffffffffffffffffffffff166331d191666040518163ffffffff1660e01b815260040160006040518083038186803b15801561005e57600080fd5b505afa158015610072573d6000803e3d6000fd5b505050506040513d6000823e3d601f19601f8201168201806040525081019061009b919061010d565b9050805160208201f35b60006100b86100b384610173565b61014e565b9050828152602081018484840111156100d057600080fd5b6100db8482856101a4565b509392505050565b600082601f8301126100f457600080fd5b81516101048482602086016100a5565b91505092915050565b60006020828403121561011f57600080fd5b600082015167ffffffffffffffff81111561013957600080fd5b610145848285016100e3565b91505092915050565b6000610158610169565b905061016482826101d7565b919050565b6000604051905090565b600067ffffffffffffffff82111561018e5761018d610208565b5b61019782610237565b9050602081019050919050565b60005b838110156101c25780820151818401526020810190506101a7565b838111156101d1576000848401525b50505050565b6101e082610237565b810181811067ffffffffffffffff821117156101ff576101fe610208565b5b80604052505050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b6000601f19601f830116905091905056fe'</span>;</span><br><span class="line">        assembly &#123;</span><br><span class="line">            a := create2(callvalue(), add(<span class="number">0x20</span>, dumperBytecode), mload(dumperBytecode), <span class="number">0x9453</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        deployedAddr = a;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">contract Dumper &#123;</span><br><span class="line">    <span class="keyword">constructor</span>() &#123;</span><br><span class="line">        Deployer dp = Deployer(msg.sender);</span><br><span class="line">        bytes memory bytecode = dp.deployBytecode();</span><br><span class="line">        assembly &#123;</span><br><span class="line">            <span class="keyword">return</span> (add(bytecode, <span class="number">0x20</span>), mload(bytecode))</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>dumper编译出的字节码就是传递给create2命令要部署的新合约的字节吗，在dumper合约的构造函数里会去一个外部地址上取回实际要部署的字节码，然后return，这样create2真正部署的字节码就是dumper从外界取回来的、可控的、恶意的代码。而dumper本身是不变的，所以create2算哈希的时候也不变，能够部署到同一个地址。</p>
+<h1 id="side-note"><a href="#side-note" class="headerlink" title="side note"></a>side note</h1><p>还学会了public的成员变量是会<a href="https://docs.soliditylang.org/en/latest/contracts.html?highlight=public%20member#getter-functions" target="_blank" rel="noopener">自动生成getter</a>的。</p>
 <h1 id="感想"><a href="#感想" class="headerlink" title="感想"></a>感想</h1><p>这么骚的操作手法我直接看傻了，感觉真的实在是太巧妙了，不在我这种凡人能够想的到的范畴之内。</p>
 <p>这么经典好玩涨姿势的题一定要专门写一篇博客记录一下。</p>
 <p>同时也深深感觉到自己才疏学浅，现在都已经是2021年了我才好好看了这道题，2019年大家就已经知道这种手法了，我目前的知识水平真的还是刚刚起步的阶段。</p>
@@ -900,7 +901,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Balsn-CTF-2019-Creativity"><span class="nav-number">1.</span> <span class="nav-text">Balsn CTF 2019 - Creativity</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Source"><span class="nav-number">2.</span> <span class="nav-text">Source</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分析"><span class="nav-number">3.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CREATE2-Trick"><span class="nav-number">4.</span> <span class="nav-text">CREATE2 Trick</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#感想"><span class="nav-number">5.</span> <span class="nav-text">感想</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Balsn-CTF-2019-Creativity"><span class="nav-number">1.</span> <span class="nav-text">Balsn CTF 2019 - Creativity</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Source"><span class="nav-number">2.</span> <span class="nav-text">Source</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分析"><span class="nav-number">3.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CREATE2-Trick"><span class="nav-number">4.</span> <span class="nav-text">CREATE2 Trick</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#side-note"><span class="nav-number">5.</span> <span class="nav-text">side note</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#感想"><span class="nav-number">6.</span> <span class="nav-text">感想</span></a></li></ol></div>
             
 
           </div>
