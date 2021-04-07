@@ -588,7 +588,7 @@
 <p>Such a fun game. Your goal is to break it.</p>
 <p>When you submit the instance back to the level, the level is going to reclaim kingship. You will beat the level if you can avoid such a self proclamation.</p>
 </blockquote>
-<h2 id="Source-3"><a href="#Source-3" class="headerlink" title="Source"></a>Source</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">contract King &#123;</span><br><span class="line"></span><br><span class="line">  address payable king;</span><br><span class="line">  uint public prize;</span><br><span class="line">  address payable public owner;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">constructor</span>() public payable &#123;</span><br><span class="line">    owner = msg.sender;  </span><br><span class="line">    king = msg.sender;</span><br><span class="line">    prize = msg.value;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  fallback() external payable &#123;</span><br><span class="line">    <span class="built_in">require</span>(msg.value &gt;= prize || msg.sender == owner);</span><br><span class="line">    king.transfer(msg.value);</span><br><span class="line">    king = msg.sender;</span><br><span class="line">    prize = msg.value;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> _king(<span class="params"></span>) <span class="title">public</span> <span class="title">view</span> <span class="title">returns</span> (<span class="params">address payable</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> king;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Source-3"><a href="#Source-3" class="headerlink" title="Source"></a>Source</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">contract King &#123;</span><br><span class="line"></span><br><span class="line">  address payable king;</span><br><span class="line">  uint public prize;</span><br><span class="line">  address payable public owner;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">constructor</span>() public payable &#123;</span><br><span class="line">    owner = msg.sender;  </span><br><span class="line">    king = msg.sender;</span><br><span class="line">    prize = msg.value;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  fallback() external payable &#123;</span><br><span class="line">    <span class="built_in">require</span>(msg.value &gt;= prize || msg.sender == owner);</span><br><span class="line">    king.transfer(msg.value);</span><br><span class="line">    king = msg.sender;</span><br><span class="line">    prize = msg.value;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">_king</span>(<span class="params"></span>) <span class="title">public</span> <span class="title">view</span> <span class="title">returns</span> (<span class="params">address payable</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> king;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>没看懂题目是啥意思，我的目标是什么，看了<a href="https://cloud.tencent.com/developer/article/1632036" target="_blank" rel="noopener">wp</a></p>
 <p>注意到owner变量是不会改变的，所以说owner总是可以重新取回king的身份，目标是成为king并且保持king的身份。</p>
 <blockquote>
@@ -738,7 +738,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">42</span>
+                    <span class="site-state-item-count">43</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1000,7 +1000,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">192k</span>
+    <span title="站点总字数">206k</span>
   
 
   
@@ -1011,7 +1011,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">2:54</span>
+    <span title="站点阅读时长">3:08</span>
   
 </div>
 

