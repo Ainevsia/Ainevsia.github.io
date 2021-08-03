@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="参考openwall的这篇分析文章发现，gethostbyname_r存在一个8字节的溢出。题目转化为堆块重叠做。 远程使用了rpath来patch。具体的命令为--set-interpreter `pwd`/ld.so.2 --set-rpath `pwd` ./pwn```，远程是ubunt 18 0412345678910111213141516&amp;lt;!--more--&amp;gt;堆块排布是我">
+  <meta name="description" content="参考openwall的这篇分析文章发现，gethostbyname_r存在一个8字节的溢出。题目转化为堆块重叠做。">
 <meta name="keywords" content="CTF Pwn">
 <meta property="og:type" content="article">
 <meta property="og:title" content="2021 极客巅峰 GHSOT writeup">
 <meta property="og:url" content="https://ainevsia.github.io/2021/08/03/2021dfjk/index.html">
 <meta property="og:site_name" content="无花果">
-<meta property="og:description" content="参考openwall的这篇分析文章发现，gethostbyname_r存在一个8字节的溢出。题目转化为堆块重叠做。 远程使用了rpath来patch。具体的命令为--set-interpreter `pwd`/ld.so.2 --set-rpath `pwd` ./pwn```，远程是ubunt 18 0412345678910111213141516&amp;lt;!--more--&amp;gt;堆块排布是我">
+<meta property="og:description" content="参考openwall的这篇分析文章发现，gethostbyname_r存在一个8字节的溢出。题目转化为堆块重叠做。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-08-03T01:42:14.857Z">
+<meta property="og:updated_time" content="2021-08-03T01:57:19.583Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2021 极客巅峰 GHSOT writeup">
-<meta name="twitter:description" content="参考openwall的这篇分析文章发现，gethostbyname_r存在一个8字节的溢出。题目转化为堆块重叠做。 远程使用了rpath来patch。具体的命令为--set-interpreter `pwd`/ld.so.2 --set-rpath `pwd` ./pwn```，远程是ubunt 18 0412345678910111213141516&amp;lt;!--more--&amp;gt;堆块排布是我">
+<meta name="twitter:description" content="参考openwall的这篇分析文章发现，gethostbyname_r存在一个8字节的溢出。题目转化为堆块重叠做。">
 
 
 
@@ -427,7 +427,7 @@
                 
               
 
-              <time title="创建时间：2021年08月03日 09:42:13 / 修改时间：09:42:14" itemprop="dateCreated datePublished" datetime="2021-08-03T09:42:13+08:00">2021年08月03日</time>
+              <time title="创建时间：2021年08月03日 09:42:13 / 修改时间：09:57:19" itemprop="dateCreated datePublished" datetime="2021-08-03T09:42:13+08:00">2021年08月03日</time>
             
 
             
@@ -515,7 +515,13 @@
 
       
         <p>参考<a href="https://www.openwall.com/lists/oss-security/2015/01/27/9" target="_blank" rel="noopener">openwall</a>的这篇分析文章发现，gethostbyname_r存在一个8字节的溢出。题目转化为堆块重叠做。</p>
-<p>远程使用了rpath来patch。具体的命令为<figure class="highlight plain"><figcaption><span>--set-interpreter `pwd`/ld.so.2 --set-rpath `pwd` ./pwn```，远程是ubunt 18 04</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;!--more--&gt;</span><br><span class="line"></span><br><span class="line">堆块排布是我觉得最为恶心的地方。想要malloc一块大小为x的chunk，会同时分配出`x`、`x+0x20`、`0x30`三个堆块。</span><br><span class="line"></span><br><span class="line">用来泄露libc的结构体中`h_name`（+0）和`h_addr_list`（+0x18）可以用于信息泄露。</span><br><span class="line"></span><br><span class="line">```c</span><br><span class="line">struct hostent</span><br><span class="line">&#123;</span><br><span class="line">  char *h_name;</span><br><span class="line">  char **h_aliases;</span><br><span class="line">  int h_addrtype;</span><br><span class="line">  int h_length;</span><br><span class="line">  char **h_addr_list;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>远程使用了rpath来patch。具体的命令为</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">patchelf --<span class="built_in">set</span>-interpreter &#123;<span class="built_in">pwd</span>&#125;/ld.so.2 --<span class="built_in">set</span>-rpath &#123;<span class="built_in">pwd</span>&#125; ./pwn</span><br></pre></td></tr></table></figure>
+<p>远程是ubunt 18 04</p>
+<p>堆块排布是我觉得最为恶心的地方。想要malloc一块大小为x的chunk，会同时分配出<code>x</code>、<code>x+0x20</code>、<code>0x30</code>三个堆块。</p>
+<p>用来泄露libc的结构体中<code>h_name</code>（+0）和<code>h_addr_list</code>（+0x18）可以用于信息泄露。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">hostent</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="keyword">char</span> *h_name;</span><br><span class="line">  <span class="keyword">char</span> **h_aliases;</span><br><span class="line">  <span class="keyword">int</span> h_addrtype;</span><br><span class="line">  <span class="keyword">int</span> h_length;</span><br><span class="line">  <span class="keyword">char</span> **h_addr_list;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>构造堆的时候如果想通过在<code>h_name</code>的位置写入一unsorted bin的地址来泄露的话，还必须提前把h_addr_list指向的位置清零，不然解引用非法指针的话程序直接崩溃。</p>
 <p>构造完fastbin double free后不能写入非法的字符，只好将堆块倒数第二个字节抬升至<code>0x00</code>，提前控制好这个位置堆块上的fd。</p>
 <p>写入非法的字符能够写在NameBuf中，但是进入gethostbyname_r中后会引发一系列的堆块分配，导致构造好的fastbin链被malloc consoladate，触发安全检查而崩溃。</p>
