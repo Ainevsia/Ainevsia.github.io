@@ -2,17 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://www.a6a.dev/</loc>
+    <loc>https://www.a6a.dev/</loc>
     <lastmod>2022-08-02T19:57:28+08:00</lastmod>
   </url><url>
-    <loc>http://www.a6a.dev/posts/demo/</loc>
+    <loc>https://www.a6a.dev/posts/demo/</loc>
     <lastmod>2022-08-02T19:57:28+08:00</lastmod>
   </url><url>
-    <loc>http://www.a6a.dev/posts/</loc>
+    <loc>https://www.a6a.dev/posts/</loc>
     <lastmod>2022-08-02T19:57:28+08:00</lastmod>
   </url><url>
-    <loc>http://www.a6a.dev/categories/</loc>
+    <loc>https://www.a6a.dev/categories/</loc>
   </url><url>
-    <loc>http://www.a6a.dev/tags/</loc>
+    <loc>https://www.a6a.dev/tags/</loc>
   </url>
 </urlset>
