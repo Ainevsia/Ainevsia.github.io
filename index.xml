@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ficus</title>
+    <link>http://www.a6a.dev/</link>
+    <description>Recent content on Ficus</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 02 Aug 2022 19:57:28 +0800</lastBuildDate><atom:link href="http://www.a6a.dev/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>First Hugo Post</title>
+      <link>http://www.a6a.dev/posts/demo/</link>
+      <pubDate>Tue, 02 Aug 2022 19:57:28 +0800</pubDate>
+      
+      <guid>http://www.a6a.dev/posts/demo/</guid>
+      <description>Theme 1 Theme 2 Theme 3 Hugo go
+int main() { return 0; } </description>
+    </item>
+    
+  </channel>
+</rss>
