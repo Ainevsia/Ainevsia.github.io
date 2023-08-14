@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>A Guided Walk Through of OpenVPN | Ainevsia Blog</title>
+<meta name="keywords" content="">
+<meta name="description" content="A Guided Walk Through of OpenVPN
+Before We Start If the idea of accessing the devices under a protected private subnet has ever appeared in your mind, then OpenVPN maybe one of your choices. OpenVPN is a cross-platform software that allows you to build robust, flexible, and secure virtual private networking(VPN). Despite these renowned properties, building and configuring such a software is never an easy shoot, especially when you do it for the first time.">
+<meta name="author" content="">
+<link rel="canonical" href="https://ainevsia.github.io/post/openvpn/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.bf5f9f73cf17311d52cedbcda82c922e91b2f566d88a85ad9f5b5a08b586bd5f.css" integrity="sha256-v1&#43;fc88XMR1SztvNqCySLpGy9WbYioWtn1taCLWGvV8=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.acb54fd32bbc1982428b8850317e45d076b95012730a5936667e6bc21777692a.js" integrity="sha256-rLVP0yu8GYJCi4hQMX5F0Ha5UBJzClk2Zn5rwhd3aSo="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://ainevsia.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://ainevsia.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://ainevsia.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://ainevsia.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://ainevsia.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="A Guided Walk Through of OpenVPN" />
+<meta property="og:description" content="A Guided Walk Through of OpenVPN
+Before We Start If the idea of accessing the devices under a protected private subnet has ever appeared in your mind, then OpenVPN maybe one of your choices. OpenVPN is a cross-platform software that allows you to build robust, flexible, and secure virtual private networking(VPN). Despite these renowned properties, building and configuring such a software is never an easy shoot, especially when you do it for the first time." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ainevsia.github.io/post/openvpn/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2019-08-27T16:02:05+08:00" />
+<meta property="article:modified_time" content="2019-08-27T16:02:05+08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="A Guided Walk Through of OpenVPN"/>
+<meta name="twitter:description" content="A Guided Walk Through of OpenVPN
+Before We Start If the idea of accessing the devices under a protected private subnet has ever appeared in your mind, then OpenVPN maybe one of your choices. OpenVPN is a cross-platform software that allows you to build robust, flexible, and secure virtual private networking(VPN). Despite these renowned properties, building and configuring such a software is never an easy shoot, especially when you do it for the first time."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://ainevsia.github.io/post/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "A Guided Walk Through of OpenVPN",
+      "item": "https://ainevsia.github.io/post/openvpn/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "A Guided Walk Through of OpenVPN",
+  "name": "A Guided Walk Through of OpenVPN",
+  "description": "A Guided Walk Through of OpenVPN\nBefore We Start If the idea of accessing the devices under a protected private subnet has ever appeared in your mind, then OpenVPN maybe one of your choices. OpenVPN is a cross-platform software that allows you to build robust, flexible, and secure virtual private networking(VPN). Despite these renowned properties, building and configuring such a software is never an easy shoot, especially when you do it for the first time.",
+  "keywords": [
+    
+  ],
+  "articleBody": "A Guided Walk Through of OpenVPN\nBefore We Start If the idea of accessing the devices under a protected private subnet has ever appeared in your mind, then OpenVPN maybe one of your choices. OpenVPN is a cross-platform software that allows you to build robust, flexible, and secure virtual private networking(VPN). Despite these renowned properties, building and configuring such a software is never an easy shoot, especially when you do it for the first time. So in this guide, I will walk you step by step through the entire process and finally build a private networking that allow you to access your devices in your home or company from every corner of the world!\nThe whole process is boring, I have to admit in the first place, but the final system will certainly outcome those frustration during the process. So please fasten your belt and we are going to take off.\nFirst Equip Yourself with OpenWRT and A VPS OpenWRT is a Linux operating system targeting embedded devices. You can just treat it as a super-power router that runs a Linux OS so it allows you to do almost anything that an usual Linux can do. We use it mainly to serve as the OpenVPN Client and the router that connects all the devices under it into the Internet. As opposed to the OpenVPN Client, there is a OpenVPN Server running on a remote VPS(Cloud Virtual Private Servers). Any server that has a public IP can server as the OpenVPN Server. In this tutorial, I will use the VPS server provided by aliyun running Ubuntu 16.04. I choose these just because I’m used to it, you can choose whatever cloud service provider with whatever Linux distribution that you are familiar with or prefer, it really doesn’t count.\nCloud Server Setup Now let’s login to the cloud server that we have just brought for the first time(maybe via the web page or password). We must make some configurations there to make it a OpenVPN Server.\nBasic Linux Cloud Server Security Setup (Optional) Create a Non-Privileged User (Optional) If the defalut user that the cloud provider gives you is a non-root user, you can just skip this section and use that user happily. If not, create a non-privileged user and grants it the sudo privilege.\n# if you are root, run the 2 commands $ adduser $ usermod -a -G sudo $ su Upload your ssh Public Key (Optional) ssh is a command that allows you to take control of your remote server gracefully. I’m not trying to explain those fundamental concepts in this article. When you get confused of some term of command in the rest of this article, feel free to google it.\nIn short, just copy the contents of file ~/.ssh/id_rsa.pub in your local machine and append it into the file ~/.ssh/authorized_keys on your remote server, and then you can ssh to your server from your local machine without bothering to enter the password.\nStrengthen your ssh (Optional) Modify /etc/ssh/sshd_config and change the two settings PasswordAuthentication and PermitRootLogin from yes to no:\nPasswordAuthentication no PermitRootLogin no Now only you, more specifically speaking, only this computer who owns the private key corresponding to the public key you have just uploaded can have legal access to login this cloud server as the user you have created(beside your cloud provider’s website).\nRun sudo service sshd restart to enable this configuration to take place.\nInstall OpenVPN Installation is just easy with apt under ubuntu, just give the command:\nsudo apt update sudo apt install openvpn If it prompt you for choice, just choose the default choice. You can check that the OpenVPN is installed successfully by the following command.\n$ openvpn --version OpenVPN 2.4.4 x86_64-pc-linux-gnu [SSL (OpenSSL)] [LZO] [LZ4] [EPOLL] [PKCS11] [MH/PKTINFO] [AEAD] built on May 14 2019 library versions: OpenSSL 1.1.1 11 Sep 2018, LZO 2.08 Originally developed by James Yonan Copyright (C) 2002-2017 OpenVPN Technologies, Inc. ...[omitted] Install easy-rsa easy-rsa is just a small tool to generate the related certificates needed by OpenVPN.\nsudo apt -y install easy-rsa Build CA Certificates Make a directory called easy-rsa under the folder /etc/openvpn and copy all the stuffs under the folder /usr/share/easy-rsa/ to the folder that we have just created.\nsudo mkdir /etc/openvpn/easy-rsa/ sudo cp -r /usr/share/easy-rsa/* /etc/openvpn/easy-rsa/ cd /etc/openvpn/easy-rsa/ CA Certificate is a file shares between the server and the client and it only needs to be generated once for one server. Before we build the CA certificate, make sure you have changed to root by the command sudo su. The source vars command sets up the environment needed by the following ./build-ca command according to the contents in the file named vars.\nsudo su source vars ./clean-all ./build-ca Now you are the root, which means you should be extremely careful when you type because this superuser can do anything to your server. If you saw the following warning after executing the command source vars, you should add another command to make a soft link to that missing file. I have a file named openssl-1.0.0.cnf under my folder so I just use this command: ln -s ./openssl-1.0.0.cnf openssl.cnf.\n*********************************************** No /etc/openvpn/easy-rsa/openssl.cnf file could be found Further invocations will fail *********************************************** If you are not reading this part of article for the first time, you should be aware that the command ./clean-all is DANGEROUS. What this command do is simply removing all the files under the folder keys, which contains all the things you have generated since you installed easy-rsa. So be sure you know what you are doing before giving this command.\nIf the above commands finished successfully, you will find some new files generated in the folder keys. Copy the file ca.crt to the folder /etc/openvpn. We do this copy command simply because OpenVPN assumes that all the configuration files locates in the default folder /etc/openvpn. If you are skilled enough, it is not necessary since you can specify the configuration files in your .conf file(see section below).\ncp /etc/openvpn/easy-rsa/keys/ca.crt /etc/openvpn Build Server Certificate Here I wrote aliyun as the first parameter, which totally depends on your preference. You can name it whatever you think is meaningful to you.\n./build-key-server aliyun Now more new stuffs appears in the keys folder. Copy aliyun.crt, aliyun.key to the folder /etc/openvpn.\ncp keys/aliyun.key keys/aliyun.crt /etc/openvpn/ Build the Diffie-Hellman file and ta.key Diffie-Hellman file and ta.key is used to strengthen the security of the network. There is no need to understand what they really are, so just copy and paste the following commands.\n./build-dh cp keys/dh2048.pem /etc/openvpn openvpn --genkey --secret ta.key cp ./ta.key /etc/openvpn Build Client Certificates As opposed to Server Certificates which are files stored in the remote server forever, Client Certificates are files generated on the remote server but used by the multiple end-users, which means they will be copy out from the server one day.\n./build-key ainevsia cp keys/ainevsia.key keys/ainevsia.crt /etc/openvpn/ Here ainevsia should also be DIYed by you.\nHow To Add a New Client To add a new client just means building another client certificate. You can just run the above command twice the achieve that purpose. Caution that the server may prompt you to run source vars again. Do so but DO NOT RUN ./clean-all, that will remove all the files you already generated. just run source vars \u0026\u0026 ./build-key client-name will be safe. See the following example.\nroot@iZuf6dpjg5t8prvwa2ajodZ:/etc/openvpn/easy-rsa$ ./build-key openwrt Please edit the vars script to reflect your configuration, then source it with \"source ./vars\". Next, to start with a fresh PKI configuration and to delete any previous certificates and keys, run \"./clean-all\". Finally, you can run this tool (pkitool) to build certificates/keys. root@iZuf6dpjg5t8prvwa2ajodZ:/etc/openvpn/easy-rsa# source vars \u0026\u0026 ./build-key openwrt NOTE: If you run ./clean-all, I will be doing a rm -rf on /etc/openvpn/easy-rsa/keys Generating a 2048 bit RSA private key [...] cp keys/openwrt.crt keys/openwrt.key /home/ Here we already have built two clients: openwrt and ainevsia. They will all be used in the following sections.\nIf you have kept reading till this line, then congratulations, you have finished generating all the boring but essential crypto files that serve to secure our network. Now we will move on to configure the real OpenVPN.\nSetup the Server’s OpenVPN First of all, copy a sample config file from the official documents.\ncp /usr/share/doc/openvpn/examples/sample-config-files/server.conf.gz /etc/openvpn/ cd /etc/openvpn gzip -d server.conf.gz Now change the essential entries according to your requests. Personally, I changed the port from the default 1194 to my customized port and select the proto tcp. I also uncommented the line client-to-client because all I want to do is just make connections between clients :D.\nThe lines that you should change are these lines:\nproto tcp port 1194 # change to your preferred port, 59318 in the article (just for example) ca ca.crt cert server.crt # change to aliyun.crt key server.key # This file should be kept secret # change to aliyun.key log /var/log/openvpn/openvpn.log # uncomment this line (personal preference) client-to-client ;explicit-exit-notify 1 Change the server.crt and server.key to the file names that you use. Additionally, if your configure files are not in the same folder of this server.conf file, write the absolute file path instead.\nModify Client’s OpenVPN Config File Just like the above section, we change the client configuration files following the same guide line by the way.\ncp /usr/share/doc/openvpn/examples/sample-config-files/client.conf /etc/openvpn/ proto tcp remote 59318 ca ca.crt cert ainevsia.crt key ainevsia.key Server Side Configuration Finished Modifying the config file is really the most difficult part of this process. If you finish, you can finally launch the OpenVPN service.\ncd /etc/openvpn systemctl restart openvpn@server.service If the above command cannot start the service, try # openvpn --config /etc/openvpn/server.conf \u0026.\nHere is a demo of how a success launch may look like. If your port number doesn’t show up in the netstat -tunlp command, that means the OpenVPN service does not start successfully.\nroot@iZuf6dpjg5t8prvwa2ajodZ:/etc/openvpn# openvpn --config /etc/openvpn/server.conf \u0026 [1] 8560 root@iZuf6dpjg5t8prvwa2ajodZ:/etc/openvpn# netstat -tunlp | grep 59318 tcp 0 0 0.0.0.0:59318 0.0.0.0:* LISTEN 8560/openvpn Final Working Directory Here’s a look from my cloud server when I started the OpenVPN service.\n$ tree /etc/openvpn/ -L 1 /etc/openvpn/ ├── aliyun.crt ├── aliyun.key ├── ca.crt ├── client.conf ├── dh2048.pem ├── easy-rsa ├── ipp.txt ├── ainevsia.crt ├── ainevsia.key ├── openvpn.log ├── openvpn-status.log ├── server.conf ├── ta.key └── update-resolv-conf The OpenVPN Server needs the file server.conf to start up normally. The files ca.crt client.conf ainevsia.crt ainevsia.key ta.key dh2048.pem will all be needed by the client, so we are going to download these file next from our cloud server to the local computer, which is the client.\nGet the Client Config File You can use the sftp command.\nCopy the file to the home directory and then change the privilege. Then you can use sftp to get your files.\nsudo cp ca.crt ainevsia.crt ainevsia.key ta.key client.conf ~/ cd sudo chmod o+r ainevsia.key ta.key If you are on Windows, change the file client.conf to ainevsia.ovpn.\nThe Big Picture Before we move on to the OpenWRT section, you can checkout the following image to make sure that we are on the right track.\nOpenWRT from Scratch Basic Connection To make demonstrations, I reset my OpenWRT router so I can make configures from scratch. Here is the official documents.\nThis router enables wireless connections by default, so we can connect to it via Wi-Fi. Otherwise, you have to get a network cable between your local computer and your router.\nThere is no password required before I successfully connected to its Wi-Fi and the default gateway is 192.168.1.1, which I will change to 192.168.10.1 because my upper router also has IP 192.168.1.1 which may harm the successful network connection of my OpenWRT router. The first thing to do after connection is to set a password for the Wi-Fi.\nBefore proceeding, make sure that you have plugged in the network cable in the WAN port of the router so that it can surf the Internet because we need Internet connection while downloading packages. Then all the commands are carried out during ssh. Here is the OpenWRT version and the Linux kernel version.\nBusyBox v1.29.2 () built-in shell (ash) _______ ________ __ | |.-----.-----.-----.| | | |.----.| |_ | - || _ | -__| || | | || _|| _| |_______|| __|_____|__|__||________||__| |____| |__| W I R E L E S S F R E E D O M ----------------------------------------------------- OpenWrt 18.06.1, r1026-811894e1 ----------------------------------------------------- root@OpenWrt:~# uname -a Linux OpenWrt 4.9.138 #0 Fri Nov 30 14:52:43 2018 mips GNU/Linux Install OpenVPN opkg is the OpenWRT’s splendid package manager, just like apt and apt-get in Linux. However, the default source in the file distfeeds.conf is blocked in China mainland, so change the sourse to USTC open source software mirror. Then update will be fast and happy.\nroot@OpenWrt:~# cd /etc/opkg/ root@OpenWrt:/etc/opkg# ls customfeeds.conf distfeeds.conf keys root@OpenWrt:/etc/opkg# cp distfeeds.conf distfeeds.conf.bkup # backup before any operations root@OpenWrt:/etc/opkg# sed -i \"s/openwrt.proxy.ustclug.org/mirrors.ustc.edu.cn\\/lede/\" /etc/opkg/distfeeds.conf root@OpenWrt:/etc/opkg# opkg update root@OpenWrt:/etc/opkg#opkg install openvpn-openssl Upload Configuration Files Now we need to upload our configuration files onto the OpenWRT router, which requires the sftp service which need installation.\nroot@OpenWrt:/etc/opkg# opkg install openssh-sftp-server Configuring the client is just the same as the server. The core file here is the client.ovpn.\nroot@OpenWrt:/etc/openvpn# openvpn client.ovpn Fri Sep 27 13:09:43 2019 OpenVPN 2.4.5 mips-openwrt-linux-gnu [SSL (OpenSSL)] [LZO] [LZ4] [EPOLL] [MH/PKTINFO] [AEAD][nonblock] [.. omitted] Fri Sep 27 13:09:46 2019 Initialization Sequence Completed If you see the last line Initialization Sequence Completed, then well done. You almost finished all the steps and the network is nearly set up.\nStart on Boot Now we are going to make this OpenVPN service start automatically each time it boots up, since the OpenWRT is not like the cloud server, it may reboot for any unexpected reason. Luckily, OpenWRT provides a uniformed configuration interface called UCI. It is simple and robust to use the UCI to make configurations to achieve the desired service. The only thing to do is to modify the /etc/config/openvpn file.\npackage openvpn ################################################# # Sample to include a custom config file. # ################################################# config openvpn custom_config # Set to 1 to enable this instance: option enabled 1 # Include OpenVPN configuration option config /etc/openvpn/client.conf Now you can test your OpenVPN connection by launching a new terminal and run logread -f command, which is used to track system logs, before the /etc/init.d/openvpn restart command.\nThe following two command makes the OpenVPN service starts on boot.\n/etc/init.d/openvpn enable /etc/init.d/openvpn restart Finally, you should use the command reboot to gently stop and restart the router instead of powering it off. If successful, it will automatically connects to the server.\nIf not, /etc/init.d/firewall restart.\nOptional Settings Give the OpenWRT a Fixed IP This part involves the operations on the server.conf file on the remote server. Take a look at its comments:\n# EXAMPLE: Suppose you want to give # Thelonious a fixed VPN IP address of 10.9.0.1. # First uncomment out these lines: client-config-dir ccd route 10.8.0.101 255.255.255.0 # Then add this line to ccd/Thelonious: # ifconfig-push 10.9.0.1 10.9.0.2 So do what it says and create the folder and the file, write ifconfig-push 10.8.0.101 10.8.0.102 into the file openwrt by the following command:\nmkdir /etc/openvpn/ccd echo ifconfig-push 10.8.0.101 10.8.0.102 \u003e /etc/openvpn/ccd/openwrt Now restart the service and it will take effect.\nAdd A HTTP-Proxy to Allow Foreign Connection Squid is a full-featured web proxy cache server application which provides proxy and cache services for Hyper Text Transport Protocol (HTTP), File Transfer Protocol (FTP), and other popular network protocols.\nOn your remote cloud server, install squid and htpassws, which is used for passowrd authentication.\nsudo apt install squid aainevsiahe2-utils Squid is configured by editing the directives contained within the /etc/squid/squid.conf configuration file. Prior to editing the configuration file, you should make a copy of the original file and protect it from writing so you will have the original settings as a reference, and to re-use as necessary. Make this copy and protect it from writing using the following commands:\nsudo cp /etc/squid/squid.conf /etc/squid/squid.conf.original # make copy sudo chmod a-w /etc/squid/squid.conf.original # protect from anyone changing it To set your Squid server to listen on TCP port 39458 instead of the default TCP port 3128, change the http_port directive as such:\nhttp_port 39458 Squid allows password authentication, which depends on htpasswd to generate the password file. To enable basic_ncsa_auth (config file locates on /usr/lib/squid/basic_ncsa_auth), do the following:\nAdd the content to the config file /etc/squid/squid.conf [TAG: auth_param]. auth_param basic program /usr/lib/squid/basic_ncsa_auth /etc/squid/passwd acl auth_user proxy_auth REQUIRED http_access allow auth_user Use htpasswd to generate the passwd file and the user. It will prompt you to enter the password twice. htpasswd -c /etc/squid/passwd ainevsia # ainevsia is the proxy_username which can be changed accordingly The above command generates the file /etc/squid/passwd. Now you can restart your squid server to apply this change by the command systemctl restart squid.\nSmall Change on the Local client.ovpn file To enable the http-proxy service you have just configured on the remote server, you just need tiny modification on your local configuration file. Uncomment these two lines and modify the corresponding parameters in the brackets. Make your password.txt file and write the username on the first line while the password on the second line.\nhttp-proxy-retry # retry on connection failures http-proxy [ip address] [squid port] [password.txt] Finally, I append my local configuration file here for your reference:\n$ tree ./ ./ ├── ca.crt ├── client.ovpn ├── dh2048.pem ├── ainevsia.crt ├── ainevsia.key ├── password.txt └── ta.key 0 directories, 7 files If you encounters any problems, check out the default log file of squid which locates at /var/log/squid/access.log.\nSuccess Now here you go.\nBelieve it or not, we now have finished setting up a working virtual private network totally from scratch. I hope you think this really deserves the all the efforts you have spent.\nI want to cut off this ariticle right now, althought it has already been too long than I have expected. There certianly will be various different unexpected problems when you try it yourself but believe that all those technical problem can be tackled down. There is simply just no magic.\nBest wishes to all of you in this last line.\n",
+  "wordCount" : "3016",
+  "inLanguage": "en",
+  "datePublished": "2019-08-27T16:02:05+08:00",
+  "dateModified": "2019-08-27T16:02:05+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://ainevsia.github.io/post/openvpn/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Ainevsia Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://ainevsia.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://ainevsia.github.io/" accesskey="h" title="Ainevsia Blog (Alt + H)">Ainevsia Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      A Guided Walk Through of OpenVPN
+    </h1>
+    <div class="post-meta"><span title='2019-08-27 16:02:05 +0800 CST'>August 27, 2019</span>
+
+</div>
+  </header> 
+  <div class="post-content"><p>A Guided Walk Through of OpenVPN</p>
+<h2 id="before-we-start">Before We Start<a hidden class="anchor" aria-hidden="true" href="#before-we-start">#</a></h2>
+<p>If the idea of accessing the devices under a protected private subnet has ever appeared in your mind, then <a href="https://openvpn.net"><code>OpenVPN</code></a> maybe one of your choices. <code>OpenVPN</code> is a cross-platform software that allows you to build <em>robust, flexible, and secure</em> virtual private networking(VPN). Despite these renowned properties, building and configuring such a software is never an easy shoot, especially when you do it for the first time. So in this guide, I will walk you step by step through the entire process and finally build a private networking that allow you to access your devices in your home or company from every corner of the world!</p>
+<p>The whole process is boring, I have to admit in the first place, but the final system will certainly outcome those frustration during the process. So please fasten your belt and we are going to take off.</p>
+<h2 id="first-equip-yourself-with-openwrt-and-a-vps">First Equip Yourself with <code>OpenWRT</code> and A <code>VPS</code><a hidden class="anchor" aria-hidden="true" href="#first-equip-yourself-with-openwrt-and-a-vps">#</a></h2>
+<p><a href="https://openwrt.org/"><code>OpenWRT</code></a> is a Linux operating system targeting embedded devices. You can just treat it as a super-power <code>router</code> that runs a Linux OS so it allows you to do almost anything that an usual Linux can do. We use it mainly to serve as the <code>OpenVPN Client</code> and the router that connects all the devices under it into the Internet. As opposed to the <code>OpenVPN Client</code>, there is a <code>OpenVPN Server</code> running on a remote VPS(Cloud Virtual Private Servers). Any server that has a public IP can server as the <code>OpenVPN Server</code>. In this tutorial, I will use the VPS server provided by <code>aliyun</code> running <code>Ubuntu 16.04</code>. I choose these just because <em>I’m used to it</em>, you can choose whatever cloud service provider with whatever Linux distribution that you are familiar with or prefer, it really doesn’t count.</p>
+<h2 id="cloud-server-setup">Cloud Server Setup<a hidden class="anchor" aria-hidden="true" href="#cloud-server-setup">#</a></h2>
+<p>Now let&rsquo;s login to the cloud server that we have just brought for the first time(maybe via the web page or password). We must make some configurations there to make it a <code>OpenVPN Server</code>.</p>
+<h3 id="basic-linux-cloud-server-security-setup-optional">Basic Linux Cloud Server Security Setup (Optional)<a hidden class="anchor" aria-hidden="true" href="#basic-linux-cloud-server-security-setup-optional">#</a></h3>
+<h4 id="create-a-non-privileged-user-optional">Create a Non-Privileged User (Optional)<a hidden class="anchor" aria-hidden="true" href="#create-a-non-privileged-user-optional">#</a></h4>
+<p>If the defalut user that the cloud provider gives you is a non-root user, you can just skip this section and use that user happily. If not, create a non-privileged user and grants it the <code>sudo</code> privilege.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># if you are root, run the 2 commands</span>
+</span></span><span style="display:flex;"><span>$ adduser &lt;username&gt;
+</span></span><span style="display:flex;"><span>$ usermod -a -G sudo &lt;username&gt;
+</span></span><span style="display:flex;"><span>$ su &lt;username&gt;
+</span></span></code></pre></div><h4 id="upload-your-ssh-public-key-optional">Upload your <code>ssh</code> Public Key (Optional)<a hidden class="anchor" aria-hidden="true" href="#upload-your-ssh-public-key-optional">#</a></h4>
+<p><code>ssh</code> is a command that allows you to take control of your remote server gracefully. I’m not trying to explain those fundamental concepts in this article. When you get confused of some <code>term</code> of <code>command</code> in the rest of this article, feel free to google it.</p>
+<p>In short, just copy the contents of file <code>~/.ssh/id_rsa.pub</code> in your local machine and append it into the file <code>~/.ssh/authorized_keys</code> on your remote server, and then you can <code>ssh</code> to your server from your local machine without bothering to enter the password.</p>
+<h4 id="strengthen-your-ssh-optional">Strengthen your <code>ssh</code> (Optional)<a hidden class="anchor" aria-hidden="true" href="#strengthen-your-ssh-optional">#</a></h4>
+<p>Modify <code>/etc/ssh/sshd_config</code> and change the two settings <code>PasswordAuthentication</code> and <code>PermitRootLogin</code> from <code>yes</code> to <code>no</code>:</p>
+<pre tabindex="0"><code class="language-vi" data-lang="vi">PasswordAuthentication no
+PermitRootLogin no
+</code></pre><p>Now only you, more specifically speaking, only this computer who owns the private key corresponding to the public key you have just uploaded can have legal access to login this cloud server as the user you have created(beside your cloud provider&rsquo;s website).</p>
+<p>Run <code>sudo service sshd restart</code> to enable this configuration to take place.</p>
+<h3 id="install-openvpn">Install <code>OpenVPN</code><a hidden class="anchor" aria-hidden="true" href="#install-openvpn">#</a></h3>
+<p>Installation is just easy with <code>apt</code> under ubuntu, just give the command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sudo apt update
+</span></span><span style="display:flex;"><span>sudo apt install openvpn
+</span></span></code></pre></div><p>If it prompt you for choice, just choose the default choice. You can check that the OpenVPN is installed successfully by the following command.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ openvpn --version
+</span></span><span style="display:flex;"><span>OpenVPN 2.4.4 x86_64-pc-linux-gnu <span style="color:#f92672">[</span>SSL <span style="color:#f92672">(</span>OpenSSL<span style="color:#f92672">)]</span> <span style="color:#f92672">[</span>LZO<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>LZ4<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>EPOLL<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>PKCS11<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>MH/PKTINFO<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>AEAD<span style="color:#f92672">]</span> built on May <span style="color:#ae81ff">14</span> <span style="color:#ae81ff">2019</span>
+</span></span><span style="display:flex;"><span>library versions: OpenSSL 1.1.1  <span style="color:#ae81ff">11</span> Sep 2018, LZO 2.08
+</span></span><span style="display:flex;"><span>Originally developed by James Yonan
+</span></span><span style="display:flex;"><span>Copyright <span style="color:#f92672">(</span>C<span style="color:#f92672">)</span> 2002-2017 OpenVPN Technologies, Inc. &lt;sales@openvpn.net&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>...<span style="color:#f92672">[</span>omitted<span style="color:#f92672">]</span>
+</span></span></code></pre></div><h3 id="install-easy-rsa">Install <code>easy-rsa</code><a hidden class="anchor" aria-hidden="true" href="#install-easy-rsa">#</a></h3>
+<p><code>easy-rsa</code> is just a small tool to generate the related <code>certificates</code> needed by <code>OpenVPN</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sudo apt -y install easy-rsa
+</span></span></code></pre></div><h3 id="build-ca-certificates">Build CA Certificates<a hidden class="anchor" aria-hidden="true" href="#build-ca-certificates">#</a></h3>
+<p>Make a directory called <code>easy-rsa</code> under the folder <code>/etc/openvpn</code> and copy all the stuffs under the folder <code>/usr/share/easy-rsa/</code> to the folder that we have just created.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sudo mkdir /etc/openvpn/easy-rsa/
+</span></span><span style="display:flex;"><span>sudo cp -r /usr/share/easy-rsa/* /etc/openvpn/easy-rsa/
+</span></span><span style="display:flex;"><span>cd /etc/openvpn/easy-rsa/
+</span></span></code></pre></div><p><strong>CA Certificate</strong> is a file shares between the server and the client and it only needs to be generated once for one server. Before we build the CA certificate, make sure you have changed to <code>root</code> by the command <code>sudo su</code>. The <code>source vars</code> command sets up the environment needed by the following <code>./build-ca</code> command according to the contents in the file named <code>vars</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sudo su
+</span></span><span style="display:flex;"><span>source vars
+</span></span><span style="display:flex;"><span>./clean-all
+</span></span><span style="display:flex;"><span>./build-ca
+</span></span></code></pre></div><blockquote>
+<p>Now you are the <strong>root</strong>, which means you should be extremely careful when you type because this superuser can do <strong>anything</strong> to your server.
+If you saw the following warning after executing the command <code>source vars</code>, you should add another command to make a soft link to that missing file. I have a file named <code>openssl-1.0.0.cnf</code> under my folder so I just use this command: <code>ln -s ./openssl-1.0.0.cnf openssl.cnf</code>.</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>***********************************************
+</span></span><span style="display:flex;"><span>  No /etc/openvpn/easy-rsa/openssl.cnf file could be found
+</span></span><span style="display:flex;"><span>  Further invocations will fail
+</span></span><span style="display:flex;"><span>***********************************************
+</span></span></code></pre></div><p>If you are not reading this part of article for the first time, you should be aware that the command <code>./clean-all</code> is <strong>DANGEROUS</strong>. What this command do is simply removing all the files under the folder <code>keys</code>, which contains all the things you have generated since you installed <code>easy-rsa</code>. So be sure you know what you are doing before giving this command.</p>
+<p>If the above commands finished successfully, you will find some new files generated in the folder <code>keys</code>. Copy the file <code>ca.crt</code> to the folder <code>/etc/openvpn</code>. We do this copy command simply because OpenVPN assumes that all the configuration files locates in the default folder <code>/etc/openvpn</code>. If you are skilled enough, it is not necessary since you can specify the configuration files in your <code>.conf</code> file(see section below).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>cp /etc/openvpn/easy-rsa/keys/ca.crt /etc/openvpn
+</span></span></code></pre></div><h3 id="build-server-certificate">Build Server Certificate<a hidden class="anchor" aria-hidden="true" href="#build-server-certificate">#</a></h3>
+<p>Here I wrote <code>aliyun</code> as the first parameter, which totally depends on your preference. You can name it whatever you think is meaningful to you.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>./build-key-server aliyun
+</span></span></code></pre></div><p>Now more new stuffs appears in the <code>keys</code> folder. Copy <code>aliyun.crt</code>, <code>aliyun.key</code> to the folder <code>/etc/openvpn</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>cp keys/aliyun.key keys/aliyun.crt /etc/openvpn/
+</span></span></code></pre></div><h3 id="build-the-diffie-hellman-file-and-takey">Build the Diffie-Hellman file and <code>ta.key</code><a hidden class="anchor" aria-hidden="true" href="#build-the-diffie-hellman-file-and-takey">#</a></h3>
+<p>Diffie-Hellman file and <code>ta.key</code> is used to strengthen the security of the network. There is no need to understand what they really are, so just copy and paste the following commands.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>./build-dh
+</span></span><span style="display:flex;"><span>cp keys/dh2048.pem /etc/openvpn
+</span></span><span style="display:flex;"><span>openvpn --genkey --secret ta.key
+</span></span><span style="display:flex;"><span>cp ./ta.key /etc/openvpn
+</span></span></code></pre></div><h3 id="build-client-certificates">Build Client Certificates<a hidden class="anchor" aria-hidden="true" href="#build-client-certificates">#</a></h3>
+<p>As opposed to <code>Server Certificates</code> which are files stored in the remote server forever, <code>Client Certificates</code> are files generated on the remote server but used by the multiple end-users, which means they will be copy out from the server one day.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>./build-key ainevsia
+</span></span><span style="display:flex;"><span>cp keys/ainevsia.key keys/ainevsia.crt /etc/openvpn/
+</span></span></code></pre></div><p>Here <code>ainevsia</code> should also be DIYed by you.</p>
+<h3 id="how-to-add-a-new-client">How To Add a New Client<a hidden class="anchor" aria-hidden="true" href="#how-to-add-a-new-client">#</a></h3>
+<p>To add a new client just means building another client certificate. You can just run the above command twice the achieve that purpose. <strong>Caution that</strong> the server may prompt you to run <code>source vars</code> again. Do so but <strong>DO NOT RUN <code>./clean-all</code></strong>, that will remove all the files you already generated. just run <code>source vars &amp;&amp; ./build-key client-name</code> will be safe. See the following example.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>root@iZuf6dpjg5t8prvwa2ajodZ:/etc/openvpn/easy-rsa$ ./build-key openwrt
+</span></span><span style="display:flex;"><span>  Please edit the vars script to reflect your configuration,
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">then</span> source it with <span style="color:#e6db74">&#34;source ./vars&#34;</span>.
+</span></span><span style="display:flex;"><span>  Next, to start with a fresh PKI configuration and to delete any
+</span></span><span style="display:flex;"><span>  previous certificates and keys, run <span style="color:#e6db74">&#34;./clean-all&#34;</span>.
+</span></span><span style="display:flex;"><span>  Finally, you can run this tool <span style="color:#f92672">(</span>pkitool<span style="color:#f92672">)</span> to build certificates/keys.
+</span></span><span style="display:flex;"><span>root@iZuf6dpjg5t8prvwa2ajodZ:/etc/openvpn/easy-rsa# source vars <span style="color:#f92672">&amp;&amp;</span> ./build-key openwrt
+</span></span><span style="display:flex;"><span>NOTE: If you run ./clean-all, I will be doing a rm -rf on /etc/openvpn/easy-rsa/keys
+</span></span><span style="display:flex;"><span>Generating a <span style="color:#ae81ff">2048</span> bit RSA private key
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>...<span style="color:#f92672">]</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>cp keys/openwrt.crt keys/openwrt.key /home/&lt;username&gt;
+</span></span></code></pre></div><p>Here we already have built two clients: <code>openwrt</code> and <code>ainevsia</code>. They will all be used in the following sections.</p>
+<p>If you have kept reading till this line, then congratulations, you have finished generating all the boring but essential crypto files that serve to secure our network. Now we will move on to configure the real <code>OpenVPN</code>.</p>
+<h3 id="setup-the-servers-openvpn">Setup the Server&rsquo;s OpenVPN<a hidden class="anchor" aria-hidden="true" href="#setup-the-servers-openvpn">#</a></h3>
+<p>First of all, copy a sample config file from the official documents.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>cp /usr/share/doc/openvpn/examples/sample-config-files/server.conf.gz /etc/openvpn/
+</span></span><span style="display:flex;"><span>cd /etc/openvpn
+</span></span><span style="display:flex;"><span>gzip -d server.conf.gz
+</span></span></code></pre></div><p>Now change the essential entries according to your requests. Personally, I changed the port from the default 1194 to my customized port and select the <code>proto tcp</code>.  I also uncommented the line <code>client-to-client</code> because all I want to do is just make connections between clients :D.</p>
+<p>The lines that you <strong>should</strong> change are these lines:</p>
+<pre tabindex="0"><code class="language-vi" data-lang="vi">proto tcp
+port 1194
+# change to your preferred port, 59318 in the article (just for example)
+
+ca ca.crt
+
+cert server.crt
+# change to aliyun.crt
+
+key server.key  # This file should be kept secret
+# change to aliyun.key
+
+log         /var/log/openvpn/openvpn.log
+# uncomment this line (personal preference)
+
+client-to-client
+
+;explicit-exit-notify 1
+</code></pre><p>Change the <code>server.crt</code> and <code>server.key</code> to the file names that you use. Additionally, if your configure files are not in the same folder of this <code>server.conf</code> file, write the <code>absolute file path</code> instead.</p>
+<h3 id="modify-clients-openvpn-config-file">Modify Client&rsquo;s OpenVPN Config File<a hidden class="anchor" aria-hidden="true" href="#modify-clients-openvpn-config-file">#</a></h3>
+<p>Just like the above section, we change the client configuration files following the same guide line by the way.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>cp /usr/share/doc/openvpn/examples/sample-config-files/client.conf /etc/openvpn/
+</span></span></code></pre></div><pre tabindex="0"><code class="language-vi" data-lang="vi">proto tcp
+remote &lt;IP&gt; 59318&lt;Port&gt;
+ca ca.crt
+cert ainevsia.crt
+key ainevsia.key
+</code></pre><h3 id="server-side-configuration-finished">Server Side Configuration Finished<a hidden class="anchor" aria-hidden="true" href="#server-side-configuration-finished">#</a></h3>
+<p>Modifying the config file is really the most difficult part of this process. If you finish, you can finally launch the <code>OpenVPN</code> service.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>cd /etc/openvpn
+</span></span><span style="display:flex;"><span>systemctl restart openvpn@server.service
+</span></span></code></pre></div><p>If the above command cannot start the service, try <code># openvpn --config /etc/openvpn/server.conf &amp;</code>.</p>
+<p>Here is a demo of how a success launch may look like. If your port number doesn&rsquo;t show up in the <code>netstat -tunlp</code> command, that means the OpenVPN service does not start successfully.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>root@iZuf6dpjg5t8prvwa2ajodZ:/etc/openvpn# openvpn --config /etc/openvpn/server.conf &amp;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>1<span style="color:#f92672">]</span> <span style="color:#ae81ff">8560</span>
+</span></span><span style="display:flex;"><span>root@iZuf6dpjg5t8prvwa2ajodZ:/etc/openvpn# netstat -tunlp | grep <span style="color:#ae81ff">59318</span>
+</span></span><span style="display:flex;"><span>tcp        <span style="color:#ae81ff">0</span>      <span style="color:#ae81ff">0</span> 0.0.0.0:59318           0.0.0.0:*               LISTEN      8560/openvpn
+</span></span></code></pre></div><h3 id="final-working-directory">Final Working Directory<a hidden class="anchor" aria-hidden="true" href="#final-working-directory">#</a></h3>
+<p>Here&rsquo;s a look from my cloud server when I started the <code>OpenVPN</code> service.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ tree /etc/openvpn/ -L <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>/etc/openvpn/
+</span></span><span style="display:flex;"><span>├── aliyun.crt
+</span></span><span style="display:flex;"><span>├── aliyun.key
+</span></span><span style="display:flex;"><span>├── ca.crt
+</span></span><span style="display:flex;"><span>├── client.conf
+</span></span><span style="display:flex;"><span>├── dh2048.pem
+</span></span><span style="display:flex;"><span>├── easy-rsa
+</span></span><span style="display:flex;"><span>├── ipp.txt
+</span></span><span style="display:flex;"><span>├── ainevsia.crt
+</span></span><span style="display:flex;"><span>├── ainevsia.key
+</span></span><span style="display:flex;"><span>├── openvpn.log
+</span></span><span style="display:flex;"><span>├── openvpn-status.log
+</span></span><span style="display:flex;"><span>├── server.conf
+</span></span><span style="display:flex;"><span>├── ta.key
+</span></span><span style="display:flex;"><span>└── update-resolv-conf
+</span></span></code></pre></div><p>The <code>OpenVPN Server</code> needs the file <code>server.conf</code> to start up normally. The files <code>ca.crt client.conf ainevsia.crt ainevsia.key ta.key dh2048.pem</code> will all be needed by the client, so we are going to download these file next from our cloud server to the local computer, which is the client.</p>
+<h3 id="get-the-client-config-file">Get the Client Config File<a hidden class="anchor" aria-hidden="true" href="#get-the-client-config-file">#</a></h3>
+<p>You can use the <code>sftp</code> command.</p>
+<p>Copy the file to the home directory and then change the privilege. Then you can use <code>sftp</code> to get your files.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sudo cp ca.crt ainevsia.crt ainevsia.key ta.key client.conf ~/
+</span></span><span style="display:flex;"><span>cd
+</span></span><span style="display:flex;"><span>sudo chmod o+r ainevsia.key ta.key
+</span></span></code></pre></div><p>If you are on Windows, change the file <code>client.conf</code> to <code>ainevsia.ovpn</code>.</p>
+<h2 id="the-big-picture">The Big Picture<a hidden class="anchor" aria-hidden="true" href="#the-big-picture">#</a></h2>
+<p>Before we move on to the <code>OpenWRT</code> section, you can checkout the following image to make sure that we are on the right track.</p>
+<p><img loading="lazy" src="https://res.cloudinary.com/ainevsia/image/upload/v1570602397/2019summer.png" alt="The overall layout"  />
+</p>
+<h2 id="openwrt-from-scratch">OpenWRT from Scratch<a hidden class="anchor" aria-hidden="true" href="#openwrt-from-scratch">#</a></h2>
+<h3 id="basic-connection">Basic Connection<a hidden class="anchor" aria-hidden="true" href="#basic-connection">#</a></h3>
+<p>To make demonstrations, I reset my <code>OpenWRT</code> router so I can make configures from scratch. Here is the <a href="https://openwrt.org/">official documents</a>.</p>
+<p>This router enables wireless connections by default, so we can connect to it via Wi-Fi. Otherwise, you have to get a network cable between your local computer and your router.</p>
+<p>There is no password required before I successfully connected to its Wi-Fi and the default gateway is <code>192.168.1.1</code>, which I will change to <code>192.168.10.1</code> because my upper router also has IP <code>192.168.1.1</code> which may harm the successful network connection of my <code>OpenWRT</code> router. The first thing to do after connection is to set a password for the Wi-Fi.</p>
+<p>Before proceeding, make sure that you have plugged in the network cable in the <code>WAN</code> port of the router so that it can surf the Internet because we need Internet connection while downloading packages. Then all the commands are carried out during ssh. Here is the <code>OpenWRT</code> version and the <code>Linux</code> kernel version.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>BusyBox v1.29.2 <span style="color:#f92672">()</span> built-in shell <span style="color:#f92672">(</span>ash<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  _______                     ________        __
+</span></span><span style="display:flex;"><span> |       |.-----.-----.-----.|  |  |  |.----.|  |_
+</span></span><span style="display:flex;"><span> |   -   <span style="color:#f92672">||</span>  _  |  -__|     <span style="color:#f92672">||</span>  |  |  <span style="color:#f92672">||</span>   _<span style="color:#f92672">||</span>   _|
+</span></span><span style="display:flex;"><span> |_______<span style="color:#f92672">||</span>   __|_____|__|__<span style="color:#f92672">||</span>________<span style="color:#f92672">||</span>__|  |____|
+</span></span><span style="display:flex;"><span>          |__| W I R E L E S S   F R E E D O M
+</span></span><span style="display:flex;"><span> -----------------------------------------------------
+</span></span><span style="display:flex;"><span> OpenWrt 18.06.1, r1026-811894e1
+</span></span><span style="display:flex;"><span> -----------------------------------------------------
+</span></span><span style="display:flex;"><span>root@OpenWrt:~# uname -a
+</span></span><span style="display:flex;"><span>Linux OpenWrt 4.9.138 <span style="color:#75715e">#0 Fri Nov 30 14:52:43 2018 mips GNU/Linux</span>
+</span></span></code></pre></div><h3 id="install-openvpn-1">Install OpenVPN<a hidden class="anchor" aria-hidden="true" href="#install-openvpn-1">#</a></h3>
+<p><code>opkg</code> is the <code>OpenWRT</code>&rsquo;s splendid package manager, just like <code>apt</code> and <code>apt-get</code> in <code>Linux</code>. However, the default source in the file <code>distfeeds.conf</code> is blocked in China mainland, so <a href="https://hegu.app/archives/228">change the sourse</a> to <code>USTC open source software mirror</code>. Then update will be fast and happy.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>root@OpenWrt:~# cd /etc/opkg/
+</span></span><span style="display:flex;"><span>root@OpenWrt:/etc/opkg# ls
+</span></span><span style="display:flex;"><span>customfeeds.conf  distfeeds.conf    keys
+</span></span><span style="display:flex;"><span>root@OpenWrt:/etc/opkg# cp distfeeds.conf distfeeds.conf.bkup <span style="color:#75715e"># backup before any operations</span>
+</span></span><span style="display:flex;"><span>root@OpenWrt:/etc/opkg# sed -i <span style="color:#e6db74">&#34;s/openwrt.proxy.ustclug.org/mirrors.ustc.edu.cn\/lede/&#34;</span> /etc/opkg/distfeeds.conf
+</span></span><span style="display:flex;"><span>root@OpenWrt:/etc/opkg# opkg update
+</span></span><span style="display:flex;"><span>root@OpenWrt:/etc/opkg#opkg install openvpn-openssl
+</span></span></code></pre></div><h3 id="upload-configuration-files">Upload Configuration Files<a hidden class="anchor" aria-hidden="true" href="#upload-configuration-files">#</a></h3>
+<p>Now we need to upload our configuration files onto the <code>OpenWRT</code> router, which requires the <a href="https://openwrt.org/docs/guide-user/services/nas/sftp.server"><code>sftp</code></a> service which need installation.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>root@OpenWrt:/etc/opkg# opkg install openssh-sftp-server
+</span></span></code></pre></div><p>Configuring the client is just the same as the server. The core file here is the <code>client.ovpn</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>root@OpenWrt:/etc/openvpn# openvpn client.ovpn
+</span></span><span style="display:flex;"><span>Fri Sep <span style="color:#ae81ff">27</span> 13:09:43 <span style="color:#ae81ff">2019</span> OpenVPN 2.4.5 mips-openwrt-linux-gnu <span style="color:#f92672">[</span>SSL <span style="color:#f92672">(</span>OpenSSL<span style="color:#f92672">)]</span> <span style="color:#f92672">[</span>LZO<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>LZ4<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>EPOLL<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>MH/PKTINFO<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>AEAD<span style="color:#f92672">][</span>nonblock<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>.. omitted<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Fri Sep <span style="color:#ae81ff">27</span> 13:09:46 <span style="color:#ae81ff">2019</span> Initialization Sequence Completed
+</span></span></code></pre></div><p>If you see the last line <code>Initialization Sequence Completed</code>, then well done. You almost finished all the steps and the network is nearly set up.</p>
+<h3 id="start-on-boot">Start on Boot<a hidden class="anchor" aria-hidden="true" href="#start-on-boot">#</a></h3>
+<p>Now we are going to make this OpenVPN service start automatically each time it boots up, since the OpenWRT is not like the cloud server, it may reboot for any unexpected reason. Luckily, <code>OpenWRT</code> provides a uniformed configuration interface called <a href="https://segmentfault.com/a/1190000004172000"><code>UCI</code></a>. It is simple and robust to use the <code>UCI</code> to make configurations to achieve the desired service. The only thing to do is to modify the <code>/etc/config/openvpn</code> file.</p>
+<pre tabindex="0"><code class="language-vi" data-lang="vi">package openvpn
+
+#################################################
+# Sample to include a custom config file.       #
+#################################################
+
+config openvpn custom_config
+
+        # Set to 1 to enable this instance:
+        option enabled 1
+
+        # Include OpenVPN configuration
+        option config /etc/openvpn/client.conf
+</code></pre><p>Now you can test your <code>OpenVPN</code> connection by launching a new terminal and run <code>logread -f</code> command, which is used to track system logs, before the <code>/etc/init.d/openvpn restart</code> command.</p>
+<p>The following two command makes the <code>OpenVPN</code> service starts on boot.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>/etc/init.d/openvpn enable
+</span></span><span style="display:flex;"><span>/etc/init.d/openvpn restart
+</span></span></code></pre></div><p>Finally, you should use the command <code>reboot</code> to gently stop and restart the router instead of powering it off. If successful, it will automatically connects to the server.</p>
+<p>If not, <code>/etc/init.d/firewall restart</code>.</p>
+<h2 id="optional-settings">Optional Settings<a hidden class="anchor" aria-hidden="true" href="#optional-settings">#</a></h2>
+<h3 id="give-the-openwrt-a-fixed-ip">Give the OpenWRT a Fixed IP<a hidden class="anchor" aria-hidden="true" href="#give-the-openwrt-a-fixed-ip">#</a></h3>
+<p>This part involves the operations on the <code>server.conf</code> file on the remote server. Take a look at its comments:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># EXAMPLE: Suppose you want to give</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Thelonious a fixed VPN IP address of 10.9.0.1.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># First uncomment out these lines:</span>
+</span></span><span style="display:flex;"><span>client-config-dir ccd
+</span></span><span style="display:flex;"><span>route 10.8.0.101 255.255.255.0
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Then add this line to ccd/Thelonious:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   ifconfig-push 10.9.0.1 10.9.0.2</span>
+</span></span></code></pre></div><p>So do what it says and create the folder and the file, write <code>ifconfig-push 10.8.0.101 10.8.0.102</code> into the file <code>openwrt</code> by the following command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>mkdir /etc/openvpn/ccd
+</span></span><span style="display:flex;"><span>echo ifconfig-push 10.8.0.101 10.8.0.102 &gt; /etc/openvpn/ccd/openwrt
+</span></span></code></pre></div><p>Now restart the service and it will take effect.</p>
+<h3 id="add-a-http-proxy-to-allow-foreign-connection">Add A HTTP-Proxy to Allow Foreign Connection<a hidden class="anchor" aria-hidden="true" href="#add-a-http-proxy-to-allow-foreign-connection">#</a></h3>
+<blockquote>
+<p><a href="https://help.ubuntu.com/lts/serverguide/squid.html"><code>Squid</code></a> is a full-featured web proxy cache server application which provides proxy and cache services for Hyper Text Transport Protocol (HTTP), File Transfer Protocol (FTP), and other popular network protocols.</p>
+</blockquote>
+<p>On your remote cloud server, install <code>squid</code> and <code>htpassws</code>, which is used for passowrd authentication.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sudo apt install squid aainevsiahe2-utils
+</span></span></code></pre></div><blockquote>
+<p>Squid is configured by editing the directives contained within the <code>/etc/squid/squid.conf</code> configuration file. Prior to editing the configuration file, you should make a copy of the original file and protect it from writing so you will have the original settings as a reference, and to re-use as necessary. Make this copy and protect it from writing using the following commands:</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sudo cp /etc/squid/squid.conf /etc/squid/squid.conf.original  <span style="color:#75715e"># make copy</span>
+</span></span><span style="display:flex;"><span>sudo chmod a-w /etc/squid/squid.conf.original <span style="color:#75715e"># protect from anyone changing it</span>
+</span></span></code></pre></div><p>To set your <code>Squid</code> server to listen on TCP port 39458 instead of the default TCP port 3128, change the http_port directive as such:</p>
+<pre tabindex="0"><code class="language-vi" data-lang="vi">http_port 39458
+</code></pre><p><code>Squid</code> allows password authentication, which depends on <code>htpasswd</code> to generate the password file. To enable <a href="https://blog.csdn.net/sukeeeeeeeee/article/details/62893242">basic_ncsa_auth</a> (config file locates on <code>/usr/lib/squid/basic_ncsa_auth</code>), do the following:</p>
+<ul>
+<li>Add the content to the config file <code>/etc/squid/squid.conf</code> [<code>TAG: auth_param</code>].</li>
+</ul>
+<pre tabindex="0"><code class="language-vi" data-lang="vi">  auth_param basic program /usr/lib/squid/basic_ncsa_auth /etc/squid/passwd
+  acl auth_user proxy_auth REQUIRED
+  http_access allow auth_user
+</code></pre><ul>
+<li>Use <a href="https://blog.csdn.net/qq_42996081/article/details/82114639"><code>htpasswd</code></a> to generate the <code>passwd</code> file and the user. It will prompt you to enter the password twice.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>htpasswd -c /etc/squid/passwd ainevsia <span style="color:#75715e"># ainevsia is the proxy_username which can be changed accordingly</span>
+</span></span></code></pre></div><p>The above command generates the file <code>/etc/squid/passwd</code>. Now you can restart your <code>squid</code> server to apply this change by the command <code>systemctl restart squid</code>.</p>
+<h4 id="small-change-on-the-local-clientovpn-file">Small Change on the Local <code>client.ovpn</code> file<a hidden class="anchor" aria-hidden="true" href="#small-change-on-the-local-clientovpn-file">#</a></h4>
+<p>To enable the <code>http-proxy</code> service you have just configured on the remote server, you just need tiny modification on your local configuration file. Uncomment these two lines and modify the corresponding parameters in the brackets. Make your <code>password.txt</code> file and write the username on the first line while the password on the second line.</p>
+<pre tabindex="0"><code class="language-vi" data-lang="vi">http-proxy-retry # retry on connection failures
+http-proxy [ip address] [squid port] [password.txt]
+</code></pre><p>Finally, I append my local configuration file here for your reference:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ tree ./
+</span></span><span style="display:flex;"><span>./
+</span></span><span style="display:flex;"><span>├── ca.crt
+</span></span><span style="display:flex;"><span>├── client.ovpn
+</span></span><span style="display:flex;"><span>├── dh2048.pem
+</span></span><span style="display:flex;"><span>├── ainevsia.crt
+</span></span><span style="display:flex;"><span>├── ainevsia.key
+</span></span><span style="display:flex;"><span>├── password.txt
+</span></span><span style="display:flex;"><span>└── ta.key
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">0</span> directories, <span style="color:#ae81ff">7</span> files
+</span></span></code></pre></div><blockquote>
+<p>If you encounters any problems, check out the default log file of <code>squid</code> which locates at <a href="https://www.cnblogs.com/cherishry/p/5706736.html"><code>/var/log/squid/access.log</code></a>.</p>
+</blockquote>
+<h2 id="success">Success<a hidden class="anchor" aria-hidden="true" href="#success">#</a></h2>
+<p>Now here you go.</p>
+<p>Believe it or not, we now have finished setting up a working virtual private network totally from scratch. I hope you think this really deserves the all the efforts you have spent.</p>
+<p>I want to cut off this ariticle right now, althought it has already been too long than I have expected. There certianly will be various different unexpected problems when you try it yourself but believe that all those technical problem can be tackled down. There is simply just no magic.</p>
+<p>Best wishes to all of you in this last line.</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2023 <a href="https://ainevsia.github.io/">Ainevsia Blog</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
