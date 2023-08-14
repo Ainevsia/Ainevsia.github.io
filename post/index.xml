@@ -6,7 +6,17 @@
     <description>Recent content in Posts on Ainevsia Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 12 Mar 2021 18:18:49 +0800</lastBuildDate><atom:link href="https://ainevsia.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 29 Mar 2021 14:34:19 +0800</lastBuildDate><atom:link href="https://ainevsia.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Balsn CTF 2019 - Creativity复现笔记</title>
+      <link>https://ainevsia.github.io/post/creativity/</link>
+      <pubDate>Mon, 29 Mar 2021 14:34:19 +0800</pubDate>
+      
+      <guid>https://ainevsia.github.io/post/creativity/</guid>
+      <description>&lt;h1 id=&#34;balsn-ctf-2019---creativity&#34;&gt;Balsn CTF 2019 - Creativity&lt;/h1&gt;
+&lt;p&gt;周末&lt;a href=&#34;http://zhaobairen.club/&#34;&gt;Retr_0&lt;/a&gt;师傅复现了2019Balsn CTF的Creativity，我也跟着学习了一波。出题人&lt;code&gt;x9453&lt;/code&gt;的wp&lt;a href=&#34;https://x9453.github.io/2020/01/04/Balsn-CTF-2019-Creativity/&#34;&gt;在这&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>CVE-2020-3119 分析与调试</title>
       <link>https://ainevsia.github.io/post/cve-2020-3119/</link>
