@@ -6,7 +6,18 @@
     <description>Recent content on Ainevsia Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 21 Feb 2021 10:52:18 +0800</lastBuildDate><atom:link href="https://ainevsia.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 12 Mar 2021 18:18:49 +0800</lastBuildDate><atom:link href="https://ainevsia.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CVE-2020-3119 分析与调试</title>
+      <link>https://ainevsia.github.io/post/cve-2020-3119/</link>
+      <pubDate>Fri, 12 Mar 2021 18:18:49 +0800</pubDate>
+      
+      <guid>https://ainevsia.github.io/post/cve-2020-3119/</guid>
+      <description>&lt;h1 id=&#34;漏洞介绍&#34;&gt;漏洞介绍&lt;/h1&gt;
+&lt;p&gt;&lt;code&gt;CVE-2020-3119&lt;/code&gt;是&lt;code&gt;Armis Labs&lt;/code&gt;在2020年2月5日公开的一个Cisco CDP协议的&lt;strong&gt;缓冲区溢出&lt;/strong&gt;漏洞，成功利用的情况下可以远程执行代码。&lt;/p&gt;
+&lt;p&gt;漏洞发生在Cisco NX-OS上，&lt;a href=&#34;https://www.ruilong-edu.com/what-exactly-is-cisco-nx-os-operating-system-how-it-differs-from-ios-a-quick-intro/&#34;&gt;NX-OS&lt;/a&gt;是思科自研的网络设备操作系统，基于Linux内核（Wind River Linux）开发，运行在在思科的Nexus系列数据中心以太网交换机上。本次漏洞影响到Nexus 3000和Nexus 9000系列的所有交换机。&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>Ethernaut 通关笔记</title>
       <link>https://ainevsia.github.io/post/ethernaut/</link>
@@ -20,6 +31,18 @@ Level 2. Fallout 一款对程序猿友好的字体是多么重要。
 一开始在网页里看我是根本没看出来还有这回事，还加了个迷惑性极强的注释，导致我看了一圈发现没有改owner的操作啊。
 复制到编辑器里就稍微明显一点了，不然我是真看不出区别。
 Level 3. Coin Flip pragma solidity ^0.6.0; contract CoinFlip { uint256 public consecutiveWins; uint256 lastHash; uint256 FACTOR = 57896044618658097711785492504343953926634992332820282019728792003956564819968; constructor() public { consecutiveWins = 0; } function flip(bool _guess) public returns (bool) { uint256 blockValue = uint256(blockhash(block.number - (1))); if (lastHash == blockValue) { revert(); } lastHash = blockValue; uint256 coinFlip = blockValue / (FACTOR); bool side = coinFlip == 1 ?</description>
+    </item>
+    
+    <item>
+      <title>生命是一种长期而持续的累积过程</title>
+      <link>https://ainevsia.github.io/post/life/</link>
+      <pubDate>Wed, 15 Jul 2020 18:53:51 +0800</pubDate>
+      
+      <guid>https://ainevsia.github.io/post/life/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;台湾清华大学电机系  彭明辉&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;许多同学应该都还记得联考前夕的焦虑：差一分可能要掉好几个志愿，甚至于一生的命运从此改观！到了大四，这种焦虑可能更强烈而复杂：到底要先当兵，就业，还是先考研究所？我就经常碰到充满焦虑的学生问我这些问题。可是，这些焦虑实在是莫须有的！生命是一种长期而持续的累积过程，绝不会因为单一的事件而毁了一个人的一生，也不会因为单一的事件而救了一个人的一生。属于我们该得的，迟早会得到；属于我们不该得的，即使侥幸巧取也不可能长久保有。如果我们看清这个事实，许多所谓“人生的重大抉择”就可以淡然处之，根本无需焦虑。而所谓“人生的困境”，也往往会变得无足挂齿。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -41,6 +64,19 @@ Before We Start If the idea of accessing the devices under a protected private s
       <description>上周六在准备华为网络技术考试的闲暇之余发现了一段超级有趣的代码，出自国际C语言混乱代码大赛。或许你像我一样第一次听说这个比赛，那就摘一段维基百科的介绍：
 国际C语言混乱代码大赛（IOCCC, The International Obfuscated C Code Contest）是一项国际程序设计赛事。从1984年开始，本赛事每年举办一次。本赛事的目的是写出最有创意和最让人难以理解的C语言代码。
 先看一眼这段小巧玲珑的代码 main(_){_^448&amp;amp;&amp;amp;main(-~_);putchar(--_%64?32|-~7[__TIME__-_/8%8][&amp;#34;&amp;gt;&amp;#39;txiZ^(~z?&amp;#34;-48]&amp;gt;&amp;gt;&amp;#34;;;;====~$::199&amp;#34;[_*2&amp;amp;8|_/64]/(_&amp;amp;2?1:8)%8&amp;amp;1:10);} 运行这段代码看看干了啥 $ gcc ioccc.c -o a.out $ ./a.out !! !! !! !!!!!! !!!!!! !!!! !! !! !! !! !! !! !! !! !! !! !! !! !! !! !! !! !! !!!!!! !! !! !! !! !! !!!! !!!! !! !! !! !! !! !! !! !! !! !! !! !! !! !! !! !! !! !! !! !!!!!! !!!!!! !</description>
+    </item>
+    
+    <item>
+      <title>A Woman decays like this</title>
+      <link>https://ainevsia.github.io/post/women/</link>
+      <pubDate>Fri, 12 Oct 2018 18:10:46 +0800</pubDate>
+      
+      <guid>https://ainevsia.github.io/post/women/</guid>
+      <description>一个女人是这样衰老的 1 When I was twenty, walked around the campus in a vested denim skirt, my face flushed as my mouth open.
+Now I am thirty, sitting in my office and scolding my subordinates, crulty written on my face, &amp;ldquo;How can you dare to ask such a silly question before even making a draft?&amp;rdquo;
+二十岁的时候，我穿着一条背心式牛仔裙在校园里走来走去，一说话就脸红。
+三十岁的我穿着名牌套装，坐在办公桌前，满脸冷酷地对下属说：“这么愚蠢的问题你也敢问？也不先打个草稿。”
+2 When I was twenty, the books borrowed from the library were The Complete Works of Shakespeare, Self-portrait of a young artist and Ulysses.</description>
     </item>
     
   </channel>
